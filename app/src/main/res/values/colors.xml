@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/logoWine</color>
+    <color name="colorPrimaryLite">#e95c71</color>
+    <color name="colorPrimaryDark">#7c001f</color>
+    <color name="colorAccent">#1de9b6</color>
+    <color name="colorAccentLite">#6effe8</color>
+    <color name="colorAccentDark">#00b686</color>
+    <color name="logoWine">#B22746</color>
+</resources>
