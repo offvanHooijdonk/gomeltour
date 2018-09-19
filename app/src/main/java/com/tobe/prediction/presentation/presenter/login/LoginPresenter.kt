@@ -1,61 +1,68 @@
 package com.tobe.prediction.presentation.presenter.login
 
 import android.content.Context
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
-import com.tobe.prediction.R
-import com.tobe.prediction.domain.UserBean
-import com.tobe.prediction.model.Session
+import android.content.Intent
+import com.tobe.prediction.model.auth.AuthGoogle
 import com.tobe.prediction.presentation.ui.login.ILoginView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/17/2018 5:34 PM.
  */
 
-class LoginPresenter(private val ctx: Context) {
+class LoginPresenter @Inject constructor() {
+    @Inject
+    lateinit var ctx: Context
+    @Inject
+    lateinit var authGoogle: AuthGoogle
+
     private var view: ILoginView? = null
 
-    fun inject(view: ILoginView) {
+    fun attachView(view: ILoginView) {
         this.view = view
     }
 
-    fun checkAccount() {
-        val account = GoogleSignIn.getLastSignedInAccount(ctx)
-        if (account == null) {
-            view?.showLoginForm(true)
-        } else {
-            view?.showLoginForm(false)
-            // todo authenticate and proceed to the app
-        }
+    fun onViewVisible() {
+        authenticateUser()
     }
 
-    fun startAuth() {
-        val gSignInClient = GoogleSignIn.getClient(ctx, prepareOptions())
+    private fun authenticateUser() {
+        authGoogle.getLoggedUser()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ _ ->
+                    view?.showLoginForm(false)
+                    view?.onUserAuthenticated()
+                }, { th -> view?.showAuthError(th) }, { view?.showLoginForm(true) })
+    }
+
+    fun onAuthSelected() {
+        val gSignInClient = authGoogle.getSignInClient()
         view?.startSignIn(gSignInClient.signInIntent)
     }
 
-    private fun prepareOptions() = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(ctx.getString(R.string.web_client_id))
+    /*private fun prepareOptions() = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
-            .build()
+            .build()*/
 
-    fun handleSignInResponse(signedInTask: Task<GoogleSignInAccount>) {
+    fun handleSignInResponse(signInData: Intent) {
         view?.showLoginProgress(true)
-        try {
-            val account: GoogleSignInAccount = signedInTask.getResult(ApiException::class.java)
-            // todo create & save user
-            Session.user = UserBean(account.id ?: "No ID", account.displayName
-                    ?: "empty name")// fixme
-            view?.showLoginProgress(false)
-            // --
-            view?.onUserAuthenticated(account) // todo this goes to RX subscriber and uses UserBean class
-        } catch (e: ApiException) {
-            view?.showLoginProgress(false)
-            view?.showAuthError(e)
-        }
+        authGoogle.signInUser(signInData)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ _ ->
+                    view?.showLoginProgress(false)
+                    view?.onUserAuthenticated()
+                }, { th ->
+                    view?.showLoginProgress(false)
+                    view?.showAuthError(th)
+                })
+    }
+
+    fun detachView() {
+        view = null
     }
 
 }
