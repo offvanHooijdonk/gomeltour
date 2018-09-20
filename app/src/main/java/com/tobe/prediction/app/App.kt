@@ -2,6 +2,7 @@ package com.tobe.prediction.app
 
 import android.annotation.SuppressLint
 import android.app.Application
+import com.tobe.prediction.dao.AppDatabase
 import com.tobe.prediction.di.DependencyManager
 
 /**
@@ -17,6 +18,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        AppDatabase.init(applicationContext)
         di = DependencyManager(applicationContext)
     }
 
