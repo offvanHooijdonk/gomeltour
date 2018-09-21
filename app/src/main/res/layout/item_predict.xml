@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:selectableItemBackground"
+    android:paddingBottom="8dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:id="@+id/imgPredictLogo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_stub_icon_24"
+        android:tint="@color/colorAccentDark" />
+
+    <TextView
+        android:id="@+id/txtPredictText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/imgPredictLogo"
+        android:text="@string/fish_text"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="20sp" />
+</RelativeLayout>

@@ -12,15 +12,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".presentation.ui.login.LoginActivity"
-            android:theme="@style/NoBarAppTheme"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/NoBarAppTheme.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.ui.MainActivity" />
+        <activity
+            android:name=".presentation.ui.MainActivity"
+            android:theme="@style/NoBarAppTheme" />
     </application>
 
 </manifest>

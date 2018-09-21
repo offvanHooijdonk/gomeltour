@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_login)
-
+        // todo color status bar as well
         dependency().loginComponent().inject(this)
         presenter.attachView(this)
 

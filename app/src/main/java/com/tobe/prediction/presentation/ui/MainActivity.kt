@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.tobe.prediction.R
-import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.presenter.main.MainPresenter
+import com.tobe.prediction.presentation.presenter.predict.list.PredictListFragment
 import com.tobe.prediction.presentation.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.act_main.*
 import org.jetbrains.anko.alert
@@ -25,9 +25,13 @@ class MainActivity : AppCompatActivity(), IMainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_main)
 
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = null
+
         presenter = MainPresenter(this)
         presenter.inject(this)
-        txtHello.text = "${Session.user?.id} : ${Session.user?.name}"
+
+        supportFragmentManager.beginTransaction().add(containerMain.id, PredictListFragment()).commit() // todo make through presenter calls
     }
 
     private fun logOut() {
