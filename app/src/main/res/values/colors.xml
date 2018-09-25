@@ -9,6 +9,8 @@
     <color name="accentText">#FFFFFF</color>
     <color name="logoWine">@color/colorPrimary</color>
 
+    <color name="logonBackground">@color/colorPrimaryLite</color>
+
     <color name="refresh_1">@color/colorAccentDark</color>
     <color name="refresh_2">@color/colorPrimaryLite</color>
     <color name="refresh_3">@color/md_light_blue_A400</color>

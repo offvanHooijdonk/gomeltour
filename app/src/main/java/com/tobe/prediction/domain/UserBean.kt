@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "Users")
 data class UserBean(
-        @PrimaryKey(autoGenerate = true) var id: Long? = null,
+        @PrimaryKey(autoGenerate = false) var id: String,
         var accountKey: String? = null,
         var name: String = ""
 )

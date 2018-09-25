@@ -3,6 +3,7 @@ package com.tobe.prediction.presentation.presenter.main
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.ui.IMainView
 
@@ -19,10 +20,12 @@ class MainPresenter(private val ctx: Context) {
 
     fun onLogoutSelected() {
         Session.user = null
+        // todo move to an Authenticator
         GoogleSignIn.getClient(ctx, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build()
         ).signOut().addOnCompleteListener {
+            FirebaseAuth.getInstance().signOut()
             view?.navigateLogin()
         }
     }

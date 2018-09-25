@@ -18,6 +18,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        //FirebaseApp.initializeApp(applicationContext)
         AppDatabase.init(applicationContext)
         di = DependencyManager(applicationContext)
     }
