@@ -12,6 +12,10 @@ import com.tobe.prediction.di.presentation.login.LoginComponent
  */
 
 class DependencyManager(ctx: Context) {
+    companion object {
+        val Names = DepNames
+    }
+
     private val graph: AppComponent = DaggerAppComponent.builder()
             .appModule(AppModule(ctx))
             .build()
@@ -20,3 +24,9 @@ class DependencyManager(ctx: Context) {
 }
 
 fun dependency() = App.di
+
+typealias DM = DependencyManager
+
+object DepNames {
+    const val REF_USERS = "users"
+}

@@ -6,9 +6,7 @@ import com.tobe.prediction.helper.attachTo
 import com.tobe.prediction.helper.schedulersIO
 import com.tobe.prediction.model.auth.AuthGoogle
 import com.tobe.prediction.presentation.ui.login.ILoginView
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -34,8 +32,7 @@ class LoginPresenter @Inject constructor() {
 
     private fun authenticateUser() {
         authGoogle.getLoggedUser()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .schedulersIO()
                 .subscribe({ _ ->
                     view?.showLoginForm(false)
                     view?.onUserAuthenticated()
@@ -50,7 +47,7 @@ class LoginPresenter @Inject constructor() {
     fun handleSignInResponse(signInData: Intent) {
         view?.showLoginProgress(true)
         authGoogle.signInUser(signInData)
-                .compose(schedulersIO())
+                .schedulersIO()
                 .subscribe({ _ ->
                     view?.showLoginProgress(false)
                     view?.onUserAuthenticated()

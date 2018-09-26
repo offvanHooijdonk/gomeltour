@@ -1,5 +1,6 @@
 package com.tobe.prediction.di.model.auth
 
+import com.tobe.prediction.model.auth.AuthFirebase
 import com.tobe.prediction.model.auth.AuthGoogle
 import dagger.Module
 import dagger.Provides
@@ -12,5 +13,9 @@ import dagger.Provides
 class AuthModule {
     @AuthScope
     @Provides
-    fun provideAuth() = AuthGoogle()
+    fun provideGoogleAuth() = AuthGoogle()
+
+    @AuthScope
+    @Provides
+    fun provideFirebaseAuth() = AuthFirebase()
 }
