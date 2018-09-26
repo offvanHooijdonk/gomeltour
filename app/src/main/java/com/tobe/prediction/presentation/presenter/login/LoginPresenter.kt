@@ -2,9 +2,12 @@ package com.tobe.prediction.presentation.presenter.login
 
 import android.content.Context
 import android.content.Intent
+import com.tobe.prediction.helper.attachTo
+import com.tobe.prediction.helper.schedulersIO
 import com.tobe.prediction.model.auth.AuthGoogle
 import com.tobe.prediction.presentation.ui.login.ILoginView
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -13,6 +16,7 @@ import javax.inject.Inject
  */
 
 class LoginPresenter @Inject constructor() {
+    private val cd = CompositeDisposable()
     @Inject
     lateinit var ctx: Context
     @Inject
@@ -35,7 +39,7 @@ class LoginPresenter @Inject constructor() {
                 .subscribe({ _ ->
                     view?.showLoginForm(false)
                     view?.onUserAuthenticated()
-                }, { th -> view?.showAuthError(th) }, { view?.showLoginForm(true) })
+                }, { th -> view?.showAuthError(th) }, { view?.showLoginForm(true) }).attachTo(cd)
     }
 
     fun onAuthSelected() {
@@ -43,25 +47,21 @@ class LoginPresenter @Inject constructor() {
         view?.startSignIn(gSignInClient.signInIntent)
     }
 
-    /*private fun prepareOptions() = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()*/
-
     fun handleSignInResponse(signInData: Intent) {
         view?.showLoginProgress(true)
         authGoogle.signInUser(signInData)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(schedulersIO())
                 .subscribe({ _ ->
                     view?.showLoginProgress(false)
                     view?.onUserAuthenticated()
                 }, { th ->
                     view?.showLoginProgress(false)
                     view?.showAuthError(th)
-                })
+                }).attachTo(cd)
     }
 
     fun detachView() {
+        cd.dispose()
         view = null
     }
 

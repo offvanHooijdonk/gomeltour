@@ -1,5 +1,6 @@
 package com.tobe.prediction.domain
 
+import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
@@ -9,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "Users")
 data class UserBean(
-        @PrimaryKey(autoGenerate = false) var id: String,
-        var accountKey: String? = null,
-        var name: String = ""
+        @PrimaryKey(autoGenerate = false) var id: String = "",
+        @ColumnInfo var accountKey: String? = null,
+        @ColumnInfo var name: String = ""
 )

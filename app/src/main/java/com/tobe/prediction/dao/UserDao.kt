@@ -18,4 +18,7 @@ interface UserDao {
 
     @Query("SELECT * FROM Users WHERE accountKey = :key")
     fun getByKey(key: String): Single<UserBean>
+
+    @Query("SELECT * FROM Users WHERE id = :id")
+    fun getById(id: String): Single<UserBean>
 }

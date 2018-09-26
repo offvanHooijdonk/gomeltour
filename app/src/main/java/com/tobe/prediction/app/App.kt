@@ -11,6 +11,7 @@ import com.tobe.prediction.di.DependencyManager
 
 class App : Application() {
     companion object {
+        const val TAG = "PRED-APP"
         @SuppressLint("StaticFieldLeak")
         @JvmStatic lateinit var di: DependencyManager
     }

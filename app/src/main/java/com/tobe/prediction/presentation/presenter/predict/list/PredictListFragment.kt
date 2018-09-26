@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.tobe.prediction.R
 import com.tobe.prediction.domain.Predict
 import com.tobe.prediction.helper.setUp
+import com.tobe.prediction.model.Session
 import kotlinx.android.synthetic.main.fr_predict_list.*
 import org.jetbrains.anko.design.snackbar
 import java.util.*
@@ -39,10 +40,12 @@ class PredictListFragment : Fragment(), IPredictListView {
         rvPredicts.adapter = adapter
         refreshPredicts.setUp()
         refreshPredicts.setOnRefreshListener { /* todo sort of refresh */ Handler().postDelayed({ refreshPredicts.isRefreshing = false }, 1500) }
+
+        rvPredicts.snackbar("${Session.user?.name}")
     }
 
     private fun onItemPicked(predict: Predict) {
-        rvPredicts.snackbar("Oh you clicked")
+        rvPredicts.snackbar("Oh you clicked", "Yes") { }
     }
 
     @Deprecated("For sample data till a source appears")
