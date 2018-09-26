@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), IMainView {
         presenter = MainPresenter(this)
         presenter.inject(this)
 
-        supportFragmentManager.beginTransaction().add(containerMain.id, PredictListFragment()).commit() // todo make through presenter calls
+        supportFragmentManager.beginTransaction().replace(containerMain.id, PredictListFragment()).commit() // todo make through presenter calls
     }
 
     private fun logOut() {

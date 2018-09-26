@@ -1,5 +1,7 @@
 package com.tobe.prediction.helper
 
+import io.reactivex.Maybe
+import io.reactivex.MaybeTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -14,8 +16,20 @@ fun Disposable.attachTo(cd: CompositeDisposable) {
     cd.add(this)
 }
 
-fun <T> schedulersIO(): ObservableTransformer<T, T> = ObservableTransformer { observable ->
+fun <T: Any>Maybe<T>.schedulersIO(): Maybe<T> = this.compose(schedulersIOMaybe<T>())
+
+
+internal val t: ObservableTransformer<Any, Any> = ObservableTransformer { observable ->
     observable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 }
+
+internal val tm: MaybeTransformer<in Any, out Any> = MaybeTransformer { observable ->
+    observable
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+}
+
+fun <T> schedulersIO() = t
+fun <T> schedulersIOMaybe() = tm as MaybeTransformer<T, T>

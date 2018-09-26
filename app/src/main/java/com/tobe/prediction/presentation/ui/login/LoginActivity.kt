@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_login)
-        // todo color status bar as well
+
         dependency().loginComponent().inject(this)
         presenter.attachView(this)
 
@@ -53,10 +53,11 @@ class LoginActivity : AppCompatActivity(), ILoginView {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_CODE_GOOGLE_SIGN_IN) {
-            if (resultCode == Activity.RESULT_OK)
+            if (resultCode == Activity.RESULT_OK) {
                 presenter.handleSignInResponse(data!!)
-        } else {
-            // todo show message
+            } else {
+                // todo show message
+            }
         }
     }
 

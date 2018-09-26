@@ -1,9 +1,13 @@
 package com.tobe.prediction.di.app
 
-import com.tobe.prediction.dao.AppDatabase
-import com.tobe.prediction.dao.UserDao
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.tobe.prediction.dao.IUserDao
+import com.tobe.prediction.dao.impl.UserDao
+import com.tobe.prediction.di.DM
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -12,11 +16,20 @@ import javax.inject.Singleton
 
 @Module
 class DaoModule {
-    @Singleton
-    @Provides
-    fun provideAppDB(): AppDatabase = AppDatabase.db
+    companion object {
+        private const val COLL_USERS = "users"
+    }
 
     @Singleton
     @Provides
-    fun provideUserDao(appDB: AppDatabase): UserDao = appDB.userDao()
+    fun provideAppDB(): FirebaseFirestore = FirebaseFirestore.getInstance()
+
+    @Singleton
+    @Provides
+    @Named(DM.Names.REF_USERS)
+    fun provideUserCollection(db: FirebaseFirestore): CollectionReference = db.collection(COLL_USERS)
+
+    @Singleton
+    @Provides
+    fun provideUserDao(): IUserDao = UserDao()
 }
