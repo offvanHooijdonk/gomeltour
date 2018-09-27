@@ -1,8 +1,9 @@
 package com.tobe.prediction.model.auth
 
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.tobe.prediction.domain.UserBean
+import com.tobe.prediction.domain.createUser
 import durdinapps.rxfirebase2.RxFirebaseAuth
 import io.reactivex.Maybe
 import javax.inject.Inject
@@ -12,7 +13,8 @@ import javax.inject.Inject
  */
 
 class AuthFirebase @Inject constructor() {
-    fun signIn(credential: AuthCredential): Maybe<AuthResult> =
+    fun signIn(credential: AuthCredential): Maybe<UserBean> =
             RxFirebaseAuth.signInWithCredential(FirebaseAuth.getInstance(), credential)
+                    .map { result -> createUser(result.user.uid) }
 
 }

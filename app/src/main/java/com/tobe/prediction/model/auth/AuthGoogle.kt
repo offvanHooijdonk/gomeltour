@@ -12,7 +12,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.tobe.prediction.R
 import com.tobe.prediction.dao.IUserDao
 import com.tobe.prediction.domain.UserBean
-import com.tobe.prediction.domain.createUser
 import com.tobe.prediction.model.Session
 import io.reactivex.Maybe
 import io.reactivex.schedulers.Schedulers
@@ -49,8 +48,9 @@ class AuthGoogle @Inject constructor() {
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
 
             authFirebase.signIn(credential)
-                    .map { result ->
-                        createUser(id = result.user.uid, accountKey = account.id, name = account.displayName)
+                    .doOnSuccess { user ->
+                        account.displayName?.let { user.name = it }
+                        account.id?.let { user.accountKey = it }
                     }
                     .observeOn(Schedulers.io())
                     .doOnSuccess { user -> userDao.save(user).subscribe() }
