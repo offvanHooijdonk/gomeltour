@@ -9,8 +9,8 @@ import android.widget.TextView
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.presentation.presenter.main.MainPresenter
-import com.tobe.prediction.presentation.presenter.predict.list.PredictListFragment
 import com.tobe.prediction.presentation.ui.login.LoginActivity
+import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
 import kotlinx.android.synthetic.main.act_main.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.cancelButton
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), IMainView {
     override fun navigateLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent) // todo check this removed from history
+        startActivity(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

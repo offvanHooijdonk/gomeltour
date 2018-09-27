@@ -1,4 +1,4 @@
-package com.tobe.prediction.presentation.presenter.predict.list
+package com.tobe.prediction.presentation.ui.predict.list
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

@@ -27,6 +27,8 @@ class LoginActivity : AppCompatActivity(), ILoginView {
     @Inject
     lateinit var presenter: LoginPresenter
 
+    private var isLoginProcessPassed = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_login)
@@ -36,7 +38,10 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 
         blockSignIn.hide()
         pbLogin.hide()
-        btnGoogleSign.setOnClickListener { presenter.onAuthSelected() }
+        btnGoogleSign.setOnClickListener {
+            isLoginProcessPassed = true
+            presenter.onAuthSelected()
+        }
     }
 
     override fun onStart() {
@@ -76,7 +81,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 
     override fun onUserAuthenticated() {
         startActivity<MainActivity>()
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) // todo add slide anim
+        setTransitionToMain()
     }
 
     override fun showAuthError(e: Throwable) {
@@ -91,6 +96,19 @@ class LoginActivity : AppCompatActivity(), ILoginView {
             pbLogin.hide()
             btnGoogleSign.isEnabled = true
         }
+    }
+
+    private fun setTransitionToMain() {
+        val animEnter: Int
+        val animLeave: Int
+        if (isLoginProcessPassed) {
+            animEnter = R.anim.screen_slide_rl_in
+            animLeave = R.anim.screen_slide_rl_out
+        } else {
+            animEnter = android.R.anim.fade_in
+            animLeave = android.R.anim.fade_out
+        }
+        overridePendingTransition(animEnter, animLeave)
     }
 
     override fun onDestroy() {
