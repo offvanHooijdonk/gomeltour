@@ -31,5 +31,5 @@ class DaoModule {
 
     @Singleton
     @Provides
-    fun provideUserDao(): IUserDao = UserDao()
+    fun provideUserDao(@Named(DM.Names.REF_USERS) ref: CollectionReference): IUserDao = UserDao(ref)
 }
