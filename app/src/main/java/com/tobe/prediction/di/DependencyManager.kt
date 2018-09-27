@@ -6,6 +6,7 @@ import com.tobe.prediction.di.app.AppComponent
 import com.tobe.prediction.di.app.AppModule
 import com.tobe.prediction.di.app.DaggerAppComponent
 import com.tobe.prediction.di.presentation.login.LoginComponent
+import com.tobe.prediction.di.presentation.main.MainComponent
 
 /**
  * Created by Yahor_Fralou on 9/19/2018 4:15 PM.
@@ -21,6 +22,7 @@ class DependencyManager(ctx: Context) {
             .build()
 
     fun loginComponent(): LoginComponent = graph.plusAuthComponent().plusLoginComponent()
+    fun mainComponent(): MainComponent = graph.plusAuthComponent().plusMainComponent()
 }
 
 fun dependency() = App.di

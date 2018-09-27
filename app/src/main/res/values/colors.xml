@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#B22746</color>
-    <color name="colorPrimaryLite">#e95c71</color>
-    <color name="colorPrimaryDark">#7c001f</color>
+    <color name="wine">#B22746</color>
+    <color name="wine_dark">#7c001f</color>
+    <color name="wine_lite">#e95c71</color>
+
+    <color name="colorPrimary">@color/wine</color>
+    <color name="colorPrimaryLite">@color/wine_lite</color>
+    <color name="colorPrimaryDark">@color/wine_dark</color>
     <color name="colorAccent">#1de9b6</color>
     <color name="colorAccentLite">#6effe8</color>
     <color name="colorAccentDark">#00b686</color>
@@ -10,6 +14,8 @@
     <color name="logoWine">@color/colorPrimary</color>
 
     <color name="logonBackground">@color/colorPrimaryLite</color>
+
+    <color name="snackbar_error_text">@color/wine_lite</color>
 
     <color name="refresh_1">@color/colorAccentDark</color>
     <color name="refresh_2">@color/colorPrimaryLite</color>

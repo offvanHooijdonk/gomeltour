@@ -60,6 +60,10 @@ class AuthGoogle @Inject constructor() {
         }
     }
 
+    fun signOut(success: () -> Unit, failure: (Exception) -> Unit) {
+        getSignInClient().signOut().addOnCompleteListener { success() }.addOnFailureListener { failure(it) }
+    }
+
     fun getSignInClient(): GoogleSignInClient = GoogleSignIn.getClient(ctx, prepareOptions())
 
     private fun getUser(id: String): Maybe<UserBean> = userDao.getById(id)

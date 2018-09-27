@@ -6,4 +6,5 @@ package com.tobe.prediction.presentation.ui
 
 interface IMainView {
     fun navigateLogin()
+    fun showError(e: Exception)
 }

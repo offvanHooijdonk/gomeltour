@@ -17,4 +17,7 @@ class AuthFirebase @Inject constructor() {
             RxFirebaseAuth.signInWithCredential(FirebaseAuth.getInstance(), credential)
                     .map { result -> createUser(result.user.uid) }
 
+    fun signOut() {
+        FirebaseAuth.getInstance().signOut()
+    }
 }

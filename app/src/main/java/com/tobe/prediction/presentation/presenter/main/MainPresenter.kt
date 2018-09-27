@@ -1,32 +1,39 @@
 package com.tobe.prediction.presentation.presenter.main
 
-import android.content.Context
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.tobe.prediction.model.Session
+import com.tobe.prediction.model.auth.AuthFirebase
+import com.tobe.prediction.model.auth.AuthGoogle
 import com.tobe.prediction.presentation.ui.IMainView
+import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/19/2018 12:52 PM.
  */
 
-class MainPresenter(private val ctx: Context) {
+class MainPresenter @Inject constructor() {
+    @Inject
+    lateinit var authGoogle: AuthGoogle
+
+    @Inject
+    lateinit var authFirebase: AuthFirebase
+
     private var view: IMainView? = null
 
-    fun inject(view: IMainView) {
+    fun attachView(view: IMainView) {
         this.view = view
     }
 
     fun onLogoutSelected() {
-        Session.user = null
-        // todo move to an Authenticator
-        GoogleSignIn.getClient(ctx, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
-        ).signOut().addOnCompleteListener {
-            FirebaseAuth.getInstance().signOut()
+        authGoogle.signOut ({
+            authFirebase.signOut()
+            Session.user = null
             view?.navigateLogin()
-        }
+        }, {
+            view?.showError(it)
+        })
+    }
+
+    fun detachView() {
+        view = null
     }
 }
