@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
+import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.presentation.presenter.main.MainPresenter
 import com.tobe.prediction.presentation.ui.login.LoginActivity
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity(), IMainView {
     }
 
     private fun errorBar(message: String) {
-        containerMain.snackbar(message).view.findViewById<TextView>(android.support.design.R.id.snackbar_text)
-                .setTextColor(this.resources.getColor(R.color.snackbar_error_text))
+        containerMain.snackbar(message).colorError()
     }
 }

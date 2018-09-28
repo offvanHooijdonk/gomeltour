@@ -19,6 +19,8 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <ImageView
+                android:id="@+id/imgDialogCancel"
+                style="@style/ClickableBorderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -51,6 +53,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/blockForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -65,9 +68,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/predict_title_label"
-                    android:minLines="2"
+                    android:inputType="textMultiLine"
                     android:maxLines="3"
-                    android:inputType="textMultiLine"><requestFocus/></EditText>
+                    android:minLines="2">
+
+                    <requestFocus />
+                </EditText>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -80,9 +86,17 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/predict_text_label"
                     android:inputType="textMultiLine"
-                    android:minLines="3"
-                    android:maxLines="5"/>
+                    android:maxLines="5"
+                    android:minLines="3" />
             </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnAddAnswer"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Answer" />
+
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

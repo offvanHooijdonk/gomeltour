@@ -16,6 +16,7 @@
     <color name="logonBackground">@color/colorPrimaryLite</color>
 
     <color name="snackbar_error_text">@color/wine_lite</color>
+    <color name="snackbar_warn_text">@color/md_amber_A200</color>
 
     <color name="refresh_1">@color/colorAccentDark</color>
     <color name="refresh_2">@color/colorPrimaryLite</color>
