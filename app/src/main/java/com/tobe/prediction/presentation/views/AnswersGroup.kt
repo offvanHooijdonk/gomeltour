@@ -135,6 +135,12 @@ class AnswersGroup(private val maxAnswerNum: Int, private val minAnswerNum: Int,
         closeBtnCurrentlyEnabled = closeBtnNeedEnable
     }
 
+    fun getAnswers(): List<String> {
+        val list = mutableListOf<String>()
+        views.forEach { v -> if (!v.getAnswerText().isBlank()) list.add(v.getAnswerText()) }
+        return list
+    }
+
     class AnswersLimitViolationException(maxNum: Int, minNum: Int) : Exception("Limit for answers exceeded, limit is from $minNum to $maxNum")
 
 }

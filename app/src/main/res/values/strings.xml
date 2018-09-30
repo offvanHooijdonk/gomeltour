@@ -9,6 +9,7 @@
     <string name="predict_text_label">Prediction text</string>
     <string name="form_hint_answer">Answer %1$s</string>
     <string name="form_remove_selected_answer_error">Answer that is selected cannot be removed.</string>
+    <string name="create_predict_title">New</string>
 
     <integer name="max_answers">7</integer>
     <integer name="min_answers">2</integer>

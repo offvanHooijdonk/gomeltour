@@ -56,10 +56,11 @@ class PredictListFragment : Fragment(), IPredictListView {
     @Deprecated("For sample data till a source appears")
     private fun initData() {
         predicts.apply {
-            add(Predict("", "A question number #1", Date(), true))
-            add(Predict("", "How much wood would the woodchuck chuck?", Date(), true))
-            add(Predict("", "What if God had a name?", Date(), true))
-            add(Predict("", "How many roads must a man walk down?", Date(), true))
+            val list = arrayOf<String>()
+            add(Predict("", "", "A question number #1", Date(), true, list))
+            add(Predict("", "", "How much wood would the woodchuck chuck?", Date(), true, list))
+            add(Predict("", "", "What if God had a name?", Date(), true, list))
+            add(Predict("", "", "How many roads must a man walk down?", Date(), true, list))
         }
     }
 }

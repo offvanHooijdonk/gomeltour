@@ -40,6 +40,8 @@ class AnswerFormView(ctx: Context?, private var position: Int = 0, attrs: Attrib
         updateInputHint()
     }
 
+    fun getAnswerText() = inputAnswer.text.toString()
+
     fun onRemoveClick(listener: (Int) -> Unit) {
         imgRemoveAnswer.setOnClickListener { listener(position) }
     }

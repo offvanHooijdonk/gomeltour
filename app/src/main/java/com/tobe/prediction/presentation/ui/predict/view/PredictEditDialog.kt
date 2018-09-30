@@ -1,16 +1,25 @@
 package com.tobe.prediction.presentation.ui.predict.view
 
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.tobe.prediction.R
+import com.tobe.prediction.domain.Predict
+import com.tobe.prediction.domain.Vote
+import com.tobe.prediction.domain.createVote
 import com.tobe.prediction.helper.colorWarn
+import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.views.AnswersGroup
 import kotlinx.android.synthetic.main.fr_predict_edit.*
+import kotlinx.android.synthetic.main.item_predict.*
 import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.progressDialog
+import java.util.*
 
 /**
  * Created by Yahor_Fralou on 9/27/2018 3:05 PM.
@@ -20,6 +29,7 @@ class PredictEditDialog : DialogFragment() {
     private var maxAnswerNum: Int = 0
     private var minAnswerNum: Int = 0
     private lateinit var answersGroup: AnswersGroup
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +50,20 @@ class PredictEditDialog : DialogFragment() {
 
         for (i in 0 until minAnswerNum) addAnswerForm()
         btnAddAnswer.setOnClickListener { addAnswerForm() }
+        imgSave.setOnClickListener { _ ->
+            requireContext().progressDialog(
+                    message = "Publishing..."
+            )
+            collectData(
+                    success = { predict, vote ->
+                        Handler().postDelayed({
+                            progressDialog?.dismiss()
+                            dismiss()
+                        }, 1500)
+                    },
+                    invalid = {}
+            )
+        }
     }
 
     override fun onStart() {
@@ -73,6 +97,21 @@ class PredictEditDialog : DialogFragment() {
                 blockForm.snackbar("Should be at least $minAnswerNum questions").colorWarn() //todo to resources
             }
         }
+    }
+
+    private fun collectData(success: (Predict, Vote) -> Unit, invalid: (String) -> Unit) {
+        val options = answersGroup.getAnswers()
+        val predict = Predict(
+                title = inputTitle.text.toString(),
+                text = inputText.text.toString(),
+                dateWhen = Date(),
+                isActive = true,
+                options = options.toTypedArray()
+        )
+
+        val vote = createVote(Session.user!!.id, predict.id, answersGroup.selectedPosition)
+
+        success(predict, vote)
     }
 
     private fun updateControls() {
