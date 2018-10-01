@@ -45,6 +45,16 @@
                 android:layout_gravity="end"
                 android:src="@drawable/ic_check"
                 android:tint="#FFF" />
+
+            <ProgressBar
+                android:id="@+id/pbSave"
+                style="?android:attr/progressBarStyleSmallTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="16dp"
+                android:indeterminateTint="#FFFFFF"
+                android:visibility="gone" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -100,4 +110,11 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <!--<FrameLayout
+        android:id="@+id/viewShade"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66EEEEEE"
+        android:visibility="gone" />-->
 </android.support.design.widget.CoordinatorLayout>

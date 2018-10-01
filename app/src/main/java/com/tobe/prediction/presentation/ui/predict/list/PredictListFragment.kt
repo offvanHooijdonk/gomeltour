@@ -9,21 +9,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tobe.prediction.R
-import com.tobe.prediction.domain.Predict
+import com.tobe.prediction.di.dependency
+import com.tobe.prediction.domain.dto.PredictDTO
+import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.helper.setUp
 import com.tobe.prediction.model.Session
+import com.tobe.prediction.presentation.presenter.predict.list.PredictListPresenter
 import com.tobe.prediction.presentation.ui.predict.view.PredictEditDialog
 import kotlinx.android.synthetic.main.fr_predict_list.*
 import org.jetbrains.anko.design.snackbar
-import java.util.*
+import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/21/2018 4:36 PM.
  */
 
 class PredictListFragment : Fragment(), IPredictListView {
+    @Inject
+    lateinit var presenter: PredictListPresenter
+
     private lateinit var adapter: PredictAdapter
-    private val predicts = mutableListOf<Predict>()
+    private val predicts = mutableListOf<PredictDTO>()
     private lateinit var ctx: Context
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,7 +40,8 @@ class PredictListFragment : Fragment(), IPredictListView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initData()
+        dependency().predictComponent().inject(this)
+        presenter.attachView(this)
 
         rvPredicts.layoutManager = LinearLayoutManager(ctx)
         adapter = PredictAdapter(ctx, predicts, this::onItemPicked)
@@ -49,18 +56,27 @@ class PredictListFragment : Fragment(), IPredictListView {
         }
     }
 
-    private fun onItemPicked(predict: Predict) {
-        rvPredicts.snackbar("Oh you clicked", "Yes") { }
+    override fun onStart() {
+        super.onStart()
+        presenter.loadPredictList()
     }
 
-    @Deprecated("For sample data till a source appears")
-    private fun initData() {
-        predicts.apply {
-            val list = arrayOf<String>()
-            add(Predict("", "", "A question number #1", Date(), true, list))
-            add(Predict("", "", "How much wood would the woodchuck chuck?", Date(), true, list))
-            add(Predict("", "", "What if God had a name?", Date(), true, list))
-            add(Predict("", "", "How many roads must a man walk down?", Date(), true, list))
-        }
+    override fun onDataLoaded(list: List<PredictDTO>) {
+        predicts.clear()
+        predicts.addAll(list)
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun showError(th: Throwable?) {
+        rvPredicts.snackbar("Error loading data").colorError()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detachView()
+    }
+
+    private fun onItemPicked(predict: PredictDTO) {
+        rvPredicts.snackbar("Oh you clicked", "Yes") { }
     }
 }

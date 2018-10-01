@@ -1,30 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:selectableItemBackground"
-    android:paddingBottom="8dp"
-    android:paddingEnd="16dp"
     android:paddingStart="16dp"
-    android:paddingTop="8dp">
+    android:paddingTop="8dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="8dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgPredictLogo"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_stub_icon_24"
-        android:tint="@color/colorAccentDark" />
+        android:src="@drawable/ic_stub_icon_24" />
+
+    <TextView
+        android:id="@+id/txtAuthorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="@string/fish_short"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgPredictLogo"
+        app:layout_constraintStart_toEndOf="@id/imgPredictLogo"
+        app:layout_constraintTop_toTopOf="@id/imgPredictLogo" />
 
     <TextView
         android:id="@+id/txtPredictText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/imgPredictLogo"
-        android:text="@string/fish_text"
-        android:maxLines="2"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
-        android:textSize="20sp" />
-</RelativeLayout>
+        android:maxLines="2"
+        android:text="@string/fish_text"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/imgPredictLogo" />
+
+    <ImageView
+        android:id="@+id/imgVotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_votes"
+        android:tint="@color/md_light_blue_A400"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtPredictText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="12k"
+        android:textColor="@color/md_light_blue_A400"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgVotes"
+        app:layout_constraintStart_toEndOf="@id/imgVotes"
+        app:layout_constraintTop_toTopOf="@id/imgVotes" />
+</android.support.constraint.ConstraintLayout>

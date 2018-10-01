@@ -46,4 +46,5 @@
     <style name="ClickableBorderless">
         <item name="android:background">?selectableItemBackgroundBorderless</item>
     </style>
+
 </resources>

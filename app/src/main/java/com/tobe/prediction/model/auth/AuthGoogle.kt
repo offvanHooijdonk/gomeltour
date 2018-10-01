@@ -51,6 +51,7 @@ class AuthGoogle @Inject constructor() {
                     .doOnSuccess { user ->
                         account.displayName?.let { user.name = it }
                         account.id?.let { user.accountKey = it }
+                        account.photoUrl?.let { user.photoUrl = it.toString() }
                     }
                     .observeOn(Schedulers.io())
                     .doOnSuccess { user -> userDao.save(user).subscribe() }

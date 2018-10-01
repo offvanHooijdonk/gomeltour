@@ -7,9 +7,12 @@
     <color name="colorPrimary">@color/wine</color>
     <color name="colorPrimaryLite">@color/wine_lite</color>
     <color name="colorPrimaryDark">@color/wine_dark</color>
-    <color name="colorAccent">#1de9b6</color>
+<!--    <color name="colorAccent">#1de9b6</color>
     <color name="colorAccentLite">#6effe8</color>
-    <color name="colorAccentDark">#00b686</color>
+    <color name="colorAccentDark">#00b686</color>-->
+    <color name="colorAccent">#17e0b0</color>
+    <color name="colorAccentLite">#6affe2</color>
+    <color name="colorAccentDark">#00ad81</color>
     <color name="accentText">#FFFFFF</color>
     <color name="logoWine">@color/colorPrimary</color>
 
@@ -21,4 +24,5 @@
     <color name="refresh_1">@color/colorAccentDark</color>
     <color name="refresh_2">@color/colorPrimaryLite</color>
     <color name="refresh_3">@color/md_light_blue_A400</color>
+
 </resources>

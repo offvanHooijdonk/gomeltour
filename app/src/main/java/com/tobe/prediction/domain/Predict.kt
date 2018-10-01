@@ -8,8 +8,10 @@ import java.util.*
 
 data class Predict(
         var id: String = "",
-        var title: String,
-        var text: String,
-        var dateWhen: Date,
-        var isActive: Boolean,
-        var options: Array<String>)
+        var title: String = "",
+        var text: String = "",
+        var dateOpenTill: Date = Date(),
+        var dateFulfillment: Date = Date(),
+        var isActive: Boolean = true,
+        var userId: String = "",
+        var options: List<String> = listOf())

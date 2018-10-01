@@ -1,6 +1,7 @@
 package com.tobe.prediction.di.app
 
 import com.tobe.prediction.di.model.auth.AuthComponent
+import com.tobe.prediction.di.presentation.predict.PredictComponent
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,4 +14,5 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun plusAuthComponent(): AuthComponent
+    fun plusPredictComponent(): PredictComponent
 }

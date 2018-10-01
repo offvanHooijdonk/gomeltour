@@ -7,7 +7,8 @@ package com.tobe.prediction.domain
 data class UserBean(
         var id: String = "",
         var accountKey: String? = null,
-        var name: String = ""
+        var name: String = "",
+        var photoUrl: String? = null
 ) {
     class Builder(id: String) {
         private var user = UserBean()

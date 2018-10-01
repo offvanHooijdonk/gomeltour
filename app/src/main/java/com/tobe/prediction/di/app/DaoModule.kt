@@ -2,8 +2,12 @@ package com.tobe.prediction.di.app
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.tobe.prediction.dao.IPredictDao
 import com.tobe.prediction.dao.IUserDao
+import com.tobe.prediction.dao.IVoteDao
+import com.tobe.prediction.dao.impl.PredictDao
 import com.tobe.prediction.dao.impl.UserDao
+import com.tobe.prediction.dao.impl.VoteDao
 import com.tobe.prediction.di.DM
 import dagger.Module
 import dagger.Provides
@@ -18,6 +22,8 @@ import javax.inject.Singleton
 class DaoModule {
     companion object {
         private const val COLL_USERS = "users"
+        private const val COLL_PREDICTS = "predicts"
+        private const val COLL_VOTES = "votes"
     }
 
     @Singleton
@@ -31,5 +37,23 @@ class DaoModule {
 
     @Singleton
     @Provides
+    @Named(DM.Names.REF_PREDICTS)
+    fun providePredictCollection(db: FirebaseFirestore): CollectionReference = db.collection(COLL_PREDICTS)
+
+    @Singleton
+    @Provides
+    @Named(DM.Names.REF_VOTES)
+    fun provideVoteCollection(db: FirebaseFirestore): CollectionReference = db.collection(COLL_VOTES)
+
+    @Singleton
+    @Provides
     fun provideUserDao(@Named(DM.Names.REF_USERS) ref: CollectionReference): IUserDao = UserDao(ref)
+
+    @Singleton
+    @Provides
+    fun providePredictDao(@Named(DM.Names.REF_PREDICTS) ref: CollectionReference): IPredictDao = PredictDao(ref)
+
+    @Singleton
+    @Provides
+    fun provideVoteDao(@Named(DM.Names.REF_VOTES) ref: CollectionReference): IVoteDao = VoteDao(ref)
 }
