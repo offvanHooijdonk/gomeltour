@@ -3,7 +3,7 @@ package com.tobe.prediction.presentation.ui.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.helper.hide

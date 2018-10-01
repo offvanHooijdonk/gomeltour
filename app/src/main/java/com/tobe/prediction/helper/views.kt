@@ -1,9 +1,9 @@
 package com.tobe.prediction.helper
 
-import android.support.design.widget.Snackbar
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import android.view.View
 import android.widget.TextView
+import com.google.android.material.snackbar.Snackbar
 import com.tobe.prediction.R
 
 /**
@@ -27,11 +27,11 @@ fun SwipeRefreshLayout.setUp() {
 }
 
 fun Snackbar.colorError() {
-    this.view.findViewById<TextView>(android.support.design.R.id.snackbar_text)
+    this.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
             .setTextColor(this.context.resources.getColor(R.color.snackbar_error_text))
 }
 
 fun Snackbar.colorWarn() {
-    this.view.findViewById<TextView>(android.support.design.R.id.snackbar_text)
+    this.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
             .setTextColor(this.context.resources.getColor(R.color.snackbar_warn_text))
 }
