@@ -2,11 +2,11 @@ package com.tobe.prediction.presentation.ui.predict.view
 
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.fragment.app.DialogFragment
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.Predict
@@ -75,8 +75,8 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
     override fun onStart() {
         super.onStart()
 
-        dialog.window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-        dialog.window.setWindowAnimations(R.style.DialogFadeAnimation)
+        dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        dialog.window?.setWindowAnimations(R.style.DialogFadeAnimation)
     }
 
     override fun onSavedComplete() {
