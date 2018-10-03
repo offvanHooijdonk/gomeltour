@@ -56,6 +56,8 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
         dependency().predictComponent().inject(this)
         presenter.attachView(this)
 
+// FIXME Implement RadioButtons switching!
+
         optPos = resources.getInteger(R.integer.option_positive)
         optNeg = resources.getInteger(R.integer.option_negative)
 
