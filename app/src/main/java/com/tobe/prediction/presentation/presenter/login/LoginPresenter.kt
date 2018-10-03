@@ -58,7 +58,7 @@ class LoginPresenter @Inject constructor() {
     }
 
     fun detachView() {
-        cd.dispose()
+        cd.clear()
         view = null
     }
 

@@ -34,12 +34,12 @@ class PredictListPresenter @Inject constructor(var predictDao: IPredictDao, var 
                 .collect({ mutableListOf<PredictDTO>() }, { list, dto -> list.add(dto) })
                 .subscribe(
                         { list -> view?.onDataLoaded(list) },
-                        { th -> Log.e(App.TAG, "Error loading predicts", th); view?.showError(th) }
+                        { th -> Log.e(App.TAG, "Error loading predicts", th); view?.showError(th) } // fixme do not pass Throwable to UI layer
                 ).attachTo(cd)
     }
 
     fun detachView() {
-        cd.dispose()
+        cd.clear()
         view = null
     }
 }

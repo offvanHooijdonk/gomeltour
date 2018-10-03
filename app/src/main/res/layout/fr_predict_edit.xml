@@ -63,14 +63,22 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/blockForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideCenterVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inLayoutTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -80,16 +88,18 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/predict_title_label"
                     android:inputType="textMultiLine"
-                    android:maxLines="3"
-                    android:minLines="2">
+                    android:maxLines="2"
+                    android:minLines="1">
 
                     <requestFocus />
                 </EditText>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inLayoutText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/inLayoutTitle">
 
                 <EditText
                     android:id="@+id/inputText"
@@ -97,18 +107,104 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/predict_text_label"
                     android:inputType="textMultiLine"
-                    android:maxLines="5"
-                    android:minLines="3" />
+                    android:maxLines="3"
+                    android:minLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- TODO make a GuideLine for this block -->
+            <EditText
+                android:id="@+id/inputPositive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/form_option_positive"
+                android:hint="@string/form_option_positive"
+                android:text="@string/form_option_positive"
+                app:layout_constraintEnd_toStartOf="@id/radioPositive"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inLayoutText" />
+
+            <RadioButton
+                android:id="@+id/radioPositive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:buttonTint="@color/form_option_positive"
+                app:layout_constraintBaseline_toBaselineOf="@id/inputPositive"
+                app:layout_constraintEnd_toStartOf="@id/guideCenterVertical" />
+
+            <EditText
+                android:id="@+id/inputNegative"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/form_option_negative"
+                android:hint="@string/form_option_negative"
+                android:text="@string/form_option_negative"
+                app:layout_constraintBaseline_toBaselineOf="@id/inputPositive"
+                app:layout_constraintEnd_toStartOf="@id/radioNegative"
+                app:layout_constraintStart_toStartOf="@id/guideCenterVertical" />
+
+            <RadioButton
+                android:id="@+id/radioNegative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/form_option_negative"
+                app:layout_constraintBaseline_toBaselineOf="@id/inputPositive"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- TODO add GuideLine for this block -->
+            <TextView
+                android:id="@+id/txtLabelFulfills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Fulfills on"
+                android:textColor="@color/md_black_1000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/inputPositive" />
+
             <Button
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Pick"
+                app:layout_constraintBottom_toBottomOf="@id/txtLabelFulfills"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideCenterVertical"
+                app:layout_constraintTop_toTopOf="@id/txtLabelFulfills" />
+
+            <!-- TODO try apply black color as default text color -->
+            <TextView
+                android:id="@+id/txtLabelOpenTill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Open till"
+                android:textColor="@color/md_black_1000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/txtLabelFulfills" />
+
+
+            <Button
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Pick"
+                app:layout_constraintBottom_toBottomOf="@id/txtLabelOpenTill"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideCenterVertical"
+                app:layout_constraintTop_toTopOf="@id/txtLabelOpenTill" />
+            <!--<Button
                 android:id="@+id/btnAddAnswer"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Answer" />
+                android:text="Add Answer" />-->
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <!--<FrameLayout
