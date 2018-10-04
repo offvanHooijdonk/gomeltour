@@ -13,6 +13,8 @@ import javax.inject.Inject
 
 class VoteDao @Inject constructor(var refVote: CollectionReference) : IVoteDao {
     override fun save(vote: Vote): Completable {
-        return RxFirestore.setDocument(refVote.document(vote.id), vote)
+        val id = refVote.document().id
+        vote.id = id
+        return RxFirestore.setDocument(refVote.document(id), vote)
     }
 }

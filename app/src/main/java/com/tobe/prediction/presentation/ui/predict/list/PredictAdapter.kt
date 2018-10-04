@@ -1,10 +1,10 @@
 package com.tobe.prediction.presentation.ui.predict.list
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tobe.prediction.R
 import com.tobe.prediction.domain.dto.PredictDTO
@@ -26,7 +26,7 @@ class PredictAdapter(var ctx: Context, private val predicts: List<PredictDTO>, v
             txtAuthorName.text = predict.authorName
             if (predict.authorPic != null) Glide.with(ctx).load(predict.authorPic).into(imgPredictLogo)
 
-            root.setOnClickListener { listener(predict) }
+            card.setOnClickListener { listener(predict) }
         }
     }
 

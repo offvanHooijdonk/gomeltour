@@ -13,6 +13,7 @@
     <string name="create_predict_title">New</string>
     <string name="form_option_positive">Yes</string>
     <string name="form_option_negative">No</string>
+    <string name="fish_date_full">Mon, 25 Oct 2017</string>
 
     <integer name="max_answers">7</integer>
     <integer name="min_answers">2</integer>

@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:paddingEnd="16dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="8dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <ImageView
@@ -43,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:padding="8dp"
                 android:src="@drawable/ic_check"
                 android:tint="#FFF" />
 
@@ -52,8 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="16dp"
                 android:indeterminateTint="#FFFFFF"
+                android:padding="8dp"
                 android:visibility="gone" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -166,15 +168,32 @@
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/inputPositive" />
 
-            <Button
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Pick"
                 app:layout_constraintBottom_toBottomOf="@id/txtLabelFulfills"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guideCenterVertical"
-                app:layout_constraintTop_toTopOf="@id/txtLabelFulfills" />
+                app:layout_constraintTop_toTopOf="@id/txtLabelFulfills">
+
+                <ImageView
+                    android:id="@+id/imgPickFulfillDate"
+                    style="@style/Clickable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_calendar_24"
+                    android:tint="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/txtDateFulfill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/fish_date_full"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+            </FrameLayout>
 
             <!-- TODO try apply black color as default text color -->
             <TextView
@@ -187,22 +206,33 @@
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/txtLabelFulfills" />
 
-
-            <Button
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Pick"
                 app:layout_constraintBottom_toBottomOf="@id/txtLabelOpenTill"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guideCenterVertical"
-                app:layout_constraintTop_toTopOf="@id/txtLabelOpenTill" />
-            <!--<Button
-                android:id="@+id/btnAddAnswer"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Answer" />-->
+                app:layout_constraintTop_toTopOf="@id/txtLabelOpenTill">
+
+                <ImageView
+                    android:id="@+id/imgPickOpenTillDate"
+                    style="@style/Clickable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_calendar_24"
+                    android:tint="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/txtDateOpenTill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/fish_date_full"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+            </FrameLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

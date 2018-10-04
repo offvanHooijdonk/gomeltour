@@ -4,53 +4,66 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:selectableItemBackground"
-    android:paddingStart="16dp"
-    android:paddingTop="8dp"
-    android:paddingEnd="16dp"
-    android:paddingBottom="8dp">
+    android:paddingBottom="16dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgPredictLogo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_stub_icon_24" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txtAuthorName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ellipsize="end"
-        android:lines="1"
-        android:text="@string/fish_short"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/imgPredictLogo"
-        app:layout_constraintStart_toEndOf="@id/imgPredictLogo"
-        app:layout_constraintTop_toTopOf="@id/imgPredictLogo" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/txtPredictText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:text="@string/fish_text"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/imgPredictLogo" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgPredictLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_stub_icon_24" />
+
+            <TextView
+                android:id="@+id/txtAuthorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/fish_short"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/imgPredictLogo"
+                app:layout_constraintStart_toEndOf="@id/imgPredictLogo"
+                app:layout_constraintTop_toTopOf="@id/imgPredictLogo" />
+
+            <TextView
+                android:id="@+id/txtPredictText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/fish_text"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/imgPredictLogo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <ImageView
         android:id="@+id/imgVotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_votes"
         android:tint="@color/md_light_blue_A400"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtPredictText" />
+        app:layout_constraintTop_toBottomOf="@id/card" />
 
     <TextView
         android:layout_width="wrap_content"

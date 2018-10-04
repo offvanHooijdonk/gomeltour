@@ -3,11 +3,11 @@ package com.tobe.prediction.presentation.ui.predict.list
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.dto.PredictDTO
@@ -62,7 +62,7 @@ class PredictListFragment : Fragment(), IPredictListView {
     }
 
     override fun onDataLoaded(list: List<PredictDTO>) {
-        predicts.clear()
+        predicts.clear() // todo move this inside the Adapter
         predicts.addAll(list)
         adapter.notifyDataSetChanged()
     }

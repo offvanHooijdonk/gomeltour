@@ -1,5 +1,7 @@
 package com.tobe.prediction.presentation.ui.predict.view
 
+import android.app.DatePickerDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,11 +31,13 @@ import javax.inject.Inject
 const val NONE_SELECTED = -1
 
 class PredictEditDialog : DialogFragment(), IPredictEditView {
-    /*private var maxAnswerNum: Int = 0
-    private var minAnswerNum: Int = 0*/
-    /*private lateinit var answersGroup: AnswersGroup*/
     private var optPos: Int = 0
     private var optNeg: Int = 0
+    private var dateFulfill: Date? = null
+    private var dateOpenTill: Date? = null
+    private lateinit var ctx: Context
+
+    private var dateFormat = java.text.DateFormat.getDateInstance(java.text.DateFormat.FULL) // todo move to fun
 
     @Inject
     lateinit var presenter: PredictEditPresenter
@@ -55,31 +59,34 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
 
         dependency().predictComponent().inject(this)
         presenter.attachView(this)
-
-// FIXME Implement RadioButtons switching!
+        ctx = requireContext()
+        /*dateFormat = DateFormat.getLongDateFormat(ctx)*/
 
         optPos = resources.getInteger(R.integer.option_positive)
         optNeg = resources.getInteger(R.integer.option_negative)
 
-        /*maxAnswerNum = resources.getInteger(R.integer.max_answers)
-        minAnswerNum = resources.getInteger(R.integer.min_answers)*/
-        /*answersGroup = AnswersGroup(maxAnswerNum, minAnswerNum, this::onAnswerRemove)*/
-
-        /*for (i in 0 until minAnswerNum) addAnswerForm()*/
-
-        /*btnAddAnswer.setOnClickListener { addAnswerForm() }*/
-        imgSave.setOnClickListener { _ ->
-            collectData(
-                    success = { predict, optionSelected ->
-                        presenter.savePredict(predict, optionSelected)
-                    },
-                    invalid = { errorMessage ->
-                        blockForm.longSnackbar(errorMessage).colorWarn()
-                    }
-            )
-        }
-
+        imgSave.setOnClickListener { processFormAndSave() }
         imgDialogCancel.setOnClickListener { dismiss() } // todo add confirmation dialog
+
+        radioPositive.setOnCheckedChangeListener { _, isChecked -> if (isChecked) setRadioState(true) }
+        radioNegative.setOnCheckedChangeListener { _, isChecked -> if (isChecked) setRadioState(false) }
+
+        imgPickFulfillDate.setOnClickListener {
+            startDatePicker { datePicked ->
+                dateFulfill = datePicked;
+                txtDateFulfill.text = dateFormat.format(dateFulfill)
+                imgPickFulfillDate.hide()
+                txtDateFulfill.show()
+            }
+        }
+        imgPickOpenTillDate.setOnClickListener {
+            startDatePicker { datePicked ->
+                dateOpenTill = datePicked
+                txtDateOpenTill.text = dateFormat.format(dateOpenTill)
+                imgPickOpenTillDate.hide()
+                txtDateOpenTill.show()
+            }
+        }
     }
 
     override fun onStart() {
@@ -97,13 +104,13 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
     override fun showSavingError() {
         showSavingProgress(false)
         blockForm.snackbar("Error saving your prediction!", "Retry") {
-            // todo implement retry
+            processFormAndSave()
         }.colorError()
     }
 
     override fun showSavingProgress(isShow: Boolean) {
         if (isShow) {
-            progressDialog = requireContext().alert { isCancelable = false }.show()
+            progressDialog = ctx.alert { isCancelable = false }.show()
             imgSave.hide()
             pbSave.show()
         } else {
@@ -113,19 +120,47 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
         }
     }
 
+    private fun setRadioState(isPositive: Boolean) {
+        if (isPositive) {
+            radioNegative.isChecked = false
+        } else {
+            radioPositive.isChecked = false
+        }
+    }
+
+    private fun processFormAndSave() {
+        collectData(
+                success = { predict, optionSelected ->
+                    presenter.savePredict(predict, optionSelected)
+                },
+                invalid = { errorMessage ->
+                    blockForm.longSnackbar(errorMessage).colorWarn()
+                }
+        )
+    }
+
     private fun collectData(success: (Predict, optionSelected: Int) -> Unit, invalid: (String) -> Unit) {
         val options = listOf(inputPositive.text.toString(), inputNegative.text.toString())
-        val optionSelected = if (inputPositive.isSelected) optPos else if (inputNegative.isSelected) optNeg else NONE_SELECTED
+        val optionSelected = if (radioPositive.isChecked) optPos else if (radioNegative.isChecked) optNeg else NONE_SELECTED
+
+        if (inputTitle.text.isEmpty() || inputText.text.isEmpty() || inputPositive.text.isEmpty() || inputNegative.text.isEmpty()) {
+            invalid("Please fill all the inputs")
+            return
+        }
         if (optionSelected == NONE_SELECTED) {
             invalid("Please select one of options as your answer")
+            return
+        }
+        if (dateFulfill == null) {
+            invalid("Please pick fulfill date")
             return
         }
 
         val predict = Predict(
                 title = inputTitle.text.toString(),
                 text = inputText.text.toString(),
-                dateOpenTill = Date(),
-                dateFulfillment = Date(),
+                dateOpenTill = dateOpenTill ?: dateFulfill!!,
+                dateFulfillment = dateFulfill!!,
                 userId = Session.user!!.id,
                 isActive = true,
                 options = options
@@ -134,38 +169,25 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
         success(predict, optionSelected)
     }
 
+    private fun startDatePicker(listener: (datePicked: Date) -> Unit) {
+        val cal = Calendar.getInstance()
+        DatePickerDialog(
+                ctx,
+                { _, year, month, dayOfMonth ->
+                    val datePicked = Calendar.getInstance()
+                            .apply { timeInMillis = 0; set(Calendar.YEAR, year); set(Calendar.MONTH, month); set(Calendar.DAY_OF_MONTH, dayOfMonth); }
+                            .time
+                    listener(datePicked)
+                },
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+        ).apply { datePicker.minDate = System.currentTimeMillis() }.show()
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
         presenter.detachView()
     }
-
-    /*private fun addAnswerForm() {
-        try {
-            val v = answersGroup.addNewAnswer(requireContext())
-
-            blockForm.addView(v)
-            updateControls()
-        } catch (e: AnswersGroup.AnswersLimitViolationException) {
-            blockForm.snackbar("You're adding too much answers").colorWarn() // todo to resources
-        }
-    }*/
-
-    /*private fun updateControls() {
-        btnAddAnswer.isEnabled = answersGroup.size < maxAnswerNum
-    }*/
-
-    /*private fun onAnswerRemove(view: View, position: Int) {
-        if (answersGroup.selectedPosition == position) {
-            blockForm.snackbar(R.string.form_remove_selected_answer_error).colorWarn()
-        } else {
-            try {
-                answersGroup.removeAnswer(position)
-
-                blockForm.removeView(view)
-                updateControls()
-            } catch (e: AnswersGroup.AnswersLimitViolationException) {
-                blockForm.snackbar("Should be at least $minAnswerNum questions").colorWarn() //todo to resources
-            }
-        }
-    }*/
 }

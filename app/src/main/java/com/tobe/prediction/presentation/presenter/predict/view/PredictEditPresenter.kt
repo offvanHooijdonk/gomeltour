@@ -17,10 +17,6 @@ import javax.inject.Inject
  */
 
 class PredictEditPresenter @Inject constructor(var predictDao: IPredictDao, var voteDao: IVoteDao) {
-    /*@Inject
-    lateinit var predictDao: IPredictDao*/
-    /*@Inject
-    lateinit var voteDao: VoteDao*/
 
     private var view: IPredictEditView? = null
     private val cd = CompositeDisposable()
@@ -36,10 +32,9 @@ class PredictEditPresenter @Inject constructor(var predictDao: IPredictDao, var 
                 voteDao.save(vote)
         ))*/
         predictDao.save(predict)
-                .mergeWith {
-                    val vote = createVote(Session.user!!.id, predict.id, optionPicked)
-                    voteDao.save(vote)
-                }
+                .mergeWith(
+                        voteDao.save(createVote(Session.user!!.id, predict.id, optionPicked))
+                )
                 .subscribeOn(Schedulers.io()) // todo create transformers
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError {
