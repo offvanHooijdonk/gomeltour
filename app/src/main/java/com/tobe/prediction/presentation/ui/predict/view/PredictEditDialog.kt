@@ -31,8 +31,8 @@ import javax.inject.Inject
 const val NONE_SELECTED = -1
 
 class PredictEditDialog : DialogFragment(), IPredictEditView {
-    private var optPos: Int = 0
-    private var optNeg: Int = 0
+    private var optPosCode: Int = 0
+    private var optNegCode: Int = 0
     private var dateFulfill: Date? = null
     private var dateOpenTill: Date? = null
     private lateinit var ctx: Context
@@ -62,8 +62,8 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
         ctx = requireContext()
         /*dateFormat = DateFormat.getLongDateFormat(ctx)*/
 
-        optPos = resources.getInteger(R.integer.option_positive)
-        optNeg = resources.getInteger(R.integer.option_negative)
+        optPosCode = resources.getInteger(R.integer.option_positive)
+        optNegCode = resources.getInteger(R.integer.option_negative)
 
         imgSave.setOnClickListener { processFormAndSave() }
         imgDialogCancel.setOnClickListener { dismiss() } // todo add confirmation dialog
@@ -140,11 +140,18 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
     }
 
     private fun collectData(success: (Predict, optionSelected: Int) -> Unit, invalid: (String) -> Unit) {
-        val options = listOf(inputPositive.text.toString(), inputNegative.text.toString())
-        val optionSelected = if (radioPositive.isChecked) optPos else if (radioNegative.isChecked) optNeg else NONE_SELECTED
+        val optionPositive = inputPositive.text.trim().toString()
+        val optionNegative = inputNegative.text.trim().toString()
+        val title = inputTitle.text.trim().toString()
+        val text = inputText.text.trim().toString()
+        val optionSelected = if (radioPositive.isChecked) optPosCode else if (radioNegative.isChecked) optNegCode else NONE_SELECTED
 
-        if (inputTitle.text.isEmpty() || inputText.text.isEmpty() || inputPositive.text.isEmpty() || inputNegative.text.isEmpty()) {
+        if (title.isEmpty() || text.isEmpty() || optionPositive.isEmpty() || optionNegative.isEmpty()) {
             invalid("Please fill all the inputs")
+            return
+        }
+        if (optionPositive.equals(optionNegative, true)) {
+            invalid("Please input different answer options")
             return
         }
         if (optionSelected == NONE_SELECTED) {
@@ -155,10 +162,11 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
             invalid("Please pick fulfill date")
             return
         }
+        val options = listOf(optionPositive, optionNegative)
 
         val predict = Predict(
-                title = inputTitle.text.toString(),
-                text = inputText.text.toString(),
+                title = inputTitle.text.trim().toString(),
+                text = inputText.text.trim().toString(),
                 dateOpenTill = dateOpenTill ?: dateFulfill!!,
                 dateFulfillment = dateFulfill!!,
                 userId = Session.user!!.id,

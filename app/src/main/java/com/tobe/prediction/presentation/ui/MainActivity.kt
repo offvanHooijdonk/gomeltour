@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
@@ -12,10 +13,7 @@ import com.tobe.prediction.presentation.presenter.main.MainPresenter
 import com.tobe.prediction.presentation.ui.login.LoginActivity
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
 import kotlinx.android.synthetic.main.act_main.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.cancelButton
 import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.okButton
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -52,16 +50,7 @@ class MainActivity : AppCompatActivity(), IMainView {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.it_sign_out -> alert {
-                titleResource = R.string.sign_out_title
-                messageResource = R.string.sign_out_message
-                isCancelable = true
-                okButton { dialog ->
-                    logOut()
-                    dialog.dismiss()
-                }
-                cancelButton { dialog -> dialog.dismiss() }
-            }.show()
+            R.id.it_sign_out -> showLogOutDialog()
         }
 
         return true
@@ -81,6 +70,26 @@ class MainActivity : AppCompatActivity(), IMainView {
         super.onDestroy()
 
         presenter.detachView()
+    }
+
+    private fun showLogOutDialog() {
+        AlertDialog.Builder(this)
+                .setTitle(R.string.sign_out_title)
+                .setMessage(R.string.sign_out_message)
+                .setCancelable(true)
+                .setPositiveButton(android.R.string.ok) { dialog, _ -> logOut(); dialog.dismiss() }
+                .setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.dismiss() }
+                .show()
+        /*alert {
+                titleResource = R.string.sign_out_title
+                messageResource = R.string.sign_out_message
+                isCancelable = true
+                okButton { dialog ->
+                    logOut()
+                    dialog.dismiss()
+                }
+                cancelButton { dialog -> dialog.dismiss() }
+            }.show()*/
     }
 
     private fun errorBar(message: String) {
