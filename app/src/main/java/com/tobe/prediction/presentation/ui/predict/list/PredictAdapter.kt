@@ -22,7 +22,8 @@ class PredictAdapter(var ctx: Context, private val predicts: List<PredictDTO>, v
     override fun onBindViewHolder(vh: ViewHolder, position: Int) {
         val predict = predicts[position]
         with (vh.itemView) {
-            txtPredictText.text = predict.title
+            txtPredictTitle.text = predict.title
+            txtPredictText.text = predict.text
             txtAuthorName.text = predict.authorName
             if (predict.authorPic != null) Glide.with(ctx).load(predict.authorPic).into(imgPredictLogo)
 

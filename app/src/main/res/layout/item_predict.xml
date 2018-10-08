@@ -35,12 +35,13 @@
                 android:lines="1"
                 android:text="@string/fish_short"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/imgPredictLogo"
                 app:layout_constraintStart_toEndOf="@id/imgPredictLogo"
                 app:layout_constraintTop_toTopOf="@id/imgPredictLogo" />
 
             <TextView
-                android:id="@+id/txtPredictText"
+                android:id="@+id/txtPredictTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -50,6 +51,17 @@
                 android:text="@string/fish_text"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/imgPredictLogo" />
+
+            <TextView
+                android:id="@+id/txtPredictText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@string/fish_text"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/txtPredictTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

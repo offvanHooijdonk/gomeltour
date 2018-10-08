@@ -12,7 +12,9 @@ import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.colorError
+import com.tobe.prediction.helper.hide
 import com.tobe.prediction.helper.setUp
+import com.tobe.prediction.helper.show
 import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.presenter.predict.list.PredictListPresenter
 import com.tobe.prediction.presentation.ui.predict.view.PredictEditDialog
@@ -65,6 +67,14 @@ class PredictListFragment : Fragment(), IPredictListView {
         predicts.clear() // todo move this inside the Adapter
         predicts.addAll(list)
         adapter.notifyDataSetChanged()
+
+        if (predicts.isEmpty()) {
+            rvPredicts.hide()
+            blockEmptyList.show()
+        } else {
+            blockEmptyList.hide()
+            rvPredicts.show()
+        }
     }
 
     override fun showError(th: Throwable?) {

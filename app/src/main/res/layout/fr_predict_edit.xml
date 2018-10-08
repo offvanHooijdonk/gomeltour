@@ -89,9 +89,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/predict_title_label"
-                    android:inputType="textMultiLine"
+                    android:inputType="text"
                     android:maxLines="2"
-                    android:minLines="1">
+                    android:minLines="1"
+                    android:nextFocusForward="@id/inputText">
 
                     <requestFocus />
                 </EditText>
@@ -122,6 +123,10 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/form_option_positive"
                 android:hint="@string/form_option_positive"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusForward="@id/inputNegative"
+                android:imeOptions="actionNext"
                 android:text="@string/form_option_positive"
                 app:layout_constraintEnd_toStartOf="@id/radioPositive"
                 app:layout_constraintStart_toStartOf="parent"
@@ -144,6 +149,8 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/form_option_negative"
                 android:hint="@string/form_option_negative"
+                android:inputType="text"
+                android:maxLines="1"
                 android:text="@string/form_option_negative"
                 app:layout_constraintBaseline_toBaselineOf="@id/inputPositive"
                 app:layout_constraintEnd_toStartOf="@id/radioNegative"
@@ -184,7 +191,7 @@
                     android:padding="8dp"
                     android:src="@drawable/ic_calendar_24"
                     android:tint="@color/colorAccent" />
-
+                <!-- TODO make picked date text also clickable to re-pick date -->
                 <TextView
                     android:id="@+id/txtDateFulfill"
                     android:layout_width="match_parent"

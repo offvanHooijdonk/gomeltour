@@ -19,13 +19,18 @@ class PredictDao @Inject constructor(var refPredict: CollectionReference) : IPre
         val id = refPredict.document().id
         predict.id = id
         val predictDoc = PredictDoc(predict.id, predict.title, predict.text, predict.dateOpenTill, predict.dateFulfillment, predict.isActive, predict.userId)
-        return RxFirestore.setDocument(refPredict.document(id), predictDoc) // todo try addDocument
-                .mergeWith(
-                        RxFirestore.setDocument(refPredict.document(id).collection("options").document("0"), OptionDoc(0, predict.options[0]))
-                )
-                .mergeWith(
-                        RxFirestore.setDocument(refPredict.document(id).collection("options").document("1"), OptionDoc(1, predict.options[1]))
-                )
+
+        var completable = RxFirestore.setDocument(refPredict.document(id), predictDoc) // todo try addDocument
+        val collOptions = refPredict.document(id).collection(COLL_OPTIONS)
+
+        predict.options.forEachIndexed { index, s ->
+            val optionDoc = OptionDoc(index, s)
+            completable = completable.mergeWith(
+                    RxFirestore.setDocument(collOptions.document(optionDoc.code.toString()), optionDoc)
+            )
+        }
+
+        return completable
     }
 
     override fun list(): Maybe<MutableList<Predict>> {

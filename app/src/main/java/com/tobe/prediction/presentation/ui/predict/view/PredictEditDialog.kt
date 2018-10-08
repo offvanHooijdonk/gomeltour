@@ -72,7 +72,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
         radioNegative.setOnCheckedChangeListener { _, isChecked -> if (isChecked) setRadioState(false) }
 
         imgPickFulfillDate.setOnClickListener {
-            startDatePicker { datePicked ->
+            startDatePicker(null) { datePicked ->
                 dateFulfill = datePicked;
                 txtDateFulfill.text = dateFormat.format(dateFulfill)
                 imgPickFulfillDate.hide()
@@ -80,7 +80,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
             }
         }
         imgPickOpenTillDate.setOnClickListener {
-            startDatePicker { datePicked ->
+            startDatePicker(dateFulfill) { datePicked ->
                 dateOpenTill = datePicked
                 txtDateOpenTill.text = dateFormat.format(dateOpenTill)
                 imgPickOpenTillDate.hide()
@@ -162,6 +162,11 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
             invalid("Please pick fulfill date")
             return
         }
+        if (dateFulfill?.time?: 0 < dateOpenTill?.time ?: 0) {
+            invalid("Opened till day cannot be later than Fulfillment date")
+            return
+        }
+
         val options = listOf(optionPositive, optionNegative)
 
         val predict = Predict(
@@ -177,7 +182,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
         success(predict, optionSelected)
     }
 
-    private fun startDatePicker(listener: (datePicked: Date) -> Unit) {
+    private fun startDatePicker(maxDate: Date?, listener: (datePicked: Date) -> Unit) {
         val cal = Calendar.getInstance()
         DatePickerDialog(
                 ctx,
@@ -190,7 +195,9 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)
-        ).apply { datePicker.minDate = System.currentTimeMillis() }.show()
+        ).apply { datePicker.minDate = System.currentTimeMillis() }
+                .apply { if (maxDate!= null) datePicker.maxDate = maxDate.time }
+                .show()
     }
 
 
