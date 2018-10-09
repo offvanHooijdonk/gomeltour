@@ -12,6 +12,7 @@ import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.presentation.presenter.main.MainPresenter
 import com.tobe.prediction.presentation.ui.login.LoginActivity
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
+import com.tobe.prediction.presentation.ui.predict.view.PredictSingleFragment
 import kotlinx.android.synthetic.main.act_main.*
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.toast
@@ -35,7 +36,8 @@ class MainActivity : AppCompatActivity(), IMainView {
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
 
-        supportFragmentManager.beginTransaction().replace(containerMain.id, PredictListFragment()).commit() // todo make through presenter calls
+        val frList = PredictListFragment.instance(pick = { predictId -> startPredictView(predictId) })
+        supportFragmentManager.beginTransaction().replace(containerMain.id, frList).commit() // todo make through presenter calls
     }
 
     private fun logOut() {
@@ -70,6 +72,10 @@ class MainActivity : AppCompatActivity(), IMainView {
         super.onDestroy()
 
         presenter.detachView()
+    }
+
+    private fun startPredictView(predictId: String) {// todo make a method to manage fragments
+        supportFragmentManager.beginTransaction().add(containerMain.id, PredictSingleFragment(), "predict_view").commit()
     }
 
     private fun showLogOutDialog() {

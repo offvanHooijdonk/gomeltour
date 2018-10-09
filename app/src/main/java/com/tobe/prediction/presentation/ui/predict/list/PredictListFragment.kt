@@ -17,6 +17,7 @@ import com.tobe.prediction.helper.setUp
 import com.tobe.prediction.helper.show
 import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.presenter.predict.list.PredictListPresenter
+import com.tobe.prediction.presentation.ui.IMainView
 import com.tobe.prediction.presentation.ui.predict.view.PredictEditDialog
 import kotlinx.android.synthetic.main.fr_predict_list.*
 import org.jetbrains.anko.design.snackbar
@@ -27,9 +28,20 @@ import javax.inject.Inject
  */
 
 class PredictListFragment : Fragment(), IPredictListView {
+    companion object {
+        fun instance(pick: (String) -> Unit): PredictListFragment {
+            val fr = PredictListFragment()
+            fr.pick = pick
+
+            return fr
+        }
+    }
+
+
     @Inject
     lateinit var presenter: PredictListPresenter
 
+    private lateinit var pick: (String) -> Unit
     private lateinit var adapter: PredictAdapter
     private val predicts = mutableListOf<PredictDTO>()
     private lateinit var ctx: Context
@@ -87,6 +99,7 @@ class PredictListFragment : Fragment(), IPredictListView {
     }
 
     private fun onItemPicked(predict: PredictDTO) {
+        pick(predict.id)
         rvPredicts.snackbar("Oh you clicked", "Yes") { }
     }
 }
