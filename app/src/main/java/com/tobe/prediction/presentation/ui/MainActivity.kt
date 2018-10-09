@@ -2,10 +2,12 @@ package com.tobe.prediction.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.helper.colorError
@@ -36,8 +38,10 @@ class MainActivity : AppCompatActivity(), IMainView {
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
 
-        val frList = PredictListFragment.instance(pick = { predictId -> startPredictView(predictId) })
-        supportFragmentManager.beginTransaction().replace(containerMain.id, frList).commit() // todo make through presenter calls
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) showBackButton(false)
+        }
+        navigate(FRAG_PREDICT_LIST, null)
     }
 
     private fun logOut() {
@@ -53,6 +57,7 @@ class MainActivity : AppCompatActivity(), IMainView {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.it_sign_out -> showLogOutDialog()
+            android.R.id.home -> supportFragmentManager.popBackStack()
         }
 
         return true
@@ -74,8 +79,26 @@ class MainActivity : AppCompatActivity(), IMainView {
         presenter.detachView()
     }
 
-    private fun startPredictView(predictId: String) {// todo make a method to manage fragments
-        supportFragmentManager.beginTransaction().add(containerMain.id, PredictSingleFragment(), "predict_view").commit()
+    private fun navigate(destKey: String, bundle: Bundle?) {
+        val fr: Fragment
+        fr = when (destKey) {
+            FRAG_PREDICT_LIST -> PredictListFragment.instance(pick = { predictId -> startPredictView(predictId) })
+            FRAG_PREDICT_VIEW -> PredictSingleFragment()
+            else -> return
+        }
+        fr.arguments = bundle
+
+        supportFragmentManager.beginTransaction()
+                .apply { if (destKey != FRAG_PREDICT_LIST) setCustomAnimations(R.anim.screen_slide_rl_in, R.anim.screen_slide_rl_out, R.anim.screen_slide_lr_in, R.anim.screen_slide_lr_out) }
+                .replace(containerMain.id, fr, destKey)
+                .apply { if (destKey != FRAG_PREDICT_LIST) addToBackStack(destKey) }
+                .commit()
+
+        showBackButton(destKey != FRAG_PREDICT_LIST)
+    }
+
+    private fun startPredictView(predictId: String) {
+        navigate(FRAG_PREDICT_VIEW, Bundle().apply { putString(PredictSingleFragment.EXTRA_PREDICT_ID, predictId) })
     }
 
     private fun showLogOutDialog() {
@@ -98,7 +121,17 @@ class MainActivity : AppCompatActivity(), IMainView {
             }.show()*/
     }
 
+    private fun showBackButton(isShow: Boolean) {
+        Handler().postDelayed(Runnable {
+            supportActionBar?.setDisplayShowHomeEnabled(isShow)
+            supportActionBar?.setDisplayHomeAsUpEnabled(isShow)
+        }, if (isShow) 350 else 0)
+    }
+
     private fun errorBar(message: String) {
         containerMain.snackbar(message).colorError()
     }
 }
+
+private const val FRAG_PREDICT_VIEW = "predict_view"
+private const val FRAG_PREDICT_LIST = "predict_list"

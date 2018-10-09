@@ -5,6 +5,7 @@ import com.tobe.prediction.dao.IUserDao
 import com.tobe.prediction.dao.IVoteDao
 import com.tobe.prediction.presentation.presenter.predict.list.PredictListPresenter
 import com.tobe.prediction.presentation.presenter.predict.view.PredictEditPresenter
+import com.tobe.prediction.presentation.presenter.predict.view.PredictSinglePresenter
 import dagger.Module
 import dagger.Provides
 
@@ -20,4 +21,7 @@ class PredictModule {
 
     @Provides
     fun provideListPresenter(predictDao: IPredictDao, userDao: IUserDao): PredictListPresenter = PredictListPresenter(predictDao, userDao)
+
+    @Provides
+    fun provideSinglePresenter(predictDao: IPredictDao, userDao: IUserDao): PredictSinglePresenter = PredictSinglePresenter(predictDao, userDao)
 }

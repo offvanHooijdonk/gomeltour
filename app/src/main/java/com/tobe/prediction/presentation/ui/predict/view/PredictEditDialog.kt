@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.WindowManager.LayoutParams
 import androidx.fragment.app.DialogFragment
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
@@ -94,6 +95,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
 
         dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         dialog.window?.setWindowAnimations(R.style.DialogFadeAnimation)
+        dialog.window?.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE)
     }
 
     override fun onSavedComplete() {
@@ -162,7 +164,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
             invalid("Please pick fulfill date")
             return
         }
-        if (dateFulfill?.time?: 0 < dateOpenTill?.time ?: 0) {
+        if (dateFulfill?.time ?: 0 < dateOpenTill?.time ?: 0) {
             invalid("Opened till day cannot be later than Fulfillment date")
             return
         }
@@ -196,7 +198,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)
         ).apply { datePicker.minDate = System.currentTimeMillis() }
-                .apply { if (maxDate!= null) datePicker.maxDate = maxDate.time }
+                .apply { if (maxDate != null) datePicker.maxDate = maxDate.time }
                 .show()
     }
 

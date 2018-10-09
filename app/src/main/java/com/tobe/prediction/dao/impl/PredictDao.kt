@@ -37,6 +37,19 @@ class PredictDao @Inject constructor(var refPredict: CollectionReference) : IPre
         return RxFirestore.getCollection(refPredict, Predict::class.java)
     }
 
+    override fun getById(id: String): Maybe<Predict> {
+        return RxFirestore.getDocument(refPredict.document(id), PredictDoc::class.java)
+                .flatMap { doc ->
+                    RxFirestore.getCollection(refPredict.document(id).collection(COLL_OPTIONS), OptionDoc::class.java)
+                            .map { opts ->
+                                toPredict(doc, opts)
+                            }
+                }
+    }
+
+    private fun toPredict(doc: PredictDoc, opts: List<OptionDoc>) =
+            Predict(doc.id, doc.title, doc.text, doc.dateOpenTill, doc.dateFulfillment, doc.isActive, doc.userId, opts.map { optionDoc -> optionDoc.text })
+
     private data class PredictDoc(var id: String = "",
                                   var title: String = "",
                                   var text: String = "",

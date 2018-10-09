@@ -10,4 +10,5 @@ import io.reactivex.Maybe
 interface IPredictDao {
     fun save(predict: Predict): Completable
     fun list(): Maybe<MutableList<Predict>>
+    fun getById(id: String): Maybe<Predict>
 }
