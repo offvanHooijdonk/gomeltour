@@ -14,6 +14,7 @@ import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.presentation.presenter.main.MainPresenter
 import com.tobe.prediction.presentation.ui.login.LoginActivity
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
+import com.tobe.prediction.presentation.ui.predict.view.PredictEditDialog
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleFragment
 import kotlinx.android.synthetic.main.act_main.*
 import org.jetbrains.anko.design.snackbar
@@ -37,6 +38,10 @@ class MainActivity : AppCompatActivity(), IMainView {
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
+
+        fabAddNew.setOnClickListener {
+            PredictEditDialog().show(supportFragmentManager, "one")
+        }
 
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) showBackButton(false)

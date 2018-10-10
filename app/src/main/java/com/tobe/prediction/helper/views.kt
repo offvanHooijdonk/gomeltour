@@ -1,8 +1,8 @@
 package com.tobe.prediction.helper
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import android.view.View
 import android.widget.TextView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.tobe.prediction.R
 
@@ -26,12 +26,14 @@ fun SwipeRefreshLayout.setUp() {
     this.setColorSchemeResources(R.color.refresh_1, R.color.refresh_2, R.color.refresh_3)
 }
 
-fun Snackbar.colorError() {
-    this.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-            .setTextColor(this.context.resources.getColor(R.color.snackbar_error_text))
-}
+fun Snackbar.colorError() =
+        this.apply {
+            view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                    .setTextColor(this.context.resources.getColor(R.color.snackbar_error_text))
+        }
 
-fun Snackbar.colorWarn() {
-    this.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-            .setTextColor(this.context.resources.getColor(R.color.snackbar_warn_text))
-}
+fun Snackbar.colorWarn() =
+        this.apply {
+            view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                    .setTextColor(this.context.resources.getColor(R.color.snackbar_warn_text))
+        }

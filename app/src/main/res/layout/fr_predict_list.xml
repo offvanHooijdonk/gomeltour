@@ -32,7 +32,7 @@
             android:text="No predictions matching your filter" />
     </FrameLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,5 +41,5 @@
         android:src="@drawable/ic_add_24"
         android:tint="@color/accentText"
         app:fabSize="normal" />
-
+-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

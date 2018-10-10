@@ -17,8 +17,6 @@ import com.tobe.prediction.helper.setUp
 import com.tobe.prediction.helper.show
 import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.presenter.predict.list.PredictListPresenter
-import com.tobe.prediction.presentation.ui.IMainView
-import com.tobe.prediction.presentation.ui.predict.view.PredictEditDialog
 import kotlinx.android.synthetic.main.fr_predict_list.*
 import org.jetbrains.anko.design.snackbar
 import javax.inject.Inject
@@ -65,9 +63,9 @@ class PredictListFragment : Fragment(), IPredictListView {
 
         rvPredicts.snackbar("${Session.user?.name}") // todo remove when user is shown somewhere
 
-        fabAdd.setOnClickListener {
+        /*fabAdd.setOnClickListener {
             PredictEditDialog().show(fragmentManager, "one")
-        }
+        }*/
     }
 
     override fun onStart() {
