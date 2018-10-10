@@ -44,7 +44,7 @@ class BottomOptionsDialog : BottomSheetDialogFragment() {
         setupSignOutOption()
     }
 
-    private fun setupSignOutOption() {
+    private fun setupSignOutOption() { // todo refactor this ugly code
         itemSignOut.setOnTouchListener { _, event ->
             if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                 eventX = event.x
