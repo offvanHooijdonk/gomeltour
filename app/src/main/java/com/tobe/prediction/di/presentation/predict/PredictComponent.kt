@@ -2,6 +2,7 @@ package com.tobe.prediction.di.presentation.predict
 
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
 import com.tobe.prediction.presentation.ui.predict.view.PredictEditDialog
+import com.tobe.prediction.presentation.ui.predict.view.PredictSingleDialog
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleFragment
 import dagger.Subcomponent
 
@@ -17,4 +18,6 @@ interface PredictComponent {
     fun inject(view: PredictListFragment)
 
     fun inject(view: PredictSingleFragment)
+
+    fun inject(view: PredictSingleDialog)
 }

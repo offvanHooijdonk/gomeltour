@@ -3,7 +3,6 @@ package com.tobe.prediction.presentation.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +14,7 @@ import com.tobe.prediction.presentation.presenter.main.MainPresenter
 import com.tobe.prediction.presentation.ui.login.LoginActivity
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
 import com.tobe.prediction.presentation.ui.predict.view.PredictEditDialog
+import com.tobe.prediction.presentation.ui.predict.view.PredictSingleDialog
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleFragment
 import kotlinx.android.synthetic.main.act_main.*
 import org.jetbrains.anko.design.snackbar
@@ -36,6 +36,12 @@ class MainActivity : AppCompatActivity(), IMainView {
         dependency().mainComponent().inject(this)
         presenter.attachView(this)
 
+        bottomAppBar.inflateMenu(R.menu.main)
+        bottomAppBar.setOnMenuItemClickListener { item ->
+            if (item.itemId == R.id.it_bottom_menu) startBottomMenu()
+            return@setOnMenuItemClickListener true
+        }
+
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
 
@@ -47,6 +53,12 @@ class MainActivity : AppCompatActivity(), IMainView {
             if (supportFragmentManager.backStackEntryCount == 0) showBackButton(false)
         }
         navigate(FRAG_PREDICT_LIST, null)
+    }
+
+    private fun startBottomMenu() {
+        BottomOptionsDialog()
+                .apply { setMenuPickListener { option ->  onBottomOptionsMenuPick(option) } }
+                .show(supportFragmentManager, "options_menu")
     }
 
     private fun logOut() {
@@ -61,17 +73,28 @@ class MainActivity : AppCompatActivity(), IMainView {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.it_sign_out -> showLogOutDialog()
+            //R.id.it_sign_out -> showLogOutDialog()
             android.R.id.home -> supportFragmentManager.popBackStack()
         }
 
         return true
     }
 
+    private fun onBottomOptionsMenuPick(option: Int) {
+        with(BottomOptionsDialog) {
+            when (option) {
+                EVENT_SIGN_OUT -> logOut()
+                else -> {}
+            }
+        }
+    }
+/*
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
+*/
 
     override fun showError(e: Exception) {
         errorBar("Error! Log out failed.")
@@ -103,9 +126,14 @@ class MainActivity : AppCompatActivity(), IMainView {
     }
 
     private fun startPredictView(predictId: String) {
-        navigate(FRAG_PREDICT_VIEW, Bundle().apply { putString(PredictSingleFragment.EXTRA_PREDICT_ID, predictId) })
+        //navigate(FRAG_PREDICT_VIEW, Bundle().apply { putString(PredictSingleFragment.EXTRA_PREDICT_ID, predictId) })
+        PredictSingleDialog().apply {
+            arguments = Bundle().apply { putString(PredictSingleFragment.EXTRA_PREDICT_ID, predictId) }
+        }.show(supportFragmentManager, FRAG_PREDICT_VIEW)
+
     }
 
+    @Deprecated("Now Bottom Sheet Dialog is used")
     private fun showLogOutDialog() {
         AlertDialog.Builder(this)
                 .setTitle(R.string.sign_out_title)
