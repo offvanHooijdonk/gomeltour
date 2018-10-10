@@ -95,7 +95,7 @@ class BottomOptionsDialog : BottomSheetDialogFragment() {
 
         ViewAnimationUtils.createCircularReveal(v, eventX.toInt(), eventY.toInt(), startRadius, endRadius)
                 .apply {
-                    duration = if (isShow) 500 else 150
+                    duration = if (isShow) 350 else 150
                     interpolator = DecelerateInterpolator()
                     addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
