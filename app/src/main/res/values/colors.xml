@@ -13,7 +13,11 @@
     <color name="colorAccent">#17e0b0</color>
     <color name="colorAccentLite">#6affe2</color>
     <color name="colorAccentDark">#00ad81</color>
+    <!--<color name="colorAccent">#14d6a8</color>
+    <color name="colorAccentLite">#66ffda</color>
+    <color name="colorAccentDark">#00a379</color>-->
     <color name="accentText">#FFFFFF</color>
+    <color name="commonText">#cc000000</color>
     <color name="logoWine">@color/colorPrimary</color>
 
     <color name="logonBackground">@color/colorPrimaryLite</color>

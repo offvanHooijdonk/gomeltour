@@ -44,20 +44,24 @@ class MainActivity : AppCompatActivity(), IMainView {
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
+        bottomAppBar.setNavigationOnClickListener {
+            BottomNavigationDialog().show(supportFragmentManager, FRAG_BOTTOM_NAVIGATION)
+        }
 
         fabAddNew.setOnClickListener {
             PredictEditDialog().show(supportFragmentManager, "one")
         }
 
-        supportFragmentManager.addOnBackStackChangedListener {
+        // TODO remove when we do not do fragments navigation
+        /*supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) showBackButton(false)
-        }
+        }*/
         navigate(FRAG_PREDICT_LIST, null)
     }
 
     private fun startBottomMenu() {
         BottomOptionsDialog()
-                .apply { setMenuPickListener { option ->  onBottomOptionsMenuPick(option) } }
+                .apply { setMenuPickListener { option -> onBottomOptionsMenuPick(option) } }
                 .show(supportFragmentManager, "options_menu")
     }
 
@@ -73,8 +77,8 @@ class MainActivity : AppCompatActivity(), IMainView {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            //R.id.it_sign_out -> showLogOutDialog()
-            android.R.id.home -> supportFragmentManager.popBackStack()
+            //android.R.id.home -> supportFragmentManager.popBackStack()
+            //android.R.id.home -> BottomNavigationDialog().show(supportFragmentManager, FRAG_BOTTOM_NAVIGATION)
         }
 
         return true
@@ -84,7 +88,8 @@ class MainActivity : AppCompatActivity(), IMainView {
         with(BottomOptionsDialog) {
             when (option) {
                 EVENT_SIGN_OUT -> logOut()
-                else -> {}
+                else -> {
+                }
             }
         }
     }
@@ -168,3 +173,4 @@ class MainActivity : AppCompatActivity(), IMainView {
 
 private const val FRAG_PREDICT_VIEW = "predict_view"
 private const val FRAG_PREDICT_LIST = "predict_list"
+private const val FRAG_BOTTOM_NAVIGATION = "bottom_navigation"
