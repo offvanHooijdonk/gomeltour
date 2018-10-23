@@ -3,4 +3,11 @@
     <declare-styleable name="AnswerFormView">
         <attr name="inputHint" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="ConfirmMenuItemView">
+        <attr name="text" format="string"/>
+        <attr name="icon" format="reference"/>
+        <attr name="negativeButton" format="string"/>
+        <attr name="positiveButton" format="string"/>
+    </declare-styleable>
 </resources>

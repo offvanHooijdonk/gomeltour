@@ -15,6 +15,8 @@
     <string name="form_option_negative">No</string>
     <string name="fish_date_full">Mon, 25 Oct 2017</string>
 
+    <string name="btn_confirm">Confirm</string>
+
     <integer name="max_answers">7</integer>
     <integer name="min_answers">2</integer>
     <integer name="option_positive">0</integer>

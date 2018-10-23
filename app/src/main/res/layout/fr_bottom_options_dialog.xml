@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -30,12 +31,19 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <RelativeLayout
+    <com.tobe.prediction.presentation.views.ConfirmMenuItemView
+        android:id="@+id/itemConfirmSignOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:negativeButton="@android:string/cancel"
+        app:positiveButton="@string/btn_confirm"
+        app:text="@string/sign_out" />
+
+    <!--<RelativeLayout
         android:id="@+id/itemSignOut"
         style="@style/Clickable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/txtSignOut"
@@ -75,5 +83,5 @@
                 android:textColor="@color/md_white_1000" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 </LinearLayout>
