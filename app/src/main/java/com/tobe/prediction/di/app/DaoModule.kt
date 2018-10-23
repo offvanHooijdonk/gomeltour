@@ -2,6 +2,8 @@ package com.tobe.prediction.di.app
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.tobe.prediction.app.App
+import com.tobe.prediction.dao.AppDatabase
 import com.tobe.prediction.dao.IPredictDao
 import com.tobe.prediction.dao.IUserDao
 import com.tobe.prediction.dao.IVoteDao
@@ -24,6 +26,10 @@ class DaoModule {
 
     @Singleton
     @Provides
+    fun provideDB(): AppDatabase = App.database
+
+    @Singleton
+    @Provides
     @Named(DM.Names.REF_USERS)
     fun provideUserCollection(db: FirebaseFirestore): CollectionReference = db.collection(COLL_USERS)
 
@@ -37,9 +43,12 @@ class DaoModule {
     @Named(DM.Names.REF_VOTES)
     fun provideVoteCollection(db: FirebaseFirestore): CollectionReference = db.collection(COLL_VOTES)
 
+    /*@Singleton
+    @Provides
+    fun provideUserDao(@Named(DM.Names.REF_USERS) ref: CollectionReference): IUserDao = UserDao(ref)*/
     @Singleton
     @Provides
-    fun provideUserDao(@Named(DM.Names.REF_USERS) ref: CollectionReference): IUserDao = UserDao(ref)
+    fun provideUserDao(db: AppDatabase): IUserDao = db.userDao()
 
     @Singleton
     @Provides

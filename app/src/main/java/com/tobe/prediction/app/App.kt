@@ -2,6 +2,8 @@ package com.tobe.prediction.app
 
 import android.annotation.SuppressLint
 import android.app.Application
+import com.tobe.prediction.dao.AppDatabase
+import com.tobe.prediction.dao.buildDatabase
 import com.tobe.prediction.di.DependencyManager
 
 /**
@@ -13,11 +15,13 @@ class App : Application() {
         const val TAG = "PRED-APP"
         @SuppressLint("StaticFieldLeak")
         @JvmStatic lateinit var di: DependencyManager
+        lateinit var database: AppDatabase
     }
 
     override fun onCreate() {
         super.onCreate()
 
+        database = buildDatabase(applicationContext)
         di = DependencyManager(applicationContext)
     }
 
