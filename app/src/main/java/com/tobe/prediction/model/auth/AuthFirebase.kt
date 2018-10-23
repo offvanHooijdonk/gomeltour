@@ -15,7 +15,7 @@ import javax.inject.Inject
 class AuthFirebase @Inject constructor() {
     fun signIn(credential: AuthCredential): Maybe<UserBean> =
             RxFirebaseAuth.signInWithCredential(FirebaseAuth.getInstance(), credential)
-                    .map { result -> createUser(result.user.uid) }
+                    .map { result -> createUser(id = result.user.uid) }
 
     fun signOut() {
         FirebaseAuth.getInstance().signOut()

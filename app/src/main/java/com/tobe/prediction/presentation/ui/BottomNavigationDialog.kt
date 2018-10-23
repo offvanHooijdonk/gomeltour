@@ -25,6 +25,7 @@ class BottomNavigationDialog : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         txtUserName.text = Session.user!!.name
+        txtUserEmail.text = Session.user!!.email
         if (Session.user!!.photoUrl != null) {
             Glide.with(requireContext()).load(Session.user!!.photoUrl).into(imgAvatar)
         }

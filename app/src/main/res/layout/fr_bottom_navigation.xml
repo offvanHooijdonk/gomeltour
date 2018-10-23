@@ -23,11 +23,22 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/fish_short"
-        android:textSize="20sp"
-        android:textColor="@color/commonText"
-        app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
+        android:textSize="16sp"
+        android:textColor="@color/text_main"
         app:layout_constraintStart_toEndOf="@id/imgAvatar"
         app:layout_constraintTop_toTopOf="@id/imgAvatar" />
+
+    <TextView
+        android:id="@+id/txtUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/fish_short"
+        android:textSize="14sp"
+        android:textColor="@color/text_ordinary"
+        app:layout_constraintStart_toStartOf="@id/txtUserName"
+        app:layout_constraintBottom_toBottomOf="@id/imgAvatar" />
 
     <View
         android:layout_width="match_parent"

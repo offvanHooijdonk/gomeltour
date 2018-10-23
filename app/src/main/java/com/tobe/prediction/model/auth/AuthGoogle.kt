@@ -50,6 +50,7 @@ class AuthGoogle @Inject constructor() {
             authFirebase.signIn(credential)
                     .doOnSuccess { user ->
                         account.displayName?.let { user.name = it }
+                        account.email?.let { user.email = it }
                         account.id?.let { user.accountKey = it }
                         account.photoUrl?.let { user.photoUrl = it.toString() }
                     }

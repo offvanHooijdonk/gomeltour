@@ -17,7 +17,8 @@
     <color name="colorAccentLite">#66ffda</color>
     <color name="colorAccentDark">#00a379</color>-->
     <color name="accentText">#FFFFFF</color>
-    <color name="commonText">#cc000000</color>
+    <color name="text_main">#cc000000</color>
+    <color name="text_ordinary">#99000000</color>
     <color name="logoWine">@color/colorPrimary</color>
 
     <color name="logonBackground">@color/colorPrimaryLite</color>
