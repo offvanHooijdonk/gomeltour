@@ -15,7 +15,11 @@
     <string name="form_option_negative">No</string>
     <string name="fish_date_full">Mon, 25 Oct 2017</string>
 
-    <string name="btn_confirm">Confirm</string>
+    <string name="btn_confirm_sign_out">Confirm</string>
+    <string name="it_predict_list">List</string>
+    <string name="it_my_subscriptions">Subscriptions</string>
+    <string name="it_authored_list">My Predictions</string>
+    <string name="settings">Settings</string>
 
     <integer name="max_answers">7</integer>
     <integer name="min_answers">2</integer>

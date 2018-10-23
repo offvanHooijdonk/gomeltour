@@ -45,7 +45,7 @@ class ConfirmMenuItemView(ctx: Context, attrs: AttributeSet) : FrameLayout(ctx, 
         try {
             icon = ta.getDrawable(R.styleable.ConfirmMenuItemView_icon)
             itemText = ta.getString(R.styleable.ConfirmMenuItemView_text) ?: DEFAULT_TEXT
-            positiveButton = ta.getString(R.styleable.ConfirmMenuItemView_positiveButton) ?: ctx.getString(R.string.btn_confirm)
+            positiveButton = ta.getString(R.styleable.ConfirmMenuItemView_positiveButton) ?: ctx.getString(R.string.btn_confirm_sign_out)
             negativeButton = ta.getString(R.styleable.ConfirmMenuItemView_negativeButton) ?: ctx.getString(android.R.string.cancel)
         } catch (e: Exception) {
         } finally {

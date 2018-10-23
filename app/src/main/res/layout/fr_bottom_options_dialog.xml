@@ -27,7 +27,7 @@
             android:layout_marginStart="16dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:text="Settings"
+            android:text="@string/settings"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:negativeButton="@android:string/cancel"
-        app:positiveButton="@string/btn_confirm"
+        app:positiveButton="@string/btn_confirm_sign_out"
         app:text="@string/sign_out" />
 
     <!--<RelativeLayout
