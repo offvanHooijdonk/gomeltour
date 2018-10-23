@@ -13,9 +13,12 @@ import javax.inject.Inject
  * Created by Yahor_Fralou on 10/1/2018 2:21 PM.
  */
 
+/*
 class PredictDao @Inject constructor(var refPredict: CollectionReference) : IPredictDao {
 
-    override fun save(predict: Predict): Completable {
+    override fun save(predict: Predict)*/
+/*: Completable*//*
+ {
         val id = refPredict.document().id
         predict.id = id
         val predictDoc = PredictDoc(predict.id, predict.title, predict.text, predict.dateOpenTill, predict.dateFulfillment, predict.isActive, predict.userId)
@@ -30,7 +33,9 @@ class PredictDao @Inject constructor(var refPredict: CollectionReference) : IPre
             )
         }
 
-        return completable
+        */
+/*return completable*//*
+
     }
 
     override fun list(): Maybe<MutableList<Predict>> {
@@ -59,4 +64,4 @@ class PredictDao @Inject constructor(var refPredict: CollectionReference) : IPre
                                   var userId: String = "") // todo reference
 
     private data class OptionDoc(var code: Int = -1, var text: String = "")
-}
+}*/

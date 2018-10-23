@@ -9,4 +9,10 @@ class DateTypeConverter {
 
     @TypeConverter
     fun convertLongToDate(time: Long) = Date(time)
+
+    @TypeConverter
+    fun convertListToString(list: List<String>) = list[0]
+
+    @TypeConverter
+    fun convertStringToList(str: String) = listOf(str)
 }
