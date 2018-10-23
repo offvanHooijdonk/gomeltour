@@ -3,10 +3,12 @@ package com.tobe.prediction.presentation.presenter.predict.view
 import com.tobe.prediction.dao.IPredictDao
 import com.tobe.prediction.dao.IVoteDao
 import com.tobe.prediction.domain.Predict
+import com.tobe.prediction.domain.Vote
 import com.tobe.prediction.domain.createVote
 import com.tobe.prediction.helper.attachTo
 import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.ui.predict.view.IPredictEditView
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -31,9 +33,10 @@ class PredictEditPresenter @Inject constructor(var predictDao: IPredictDao, var 
                 predictDao.save(predict),
                 voteDao.save(vote)
         ))*/
-        predictDao.save(predict)
+        setUpId(predict)
+        Completable.fromCallable { predictDao.save(predict) }
                 .mergeWith(
-                        voteDao.save(createVote(Session.user!!.id, predict.id, optionPicked))
+                        Completable.fromCallable { voteDao.save(setUpId(createVote(Session.user!!.id, predict.id, optionPicked))) }
                 )
                 .subscribeOn(Schedulers.io()) // todo create transformers
                 .observeOn(AndroidSchedulers.mainThread())
@@ -51,4 +54,12 @@ class PredictEditPresenter @Inject constructor(var predictDao: IPredictDao, var 
         cd.clear()
         view = null
     }
+
+    @Deprecated("Need to set at server")
+    private fun setUpId(predict: Predict) {
+        predict.id = System.currentTimeMillis().toString()
+    }
+
+    @Deprecated("Need to set at server")
+    private fun setUpId(vote: Vote) = vote.apply { this.id = "${this.predict}+${this.user}" }
 }

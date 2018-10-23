@@ -31,16 +31,19 @@ class DaoModule {
     @Singleton
     @Provides
     @Named(DM.Names.REF_USERS)
+    @Deprecated("Replcing with Room")
     fun provideUserCollection(db: FirebaseFirestore): CollectionReference = db.collection(COLL_USERS)
 
     @Singleton
     @Provides
     @Named(DM.Names.REF_PREDICTS)
+    @Deprecated("Replcing with Room")
     fun providePredictCollection(db: FirebaseFirestore): CollectionReference = db.collection(COLL_PREDICTS)
 
     @Singleton
     @Provides
     @Named(DM.Names.REF_VOTES)
+    @Deprecated("Replcing with Room")
     fun provideVoteCollection(db: FirebaseFirestore): CollectionReference = db.collection(COLL_VOTES)
 
     /*@Singleton
@@ -50,11 +53,17 @@ class DaoModule {
     @Provides
     fun provideUserDao(db: AppDatabase): IUserDao = db.userDao()
 
+    /*@Singleton
+    @Provides
+    fun providePredictDao(@Named(DM.Names.REF_PREDICTS) ref: CollectionReference): IPredictDao = PredictDao(ref)*/
     @Singleton
     @Provides
-    fun providePredictDao(@Named(DM.Names.REF_PREDICTS) ref: CollectionReference): IPredictDao = PredictDao(ref)
+    fun providePredictDao(db: AppDatabase): IPredictDao = db.predictDao()
 
+    /*@Singleton
+    @Provides
+    fun provideVoteDao(@Named(DM.Names.REF_PREDICTS) ref: CollectionReference): IVoteDao = VoteDao(ref)*/
     @Singleton
     @Provides
-    fun provideVoteDao(@Named(DM.Names.REF_PREDICTS) ref: CollectionReference): IVoteDao = VoteDao(ref)
+    fun provideVoteDao(db: AppDatabase): IVoteDao = db.voteDao()
 }

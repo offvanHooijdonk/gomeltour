@@ -2,6 +2,7 @@ package com.tobe.prediction.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.tobe.prediction.domain.UserBean
 import io.reactivex.Maybe
@@ -12,7 +13,7 @@ import io.reactivex.Maybe
 
 @Dao
 interface IUserDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(user: UserBean)
 
     @Query("select * from Users where id = :id")
