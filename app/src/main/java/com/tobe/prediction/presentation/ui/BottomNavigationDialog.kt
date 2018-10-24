@@ -32,6 +32,7 @@ class BottomNavigationDialog : BottomSheetDialogFragment() {
 
         navigationView.setNavigationItemSelectedListener {
             requireContext().toast("Navigating!")
+            dismiss()
             true
         }
         navigationView.setCheckedItem(R.id.it_list)
