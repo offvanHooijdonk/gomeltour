@@ -23,5 +23,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun voteDao() : IVoteDao
 }
 
-const val DB_NAME = "predict-0.1"
+const val DB_NAME = "predict-0.2"
 fun buildDatabase(context: Context) = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME).build()

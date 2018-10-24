@@ -34,9 +34,9 @@ class PredictEditPresenter @Inject constructor(var predictDao: IPredictDao, var 
                 voteDao.save(vote)
         ))*/
         setUpId(predict)
-        Completable.fromCallable { predictDao.save(predict) }
+        Completable.fromAction { predictDao.save(predict) }
                 .mergeWith(
-                        Completable.fromCallable { voteDao.save(setUpId(createVote(Session.user!!.id, predict.id, optionPicked))) }
+                        Completable.fromAction { voteDao.save(setUpId(createVote(Session.user!!.id, predict.id, optionPicked))) }
                 )
                 .subscribeOn(Schedulers.io()) // todo create transformers
                 .observeOn(AndroidSchedulers.mainThread())

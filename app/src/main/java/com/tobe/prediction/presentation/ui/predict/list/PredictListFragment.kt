@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.dto.PredictDTO
-import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.helper.hide
 import com.tobe.prediction.helper.setUp
 import com.tobe.prediction.helper.show
@@ -19,6 +18,7 @@ import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.presenter.predict.list.PredictListPresenter
 import kotlinx.android.synthetic.main.fr_predict_list.*
 import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.longToast
 import javax.inject.Inject
 
 /**
@@ -87,8 +87,9 @@ class PredictListFragment : Fragment(), IPredictListView {
         }
     }
 
-    override fun showError(th: Throwable?) {
-        rvPredicts.snackbar("Error loading data").colorError()
+    override fun showError(th: Throwable?) { // TODO use snackbars when they are fixed
+        //rvPredicts.snackbar("Error loading data").colorError()
+        ctx.longToast("Error loading data. ${th.toString()}")
     }
 
     override fun onDestroy() {

@@ -30,9 +30,10 @@ class PredictListPresenter @Inject constructor(var predictDao: IPredictDao, var 
                 .flattenAsObservable { list -> list }
                 .flatMap { predict ->
                     userDao.getById(predict.userId)
-                            .toObservable().subscribeOn(Schedulers.io())
+                            .toObservable()
                             .map { user -> convertToPredictDTO(predict, user) }
                 }
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .collect({ mutableListOf<PredictDTO>() }, { list, dto -> list.add(dto) })
                 .subscribe(
