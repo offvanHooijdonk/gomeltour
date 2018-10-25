@@ -31,5 +31,5 @@ internal val tm: MaybeTransformer<in Any, out Any> = MaybeTransformer { observab
             .observeOn(AndroidSchedulers.mainThread())
 }
 
-fun <T> schedulersIO() = t
+fun <T> schedulersIO() = t as ObservableTransformer<T, T>
 fun <T> schedulersIOMaybe() = tm as MaybeTransformer<T, T>

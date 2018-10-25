@@ -1,4 +1,4 @@
-package com.tobe.prediction.dao.converter
+package com.tobe.prediction.domain.dto
 
 /**
  * Created by Yahor_Fralou on 9/26/2018 3:33 PM.

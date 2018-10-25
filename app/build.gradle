@@ -29,9 +29,8 @@ dependencies {
     ext.rx_android_version = '2.1.0'
     ext.dagger_version = '2.16'
     ext.androidx_version = '1.0.0'
-    ext.firebase_core_version = '16.0.3'
     ext.firebase_auth_version = '16.0.3'
-    ext.firestore_version = '17.1.0'
+    ext.room_version = '1.1.1'
 
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -55,12 +54,12 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
-    implementation("com.google.firebase:firebase-core:$firebase_core_version") {
-        exclude group: 'com.android.support', module: 'support-v4'
-    }
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    implementation "android.arch.persistence.room:rxjava2:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
+
     implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
-    implementation "com.google.firebase:firebase-firestore:$firestore_version"
-    implementation "com.github.FrangSierra:RxFirebase:1.5.0"
+    implementation "com.github.FrangSierra:RxFirebase:1.5.0" // todo get reed of it as it's used only in one place
     implementation "com.google.android.gms:play-services-auth:16.0.0"
 
     testImplementation 'junit:junit:4.12'

@@ -34,6 +34,9 @@ class BottomOptionsDialog : BottomSheetDialogFragment() {
     }
 
     private fun setupSignOutOption() {
-        itemConfirmSignOut.onConfirm { pickEventListener(EVENT_SIGN_OUT) }
+        itemConfirmSignOut.onConfirm {
+            dismiss()
+            pickEventListener(EVENT_SIGN_OUT)
+        }
     }
 }
