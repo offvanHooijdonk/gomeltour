@@ -7,10 +7,9 @@ import com.tobe.prediction.dao.IUserDao
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.domain.dto.convertToPredictDTO
 import com.tobe.prediction.helper.attachTo
+import com.tobe.prediction.helper.schedulersIO
 import com.tobe.prediction.presentation.ui.predict.list.IPredictListView
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -33,8 +32,7 @@ class PredictListPresenter @Inject constructor(var predictDao: IPredictDao, var 
                             .toObservable()
                             .map { user -> convertToPredictDTO(predict, user) }
                 }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .schedulersIO()
                 .collect({ mutableListOf<PredictDTO>() }, { list, dto -> list.add(dto) })
                 .subscribe(
                         { list -> view?.onDataLoaded(list) },
