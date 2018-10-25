@@ -20,6 +20,7 @@
     <string name="it_my_subscriptions">Subscriptions</string>
     <string name="it_authored_list">My Predictions</string>
     <string name="settings">Settings</string>
+    <string name="fish_number">12.6k</string>
 
     <integer name="max_answers">7</integer>
     <integer name="min_answers">2</integer>

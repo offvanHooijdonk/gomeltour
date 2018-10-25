@@ -50,6 +50,7 @@ class LoginPresenter @Inject constructor() {
                 .schedulersIO()
                 .subscribe({ _ ->
                     view?.showLoginProgress(false)
+                    view?.showLoginForm(false)
                     view?.onUserAuthenticated()
                 }, { th ->
                     view?.showLoginProgress(false)

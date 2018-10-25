@@ -71,6 +71,8 @@ class PredictSingleDialog : DialogFragment(), IPredictSingleView {
         txtPredictTitle.text = dto.title
         txtPredictText.text = dto.text
         txtAuthorName.text = dto.authorName
+        txtVotesPos.text = dto.votePosCount.toString()
+        txtVotesNeg.text = dto.voteNegCount.toString()
 
         if (dto.authorPic != null) Glide.with(ctx).load(dto.authorPic).into(imgAuthorPic)
 

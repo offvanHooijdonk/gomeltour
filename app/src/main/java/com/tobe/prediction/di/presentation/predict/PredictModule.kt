@@ -1,5 +1,6 @@
 package com.tobe.prediction.di.presentation.predict
 
+import android.content.Context
 import com.tobe.prediction.dao.IPredictDao
 import com.tobe.prediction.dao.IUserDao
 import com.tobe.prediction.dao.IVoteDao
@@ -23,5 +24,5 @@ class PredictModule {
     fun provideListPresenter(predictDao: IPredictDao, userDao: IUserDao): PredictListPresenter = PredictListPresenter(predictDao, userDao)
 
     @Provides
-    fun provideSinglePresenter(predictDao: IPredictDao, userDao: IUserDao): PredictSinglePresenter = PredictSinglePresenter(predictDao, userDao)
+    fun provideSinglePresenter(ctx: Context, predictDao: IPredictDao, userDao: IUserDao, voteDao: IVoteDao): PredictSinglePresenter = PredictSinglePresenter(ctx, predictDao, userDao, voteDao)
 }
