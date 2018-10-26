@@ -1,5 +1,6 @@
 package com.tobe.prediction.di.presentation.main
 
+import com.tobe.prediction.di.model.auth.AuthComponent
 import com.tobe.prediction.presentation.ui.MainActivity
 import dagger.Subcomponent
 
@@ -11,4 +12,6 @@ import dagger.Subcomponent
 @MainScope
 interface MainComponent {
     fun inject(view: MainActivity)
+
+    fun plusAuthComponent(): AuthComponent
 }

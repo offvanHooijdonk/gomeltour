@@ -15,26 +15,15 @@ import com.tobe.prediction.di.presentation.predict.PredictComponent
  */
 
 class DependencyManager(ctx: Context) {
-    companion object {
-        val Names = DepNames
-    }
 
     private val graph: AppComponent = DaggerAppComponent.builder()
             .appModule(AppModule(ctx))
             .daoModule(DaoModule())
             .build()
 
-    fun loginComponent(): LoginComponent = graph.plusAuthComponent().plusLoginComponent()
-    fun mainComponent(): MainComponent = graph.plusAuthComponent().plusMainComponent()
+    fun loginComponent(): LoginComponent = graph.plusLoginComponent().apply { plusAuthComponent() }
+    fun mainComponent(): MainComponent = graph.plusMainComponent().apply { plusAuthComponent() }
     fun predictComponent(): PredictComponent = graph.plusPredictComponent()
 }
 
 fun dependency() = App.di
-
-typealias DM = DependencyManager
-
-object DepNames {
-    const val REF_USERS = "users"
-    const val REF_PREDICTS = "predicts"
-    const val REF_VOTES = "votes"
-}

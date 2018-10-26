@@ -1,5 +1,6 @@
 package com.tobe.prediction.di.presentation.login
 
+import com.tobe.prediction.di.model.auth.AuthComponent
 import com.tobe.prediction.presentation.ui.login.LoginActivity
 import dagger.Subcomponent
 
@@ -11,4 +12,6 @@ import dagger.Subcomponent
 @Subcomponent(modules = [LoginModule::class])
 interface LoginComponent {
     fun inject(view: LoginActivity)
+
+    fun plusAuthComponent(): AuthComponent
 }

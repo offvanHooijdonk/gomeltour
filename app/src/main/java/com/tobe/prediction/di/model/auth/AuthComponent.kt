@@ -1,7 +1,5 @@
 package com.tobe.prediction.di.model.auth
 
-import com.tobe.prediction.di.presentation.login.LoginComponent
-import com.tobe.prediction.di.presentation.main.MainComponent
 import dagger.Subcomponent
 
 /**
@@ -10,6 +8,5 @@ import dagger.Subcomponent
 
 @Subcomponent(modules = [AuthModule::class])
 interface AuthComponent {
-    fun plusLoginComponent(): LoginComponent
-    fun plusMainComponent(): MainComponent
+
 }

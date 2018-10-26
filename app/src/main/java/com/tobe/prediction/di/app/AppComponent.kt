@@ -1,6 +1,7 @@
 package com.tobe.prediction.di.app
 
-import com.tobe.prediction.di.model.auth.AuthComponent
+import com.tobe.prediction.di.presentation.login.LoginComponent
+import com.tobe.prediction.di.presentation.main.MainComponent
 import com.tobe.prediction.di.presentation.predict.PredictComponent
 import dagger.Component
 import javax.inject.Singleton
@@ -13,6 +14,7 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class, DaoModule::class])
 interface AppComponent {
 
-    fun plusAuthComponent(): AuthComponent
+    fun plusLoginComponent(): LoginComponent
+    fun plusMainComponent(): MainComponent
     fun plusPredictComponent(): PredictComponent
 }
