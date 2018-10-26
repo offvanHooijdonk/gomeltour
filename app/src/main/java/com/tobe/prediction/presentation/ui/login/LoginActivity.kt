@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.helper.hide
+import com.tobe.prediction.helper.hideBut
 import com.tobe.prediction.helper.show
 import com.tobe.prediction.presentation.presenter.login.LoginPresenter
 import com.tobe.prediction.presentation.ui.MainActivity
@@ -36,8 +37,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
         dependency().loginComponent().inject(this)
         presenter.attachView(this)
 
-        blockSignIn.hide()
-        pbLogin.hide()
+        showLoginForm(false)
         btnGoogleSign.setOnClickListener {
             isLoginProcessPassed = true
             presenter.onAuthSelected()
@@ -75,7 +75,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
             }
         } else {
             blockSignIn.hide()
-            pbLogin.hide()
+            pbLogin.hideBut()
         }
     }
 
@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
             pbLogin.show()
             btnGoogleSign.isEnabled = false
         } else {
-            pbLogin.hide()
+            pbLogin.hideBut()
             btnGoogleSign.isEnabled = true
         }
     }
