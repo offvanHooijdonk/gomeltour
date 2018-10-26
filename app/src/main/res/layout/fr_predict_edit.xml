@@ -92,10 +92,7 @@
                     android:inputType="text"
                     android:maxLines="2"
                     android:minLines="1"
-                    android:nextFocusForward="@id/inputText">
-
-                    <requestFocus />
-                </EditText>
+                    android:nextFocusForward="@id/inputText" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -123,10 +120,10 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/form_option_positive"
                 android:hint="@string/form_option_positive"
+                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLines="1"
                 android:nextFocusForward="@id/inputNegative"
-                android:imeOptions="actionNext"
                 android:text="@string/form_option_positive"
                 app:layout_constraintEnd_toStartOf="@id/radioPositive"
                 app:layout_constraintStart_toStartOf="parent"

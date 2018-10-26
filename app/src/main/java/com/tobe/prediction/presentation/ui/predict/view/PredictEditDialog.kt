@@ -13,10 +13,7 @@ import androidx.fragment.app.DialogFragment
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.Predict
-import com.tobe.prediction.helper.colorError
-import com.tobe.prediction.helper.colorWarn
-import com.tobe.prediction.helper.hide
-import com.tobe.prediction.helper.show
+import com.tobe.prediction.helper.*
 import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.presenter.predict.view.PredictEditPresenter
 import kotlinx.android.synthetic.main.fr_predict_edit.*
@@ -67,7 +64,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
         optNegCode = resources.getInteger(R.integer.option_negative)
 
         imgSave.setOnClickListener { processFormAndSave() }
-        imgDialogCancel.setOnClickListener { dismiss() } // todo add confirmation dialog
+        imgDialogCancel.setOnClickListener { hideKeyboard(); dismiss() } // todo add confirmation dialog
 
         radioPositive.setOnCheckedChangeListener { _, isChecked -> if (isChecked) setRadioState(true) }
         radioNegative.setOnCheckedChangeListener { _, isChecked -> if (isChecked) setRadioState(false) }
@@ -79,6 +76,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
                 imgPickFulfillDate.hide()
                 txtDateFulfill.show()
             }
+            hideKeyboard()
         }
         imgPickOpenTillDate.setOnClickListener {
             startDatePicker(dateFulfill) { datePicked ->
@@ -87,6 +85,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
                 imgPickOpenTillDate.hide()
                 txtDateOpenTill.show()
             }
+            hideKeyboard()
         }
     }
 
@@ -96,9 +95,12 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
         dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         dialog.window?.setWindowAnimations(R.style.DialogFadeAnimation)
         dialog.window?.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+
+        inputTitle.showKeyboard()
     }
 
     override fun onSavedComplete() {
+        hideKeyboard()
         showSavingProgress(false)
         dismiss()
     }
@@ -202,6 +204,9 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
                 .show()
     }
 
+    private fun hideKeyboard() {
+        view?.rootView?.hideKeyBoard()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
