@@ -11,8 +11,10 @@ class DateTypeConverter {
     fun convertLongToDate(time: Long) = Date(time)
 
     @TypeConverter
-    fun convertListToString(list: List<String>) = list[0]
+    fun convertListToString(list: Array<String>) = list.joinToString(SEPARATOR_OPTIONS)
 
     @TypeConverter
-    fun convertStringToList(str: String) = listOf(str)
+    fun convertStringToList(str: String) = str.split(SEPARATOR_OPTIONS).toTypedArray()
 }
+
+private const val SEPARATOR_OPTIONS = "|"

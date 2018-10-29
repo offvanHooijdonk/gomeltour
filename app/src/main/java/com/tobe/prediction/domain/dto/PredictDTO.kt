@@ -11,7 +11,7 @@ data class PredictDTO(
         val id: String,
         val title: String,
         val text: String,
-        val options: List<String>,
+        val options: Array<String>,
         val authorName: String,
         val authorPic: String?,
         var votePosCount: Int = 0,

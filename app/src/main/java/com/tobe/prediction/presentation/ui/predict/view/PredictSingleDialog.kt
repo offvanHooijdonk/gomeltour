@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
-import com.bumptech.glide.Glide
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.*
+import com.tobe.prediction.model.loadAvatar
 import com.tobe.prediction.presentation.presenter.predict.view.PredictSinglePresenter
 import kotlinx.android.synthetic.main.fr_predict_view.*
 import org.jetbrains.anko.design.snackbar
@@ -74,7 +74,7 @@ class PredictSingleDialog : DialogFragment(), IPredictSingleView {
         txtVotesPos.text = dto.votePosCount.toString()
         txtVotesNeg.text = dto.voteNegCount.toString()
 
-        if (dto.authorPic != null) Glide.with(ctx).load(dto.authorPic).into(imgAuthorPic)
+        imgAuthorPic.loadAvatar(dto.authorPic)
 
         rlPredict.isRefreshing = false
         rlPredict.isEnabled = false

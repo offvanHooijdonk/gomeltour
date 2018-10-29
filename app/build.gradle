@@ -43,10 +43,9 @@ dependencies {
     implementation ("org.jetbrains.anko:anko-design:$anko_version") {
         exclude group: "com.android.support", module: "support-v4"
     }
-    implementation "de.hdodenhof:circleimageview:2.2.0"
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
 
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
     implementation "io.reactivex.rxjava2:rxjava:$rx_version"

@@ -171,7 +171,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
             return
         }
 
-        val options = listOf(optionPositive, optionNegative)
+        val options = arrayOf(optionPositive, optionNegative)
 
         val predict = Predict(
                 title = inputTitle.text.trim().toString(),

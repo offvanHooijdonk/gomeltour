@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -55,19 +56,19 @@
                 android:id="@+id/txtPredictTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fish_short"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:text="@string/fish_short" />
 
             <TextView
                 android:id="@+id/txtPredictText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/fish_text"
                 android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/txtPredictTitle" />
+                app:layout_constraintTop_toBottomOf="@id/txtPredictTitle"
+                tools:text="@string/fish_text" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/imgAuthorPic"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -80,19 +81,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/fish_short"
                 android:textColor="@color/md_black_1000"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/imgAuthorPic"
-                app:layout_constraintTop_toTopOf="@id/imgAuthorPic" />
+                app:layout_constraintTop_toTopOf="@id/imgAuthorPic"
+                tools:text="@string/fish_full_name" />
 
             <TextView
                 android:id="@+id/txtCreateDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fish_date_full"
                 app:layout_constraintBottom_toBottomOf="@id/imgAuthorPic"
-                app:layout_constraintStart_toStartOf="@id/txtAuthorName" />
+                app:layout_constraintStart_toStartOf="@id/txtAuthorName"
+                tools:text="@string/fish_date_full" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -100,8 +101,8 @@
                 android:layout_marginTop="24dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imgAuthorPic">
 
                 <ImageView
@@ -117,13 +118,13 @@
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:textSize="16sp"
-                    android:text="@string/fish_number" />
+                    tools:text="@string/fish_number" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_vote_negative_24"
                     android:layout_marginStart="64dp"
+                    android:src="@drawable/ic_vote_negative_24"
                     android:tint="@color/form_option_negative" />
 
                 <TextView
@@ -131,9 +132,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:textSize="16sp"
                     android:layout_weight="1"
-                    android:text="@string/fish_number" />
+                    android:textSize="16sp"
+                    tools:text="@string/fish_number" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

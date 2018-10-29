@@ -17,4 +17,4 @@ data class Predict(
         var dateFulfillment: Date = Date(),
         var isActive: Boolean = true,
         var userId: String = "",
-        var options: List<String> = listOf())
+        var options: Array<String> = arrayOf())

@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tobe.prediction.R
 import com.tobe.prediction.model.Session
+import com.tobe.prediction.model.loadAvatar
 import kotlinx.android.synthetic.main.fr_bottom_navigation.*
 import org.jetbrains.anko.toast
 
@@ -26,9 +26,7 @@ class BottomNavigationDialog : BottomSheetDialogFragment() {
 
         txtUserName.text = Session.user!!.name
         txtUserEmail.text = Session.user!!.email
-        if (Session.user!!.photoUrl != null) {
-            Glide.with(requireContext()).load(Session.user!!.photoUrl).into(imgAvatar)
-        }
+        imgAvatar.loadAvatar(Session.user!!.photoUrl)
 
         navigationView.setNavigationItemSelectedListener {
             requireContext().toast("Navigating!")
