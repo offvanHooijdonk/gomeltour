@@ -4,8 +4,8 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.tobe.prediction.domain.UserBean
 import com.tobe.prediction.domain.createUser
-import durdinapps.rxfirebase2.RxFirebaseAuth
 import io.reactivex.Maybe
+import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 /**
@@ -13,9 +13,16 @@ import javax.inject.Inject
  */
 
 class AuthFirebase @Inject constructor() {
-    fun signIn(credential: AuthCredential): Maybe<UserBean> =
-            RxFirebaseAuth.signInWithCredential(FirebaseAuth.getInstance(), credential)
-                    .map { result -> createUser(id = result.user.uid) } // todo remove RxFirebase lib usage as it is used only here
+    fun signIn(credential: AuthCredential): Maybe<UserBean> {
+        val subj = PublishSubject.create<UserBean>()
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
+            it.result
+            subj.onNext(createUser(it.result.user.uid))
+        }.addOnFailureListener {
+            subj.onError(it)
+        }
+        return subj.firstElement()
+    }
 
     fun signOut() {
         FirebaseAuth.getInstance().signOut()
