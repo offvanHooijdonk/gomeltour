@@ -69,7 +69,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
         radioPositive.setOnCheckedChangeListener { _, isChecked -> if (isChecked) setRadioState(true) }
         radioNegative.setOnCheckedChangeListener { _, isChecked -> if (isChecked) setRadioState(false) }
 
-        imgPickFulfillDate.setOnClickListener {
+        blockPickFulfillDate.setOnClickListener {
             startDatePicker(null) { datePicked ->
                 dateFulfill = datePicked;
                 txtDateFulfill.text = dateFormat.format(dateFulfill)
@@ -78,7 +78,7 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
             }
             hideKeyboard()
         }
-        imgPickOpenTillDate.setOnClickListener {
+        blockPickOpenTillDate.setOnClickListener {
             startDatePicker(dateFulfill) { datePicked ->
                 dateOpenTill = datePicked
                 txtDateOpenTill.text = dateFormat.format(dateOpenTill)

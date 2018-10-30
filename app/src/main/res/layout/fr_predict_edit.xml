@@ -111,7 +111,6 @@
                     android:minLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- TODO make a GuideLine for this block -->
             <EditText
                 android:id="@+id/inputPositive"
                 android:layout_width="0dp"
@@ -161,18 +160,19 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/inputPositive"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- TODO add GuideLine for this block -->
             <TextView
                 android:id="@+id/txtLabelFulfills"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Fulfills on"
-                android:textColor="@color/md_black_1000"
+                android:textColor="@color/text_main"
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/inputPositive" />
 
             <FrameLayout
+                android:id="@+id/blockPickFulfillDate"
+                style="@style/Clickable"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@id/txtLabelFulfills"
@@ -182,13 +182,13 @@
 
                 <ImageView
                     android:id="@+id/imgPickFulfillDate"
-                    style="@style/Clickable"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:src="@drawable/ic_calendar_24"
                     android:tint="@color/colorAccent" />
-                <!-- TODO make picked date text also clickable to re-pick date -->
+
                 <TextView
                     android:id="@+id/txtDateFulfill"
                     android:layout_width="match_parent"
@@ -199,18 +199,19 @@
                     android:visibility="gone" />
             </FrameLayout>
 
-            <!-- TODO try apply black color as default text color -->
             <TextView
                 android:id="@+id/txtLabelOpenTill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="Open till"
-                android:textColor="@color/md_black_1000"
+                android:textColor="@color/text_main"
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/txtLabelFulfills" />
 
             <FrameLayout
+                android:id="@+id/blockPickOpenTillDate"
+                style="@style/Clickable"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@id/txtLabelOpenTill"
@@ -220,7 +221,6 @@
 
                 <ImageView
                     android:id="@+id/imgPickOpenTillDate"
-                    style="@style/Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
