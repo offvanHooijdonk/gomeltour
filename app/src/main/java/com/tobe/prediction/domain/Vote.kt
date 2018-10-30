@@ -9,5 +9,3 @@ data class Vote(@PrimaryKey var id: String = "", val user: String, var predict: 
 
 fun createVote(user: String, predict: String, option: Int): Vote =
         Vote(user = user, predict = predict, option = option, createDate = Date())
-
-//private fun composeId(user: String, predict: String) = "$user|$predict" // todo move to DAO?

@@ -62,7 +62,7 @@ class AnswersGroup(private val maxAnswerNum: Int, private val minAnswerNum: Int,
      * @throws AnswersLimitViolationException if minimum answers number already already reached
      */
     @Throws(AnswersLimitViolationException::class)
-    fun removeAnswer(position: Int) { // todo validate the position exists
+    fun removeAnswer(position: Int) {
         validateRemove(position)
 
         removeAt(position)
