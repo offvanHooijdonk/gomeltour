@@ -58,7 +58,6 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:$room_version"
 
     implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
-    //implementation "com.github.FrangSierra:RxFirebase:1.5.0" // todo get reed of it as it's used only in one place
     implementation "com.google.android.gms:play-services-auth:16.0.0"
 
     testImplementation 'junit:junit:4.12'
