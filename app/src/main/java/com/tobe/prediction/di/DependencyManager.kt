@@ -23,7 +23,7 @@ class DependencyManager(ctx: Context) {
 
     fun loginComponent(): LoginComponent = graph.plusLoginComponent().apply { plusAuthComponent() }
     fun mainComponent(): MainComponent = graph.plusMainComponent().apply { plusAuthComponent() }
-    fun predictComponent(): PredictComponent = graph.plusPredictComponent()
+    fun predictComponent(): PredictComponent = graph.plusPredictComponent().apply { plusPredictModelComponent() }
 }
 
 fun dependency() = App.di

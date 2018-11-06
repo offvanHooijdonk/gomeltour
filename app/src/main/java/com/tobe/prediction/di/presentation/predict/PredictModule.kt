@@ -15,7 +15,7 @@ import dagger.Provides
  */
 
 @Module
-@PredictScope
+@PredictModelScope
 class PredictModule {
     @Provides
     fun provideViewPresenter(predictDao: IPredictDao, voteDao: IVoteDao): PredictEditPresenter = PredictEditPresenter(predictDao, voteDao)
