@@ -1,5 +1,7 @@
 package com.tobe.prediction.di.model.predict
 
+import com.tobe.prediction.dao.IPredictDao
+import com.tobe.prediction.dao.IUserDao
 import com.tobe.prediction.di.presentation.predict.PredictModelScope
 import com.tobe.prediction.model.predict.PredictInteractor
 import dagger.Module
@@ -13,5 +15,5 @@ import dagger.Provides
 @PredictModelScope
 class PredictModelModule {
     @Provides
-    fun providePredictModel(): PredictInteractor = PredictInteractor()
+    fun providePredictModel(predictDao: IPredictDao, userDao: IUserDao): PredictInteractor = PredictInteractor(predictDao, userDao)
 }

@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.item_predict.view.*
 /**
  * Created by Yahor_Fralou on 9/21/2018 4:43 PM.
  */
+
 class PredictAdapter(var ctx: Context, private val predicts: List<PredictDTO>, var listener: (PredictDTO) -> Unit) : RecyclerView.Adapter<PredictAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(ctx).inflate(R.layout.item_predict, parent, false))
