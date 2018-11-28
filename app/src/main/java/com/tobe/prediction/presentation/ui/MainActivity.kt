@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity(), IMainView {
                     }
                     duration = 150
                 }
-        fabAddNew.text = ""
+
         ValueAnimator.ofInt(fabAddNew.width, fabAddNew.height)
                 .apply {
                     interpolator = DecelerateInterpolator(2f)
@@ -175,7 +175,6 @@ class MainActivity : AppCompatActivity(), IMainView {
                     marginStart = 0
                     width = CoordinatorLayout.LayoutParams.WRAP_CONTENT
                 }
-        fabAddNew.text = "Predict"
         fabAddNew.show()
         fabAddNew.scaleX = 1f
         fabAddNew.scaleY = 1f

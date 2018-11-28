@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                     android:layout_width="match_parent"
+                                                     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:fontFamily="monospace"
                 android:text="@string/predict_list_title"
                 android:textColor="#FFF"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -34,7 +34,7 @@
         android:id="@+id/containerMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/fabAddNew"
@@ -45,12 +45,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
         android:elevation="6dp"
-        android:paddingStart="16dp"
+        android:insetBottom="0dp"
+        android:insetTop="0dp"
+        android:maxLines="1"
         android:paddingEnd="24dp"
+        android:paddingStart="16dp"
         android:text="Predict"
         android:textAllCaps="true"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
         android:textColor="@android:color/white"
         android:textSize="14sp"
         app:backgroundTint="?attr/colorAccent"
@@ -60,17 +61,17 @@
         app:iconSize="24dp"
         app:iconTint="@android:color/white"
         app:layout_anchor="@id/bottomAppBar"
-        app:layout_anchorGravity="top|center" />
+        app:layout_anchorGravity="top|center"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-        app:popupTheme="@style/AppTheme.AppBarOverlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
         app:backgroundTint="@color/colorPrimary"
         app:hideOnScroll="true"
-        app:navigationIcon="@drawable/ic_menu_white_24" />
+        app:navigationIcon="@drawable/ic_menu_white_24"
+        app:popupTheme="@style/AppTheme.AppBarOverlay"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
