@@ -15,7 +15,6 @@ import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.hide
 import com.tobe.prediction.helper.setUp
 import com.tobe.prediction.helper.show
-import com.tobe.prediction.model.Session
 import com.tobe.prediction.presentation.presenter.predict.list.PredictListPresenter
 import kotlinx.android.synthetic.main.fr_predict_list.*
 import org.jetbrains.anko.design.snackbar
@@ -63,7 +62,6 @@ class PredictListFragment : Fragment(), IPredictListView {
         refreshPredicts.setUp()
         refreshPredicts.setOnRefreshListener { /* todo sort of refresh */ Handler().postDelayed({ refreshPredicts.isRefreshing = false }, 1500) }
 
-        rvPredicts.snackbar("${Session.user?.name}").setAnchorView(R.id.fabAddNew) // todo remove when user is shown somewhere
         rvPredicts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             var prevDirDown = false
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

@@ -4,7 +4,6 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AlertDialog
@@ -133,12 +132,12 @@ class MainActivity : AppCompatActivity(), IMainView {
     private fun animateFABOut() {
         val durationShrink = 250L
 
-        fabAddNew.layoutParams = (fabAddNew.layoutParams as CoordinatorLayout.LayoutParams)
+        /*fabAddNew.layoutParams = (fabAddNew.layoutParams as CoordinatorLayout.LayoutParams)
                 .apply {
                     anchorGravity = Gravity.TOP
                     marginStart = fabAddNew.left
-                }
-        val animScaleFade = ValueAnimator.ofFloat(1.0f, 0.0f)
+                }*/
+        val animScaleFade = ValueAnimator.ofFloat(0.9f, 0.0f)
                 .apply {
                     addUpdateListener {
                         val value = it.animatedValue as Float
@@ -153,7 +152,7 @@ class MainActivity : AppCompatActivity(), IMainView {
                     duration = 150
                 }
 
-        ValueAnimator.ofInt(fabAddNew.width, fabAddNew.height)
+        ValueAnimator.ofInt(fabAddNew.width, fabAddNew.height) // TODO try move left side to screen center faster, then the button shrinks
                 .apply {
                     interpolator = DecelerateInterpolator(2f)
                     duration = durationShrink
@@ -161,7 +160,7 @@ class MainActivity : AppCompatActivity(), IMainView {
                         fabAddNew.layoutParams.apply {
                             width = it.animatedValue as Int; fabAddNew.layoutParams = this
                         }
-                        if (it.animatedFraction > 0.95f && !animScaleFade.isRunning) {
+                        if (it.animatedFraction > 0.97f && !animScaleFade.isRunning) {
                             animScaleFade.start()
                         }
                     }
@@ -171,8 +170,8 @@ class MainActivity : AppCompatActivity(), IMainView {
     private fun animateFABIn() {
         fabAddNew.layoutParams = (fabAddNew.layoutParams as CoordinatorLayout.LayoutParams)
                 .apply {
-                    anchorGravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-                    marginStart = 0
+                    //anchorGravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+                    //marginStart = 0
                     width = CoordinatorLayout.LayoutParams.WRAP_CONTENT
                 }
         fabAddNew.show()
