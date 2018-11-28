@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.dto.PredictDTO
@@ -39,6 +40,7 @@ class PredictListFragment : Fragment(), IPredictListView {
     @Inject
     lateinit var presenter: PredictListPresenter
 
+    lateinit var scroll: (isDown: Boolean) -> Unit
     private lateinit var pick: (String) -> Unit
     private lateinit var adapter: PredictAdapter
     private val predicts = mutableListOf<PredictDTO>()
@@ -61,7 +63,17 @@ class PredictListFragment : Fragment(), IPredictListView {
         refreshPredicts.setUp()
         refreshPredicts.setOnRefreshListener { /* todo sort of refresh */ Handler().postDelayed({ refreshPredicts.isRefreshing = false }, 1500) }
 
-        rvPredicts.snackbar("${Session.user?.name}") // todo remove when user is shown somewhere
+        rvPredicts.snackbar("${Session.user?.name}").setAnchorView(R.id.fabAddNew) // todo remove when user is shown somewhere
+        rvPredicts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var prevDirDown = false
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val dirDown = dy > 0
+                if (prevDirDown xor dirDown) {
+                    scroll(dirDown)
+                }
+                prevDirDown = dirDown
+            }
+        })
 
         /*fabAdd.setOnClickListener {
             PredictEditDialog().show(fragmentManager, "one")
@@ -80,9 +92,9 @@ class PredictListFragment : Fragment(), IPredictListView {
 
         if (predicts.isEmpty()) {
             rvPredicts.hide()
-            blockEmptyList.show()
+            txtEmptyList.show()
         } else {
-            blockEmptyList.hide()
+            txtEmptyList.hide()
             rvPredicts.show()
         }
     }

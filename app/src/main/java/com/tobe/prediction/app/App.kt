@@ -21,8 +21,8 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        Const.appCtx = applicationContext
         database = buildDatabase(applicationContext)
         di = DependencyManager(applicationContext)
     }
-
 }

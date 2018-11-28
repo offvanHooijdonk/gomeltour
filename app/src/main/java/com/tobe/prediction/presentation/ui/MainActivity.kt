@@ -1,15 +1,21 @@
 package com.tobe.prediction.presentation.ui
 
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.Gravity
 import android.view.MenuItem
+import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.tobe.prediction.R
 import com.tobe.prediction.di.dependency
 import com.tobe.prediction.helper.colorError
+import com.tobe.prediction.helper.hide
+import com.tobe.prediction.helper.show
 import com.tobe.prediction.presentation.presenter.main.MainPresenter
 import com.tobe.prediction.presentation.ui.login.LoginActivity
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
@@ -93,13 +99,6 @@ class MainActivity : AppCompatActivity(), IMainView {
             }
         }
     }
-/*
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-*/
 
     override fun showError(e: Exception) {
         errorBar("Error! Log out failed.")
@@ -116,6 +115,7 @@ class MainActivity : AppCompatActivity(), IMainView {
         val fr: Fragment
         fr = when (destKey) {
             FRAG_PREDICT_LIST -> PredictListFragment.instance(pick = { predictId -> startPredictView(predictId) })
+                    .apply { scroll = { isDown: Boolean -> if (isDown) animateFABOut() else animateFABIn() } }
             FRAG_PREDICT_VIEW -> PredictSingleFragment()
             else -> return
         }
@@ -128,6 +128,58 @@ class MainActivity : AppCompatActivity(), IMainView {
                 .commit()
 
         showBackButton(destKey != FRAG_PREDICT_LIST)
+    }
+
+    private fun animateFABOut() {
+        val durationShrink = 250L
+
+        fabAddNew.layoutParams = (fabAddNew.layoutParams as CoordinatorLayout.LayoutParams)
+                .apply {
+                    anchorGravity = Gravity.TOP
+                    marginStart = fabAddNew.left
+                }
+        val animScaleFade = ValueAnimator.ofFloat(1.0f, 0.0f)
+                .apply {
+                    addUpdateListener {
+                        val value = it.animatedValue as Float
+                        val scale = 1 - (1 - value) * 0.8f
+                        fabAddNew.scaleX = scale
+                        fabAddNew.scaleY = scale
+                        fabAddNew.alpha = 1 - (1 - value) * 0.8f
+                        if (it.animatedFraction == 1.0f) {
+                            fabAddNew.hide()
+                        }
+                    }
+                    duration = 150
+                }
+        fabAddNew.text = ""
+        ValueAnimator.ofInt(fabAddNew.width, fabAddNew.height)
+                .apply {
+                    interpolator = DecelerateInterpolator(2f)
+                    duration = durationShrink
+                    addUpdateListener {
+                        fabAddNew.layoutParams.apply {
+                            width = it.animatedValue as Int; fabAddNew.layoutParams = this
+                        }
+                        if (it.animatedFraction > 0.95f && !animScaleFade.isRunning) {
+                            animScaleFade.start()
+                        }
+                    }
+                }.start()
+    }
+
+    private fun animateFABIn() {
+        fabAddNew.layoutParams = (fabAddNew.layoutParams as CoordinatorLayout.LayoutParams)
+                .apply {
+                    anchorGravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+                    marginStart = 0
+                    width = CoordinatorLayout.LayoutParams.WRAP_CONTENT
+                }
+        fabAddNew.text = "Predict"
+        fabAddNew.show()
+        fabAddNew.scaleX = 1f
+        fabAddNew.scaleY = 1f
+        fabAddNew.alpha = 1f
     }
 
     private fun startPredictView(predictId: String) {

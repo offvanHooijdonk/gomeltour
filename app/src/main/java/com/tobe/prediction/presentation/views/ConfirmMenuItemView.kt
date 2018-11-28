@@ -137,7 +137,7 @@ class ConfirmMenuItemView(ctx: Context, attrs: AttributeSet) : FrameLayout(ctx, 
     private fun hideBlock(v: View) { // todo to helper
         ObjectAnimator.ofFloat(v, View.SCALE_Y, 1f, 0f)
                 .apply {
-                    duration = 150
+                    duration = 150 // todo set less time
                     addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
                             v.hide()
