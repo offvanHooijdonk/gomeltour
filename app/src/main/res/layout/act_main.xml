@@ -41,9 +41,6 @@
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
         android:elevation="6dp"
         android:insetBottom="0dp"
         android:insetTop="0dp"
@@ -61,7 +58,7 @@
         app:iconSize="24dp"
         app:iconTint="@android:color/white"
         app:layout_anchor="@id/bottomAppBar"
-        app:layout_anchorGravity="top|center"/>
+        app:layout_anchorGravity="center_horizontal|top"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
