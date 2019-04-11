@@ -15,19 +15,12 @@ import com.tobe.prediction.domain.UserBean
 import com.tobe.prediction.model.Session
 import io.reactivex.Maybe
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/18/2018 12:48 PM.
  */
 
-class AuthGoogle @Inject constructor() {
-    @Inject
-    lateinit var ctx: Context
-    @Inject
-    lateinit var userDao: IUserDao
-    @Inject
-    lateinit var authFirebase: AuthFirebase
+class AuthGoogle constructor(private val ctx: Context, private val userDao: IUserDao, private val authFirebase: AuthFirebase) {
 
     fun getLoggedUser(): Maybe<UserBean> {
         val signedUser = FirebaseAuth.getInstance().currentUser
@@ -44,19 +37,23 @@ class AuthGoogle @Inject constructor() {
         val task = GoogleSignIn.getSignedInAccountFromIntent(signInData)
 
         return try {
-            val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            val account: GoogleSignInAccount? = task.getResult(ApiException::class.java)
+            if (account != null) {
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
 
-            authFirebase.signIn(credential)
-                    .doOnSuccess { user ->
-                        account.displayName?.let { user.name = it }
-                        account.email?.let { user.email = it }
-                        account.id?.let { user.accountKey = it }
-                        account.photoUrl?.let { user.photoUrl = it.toString() }
-                    }
-                    .observeOn(Schedulers.io())
-                    .doOnSuccess { user -> userDao.save(user)/*.subscribe()*/ }
-                    .doOnSuccess { user -> Session.user = user }
+                authFirebase.signIn(credential)
+                        .doOnSuccess { user ->
+                            account.displayName?.let { user.name = it }
+                            account.email?.let { user.email = it }
+                            account.id?.let { user.accountKey = it }
+                            account.photoUrl?.let { user.photoUrl = it.toString() }
+                        }
+                        .observeOn(Schedulers.io())
+                        .doOnSuccess { user -> userDao.save(user)/*.subscribe()*/ }
+                        .doOnSuccess { user -> Session.user = user }
+            } else {
+                Maybe.error(Exception("No account returned"))
+            }
         } catch (e: ApiException) {
             Maybe.error(e)
         }

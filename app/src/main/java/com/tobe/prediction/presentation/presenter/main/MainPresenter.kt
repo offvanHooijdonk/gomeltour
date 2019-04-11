@@ -4,18 +4,12 @@ import com.tobe.prediction.model.Session
 import com.tobe.prediction.model.auth.AuthFirebase
 import com.tobe.prediction.model.auth.AuthGoogle
 import com.tobe.prediction.presentation.ui.IMainView
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/19/2018 12:52 PM.
  */
 
-class MainPresenter @Inject constructor() {
-    @Inject
-    lateinit var authGoogle: AuthGoogle
-
-    @Inject
-    lateinit var authFirebase: AuthFirebase
+class MainPresenter constructor(private val authGoogle: AuthGoogle, private val authFirebase: AuthFirebase) {
 
     private var view: IMainView? = null
 
@@ -24,7 +18,7 @@ class MainPresenter @Inject constructor() {
     }
 
     fun onLogoutSelected() {
-        authGoogle.signOut ({
+        authGoogle.signOut({
             authFirebase.signOut()
             Session.user = null
             view?.navigateLogin()

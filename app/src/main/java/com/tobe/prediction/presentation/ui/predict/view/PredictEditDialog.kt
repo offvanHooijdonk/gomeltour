@@ -11,7 +11,6 @@ import android.view.WindowManager
 import android.view.WindowManager.LayoutParams
 import androidx.fragment.app.DialogFragment
 import com.tobe.prediction.R
-import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.Predict
 import com.tobe.prediction.helper.*
 import com.tobe.prediction.model.Session
@@ -21,7 +20,6 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.design.snackbar
 import java.util.*
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/27/2018 3:05 PM.
@@ -37,7 +35,6 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
 
     private var dateFormat = java.text.DateFormat.getDateInstance(java.text.DateFormat.FULL) // todo move to fun
 
-    @Inject
     lateinit var presenter: PredictEditPresenter
 
     private var progressDialog: DialogInterface? = null
@@ -55,7 +52,6 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dependency().predictComponent().inject(this)
         presenter.attachView(this)
         ctx = requireContext()
         /*dateFormat = DateFormat.getLongDateFormat(ctx)*/
@@ -92,9 +88,9 @@ class PredictEditDialog : DialogFragment(), IPredictEditView {
     override fun onStart() {
         super.onStart()
 
-        dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-        dialog.window?.setWindowAnimations(R.style.DialogFadeAnimation)
-        dialog.window?.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setWindowAnimations(R.style.DialogFadeAnimation)
+        dialog?.window?.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
         inputTitle.showKeyboard()
     }

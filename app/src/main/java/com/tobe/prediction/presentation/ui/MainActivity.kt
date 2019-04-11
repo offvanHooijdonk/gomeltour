@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.tobe.prediction.R
-import com.tobe.prediction.di.dependency
 import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.presentation.presenter.main.MainPresenter
 import com.tobe.prediction.presentation.ui.login.LoginActivity
@@ -20,14 +19,13 @@ import com.tobe.prediction.presentation.views.FabAnimator
 import kotlinx.android.synthetic.main.act_main.*
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.toast
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/18/2018 5:15 PM.
  */
 
 class MainActivity : AppCompatActivity(), IMainView {
-    @Inject
+
     lateinit var presenter: MainPresenter
 
     private lateinit var fabAnimator: FabAnimator
@@ -36,7 +34,6 @@ class MainActivity : AppCompatActivity(), IMainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_main)
 
-        dependency().mainComponent().inject(this)
         presenter.attachView(this)
 
         bottomAppBar.inflateMenu(R.menu.main)

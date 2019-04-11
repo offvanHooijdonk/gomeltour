@@ -1,17 +1,20 @@
 package com.tobe.prediction.presentation.presenter.predict.view
 
-import com.tobe.prediction.app.Const
 import com.tobe.prediction.dao.IPredictDao
 import com.tobe.prediction.dao.IUserDao
 import com.tobe.prediction.dao.IVoteDao
 import com.tobe.prediction.domain.dto.convertToPredictDTO
 import com.tobe.prediction.helper.attachTo
 import com.tobe.prediction.helper.schedulersIO
+import com.tobe.prediction.presentation.OPTION_POS_KEY
 import com.tobe.prediction.presentation.ui.predict.view.IPredictSingleView
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.get
+import org.koin.core.qualifier.named
 
-class PredictSinglePresenter @Inject constructor(private val predictDao: IPredictDao, private val userDao: IUserDao, private val voteDao: IVoteDao) {
+class PredictSinglePresenter(private val predictDao: IPredictDao, private val userDao: IUserDao, private val voteDao: IVoteDao)
+    : KoinComponent {
 
     private var view: IPredictSingleView? = null
     private val cd = CompositeDisposable()
@@ -26,8 +29,8 @@ class PredictSinglePresenter @Inject constructor(private val predictDao: IPredic
             view?.showNoIdError()
             return
         }
-        val optionPos = Const.optionPos
-        val optionNeg = Const.optionNeg
+        val optionPos = get<Int>(named(OPTION_POS_KEY))
+        val optionNeg = get<Int>(named(OPTION_POS_KEY))
 
         predictDao.getById(predictId)
                 .flatMap { predict -> userDao.getById(predict.userId).map { user -> convertToPredictDTO(predict, user) } }

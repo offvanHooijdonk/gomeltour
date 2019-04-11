@@ -6,13 +6,12 @@ import com.tobe.prediction.helper.attachTo
 import com.tobe.prediction.model.predict.PredictInteractor
 import com.tobe.prediction.presentation.ui.predict.list.IPredictListView
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/27/2018 2:54 PM.
  */
 
-class PredictListPresenter @Inject constructor(/*var predictDao: IPredictDao, var userDao: IUserDao*/ private var predictInteractor: PredictInteractor) {
+class PredictListPresenter(/*var predictDao: IPredictDao, var userDao: IUserDao*/ private val predictInteractor: PredictInteractor) {
     private var view: IPredictListView? = null
     private val cd = CompositeDisposable()
 
@@ -24,7 +23,7 @@ class PredictListPresenter @Inject constructor(/*var predictDao: IPredictDao, va
         predictInteractor.getPredicts()
                 .subscribe(
                         { list -> view?.onDataLoaded(list) },
-                        { th -> Log.e(App.TAG, "Error loading predicts", th); view?.showError(th) } // fixme do not pass Throwable to UI layer
+                        { th -> Log.e(App.LOGCAT, "Error loading predicts", th); view?.showError(th) } // fixme do not pass Throwable to UI layer
                 ).attachTo(cd)
     }
 

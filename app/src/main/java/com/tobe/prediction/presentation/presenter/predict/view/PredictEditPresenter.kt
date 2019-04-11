@@ -12,13 +12,12 @@ import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/27/2018 2:57 PM.
  */
 
-class PredictEditPresenter @Inject constructor(var predictDao: IPredictDao, var voteDao: IVoteDao) {
+class PredictEditPresenter(private val predictDao: IPredictDao, private val voteDao: IVoteDao) {
 
     private var view: IPredictEditView? = null
     private val cd = CompositeDisposable()

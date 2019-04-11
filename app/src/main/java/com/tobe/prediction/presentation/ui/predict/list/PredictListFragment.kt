@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tobe.prediction.R
-import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.hide
 import com.tobe.prediction.helper.setUp
@@ -19,7 +18,6 @@ import com.tobe.prediction.presentation.presenter.predict.list.PredictListPresen
 import kotlinx.android.synthetic.main.fr_predict_list.*
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.longToast
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/21/2018 4:36 PM.
@@ -35,8 +33,6 @@ class PredictListFragment : Fragment(), IPredictListView {
         }
     }
 
-
-    @Inject
     lateinit var presenter: PredictListPresenter
 
     lateinit var scroll: (isDown: Boolean) -> Unit
@@ -53,7 +49,6 @@ class PredictListFragment : Fragment(), IPredictListView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dependency().predictComponent().inject(this)
         presenter.attachView(this)
 
         rvPredicts.layoutManager = LinearLayoutManager(ctx)

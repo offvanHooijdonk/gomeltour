@@ -6,18 +6,21 @@ import com.tobe.prediction.domain.UserBean
 import com.tobe.prediction.domain.createUser
 import io.reactivex.Maybe
 import io.reactivex.subjects.PublishSubject
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 9/26/2018 5:57 PM.
  */
 
-class AuthFirebase @Inject constructor() {
+class AuthFirebase  {
     fun signIn(credential: AuthCredential): Maybe<UserBean> {
         val subj = PublishSubject.create<UserBean>()
         FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
-            it.result
-            subj.onNext(createUser(it.result.user.uid))
+            val result = it.result
+            if (result != null) {
+                subj.onNext(createUser(result.user.uid))
+            } else {
+                subj.onError(Exception("No result while signing in with Firebase"))
+            }
         }.addOnFailureListener {
             subj.onError(it)
         }

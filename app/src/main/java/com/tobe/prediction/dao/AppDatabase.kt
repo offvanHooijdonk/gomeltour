@@ -24,4 +24,3 @@ abstract class AppDatabase : RoomDatabase() {
 }
 
 const val DB_NAME = "predict-0.2"
-fun buildDatabase(context: Context) = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME).build()

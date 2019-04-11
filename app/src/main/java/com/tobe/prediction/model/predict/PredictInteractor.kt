@@ -7,13 +7,12 @@ import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.domain.dto.convertToPredictDTO
 import com.tobe.prediction.helper.schedulersIO
 import io.reactivex.Single
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 10/31/2018 2:09 PM.
  */
 
-class PredictInteractor @Inject constructor(var predictDao: IPredictDao, var userDao: IUserDao, var voteDao: IVoteDao) {
+class PredictInteractor constructor(var predictDao: IPredictDao, var userDao: IUserDao, var voteDao: IVoteDao) {
     fun getPredicts(): Single<out List<PredictDTO>> {
         return predictDao.list()
                 .flattenAsObservable { list -> list }

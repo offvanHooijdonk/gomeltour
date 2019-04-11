@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.tobe.prediction.R
-import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.*
 import com.tobe.prediction.model.loadAvatar
@@ -16,7 +15,6 @@ import com.tobe.prediction.presentation.presenter.predict.view.PredictSinglePres
 import kotlinx.android.synthetic.main.fr_predict_view.*
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.toast
-import javax.inject.Inject
 
 /**
  * Created by Yahor_Fralou on 10/10/2018 12:30 PM.
@@ -27,7 +25,6 @@ class PredictSingleDialog : DialogFragment(), IPredictSingleView {
         const val EXTRA_PREDICT_ID = "predict_id"
     }
 
-    @Inject
     lateinit var presenter: PredictSinglePresenter
 
     private lateinit var ctx: Context
@@ -48,11 +45,10 @@ class PredictSingleDialog : DialogFragment(), IPredictSingleView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dependency().predictComponent().inject(this)
         presenter.attachView(this)
         ctx = requireContext()
 
-        imgBack.setOnClickListener { dialog.dismiss() }
+        imgBack.setOnClickListener { dialog?.dismiss() }
         rlPredict.setUp()
 
         root.hide()
@@ -63,8 +59,8 @@ class PredictSingleDialog : DialogFragment(), IPredictSingleView {
     override fun onStart() {
         super.onStart()
 
-        dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-        dialog.window?.setWindowAnimations(R.style.DialogFadeAnimation)
+        dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setWindowAnimations(R.style.DialogFadeAnimation)
     }
 
     override fun displayMainInfo(dto: PredictDTO) {

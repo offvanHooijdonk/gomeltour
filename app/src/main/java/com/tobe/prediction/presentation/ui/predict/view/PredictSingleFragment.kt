@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tobe.prediction.R
-import com.tobe.prediction.di.dependency
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.*
 import com.tobe.prediction.model.loadAvatar
@@ -15,7 +14,6 @@ import com.tobe.prediction.presentation.presenter.predict.view.PredictSinglePres
 import kotlinx.android.synthetic.main.fr_predict_view.*
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.toast
-import javax.inject.Inject
 
 class PredictSingleFragment : Fragment(), IPredictSingleView {
     companion object {
@@ -28,7 +26,6 @@ class PredictSingleFragment : Fragment(), IPredictSingleView {
 
     }
 
-    @Inject
     lateinit var presenter: PredictSinglePresenter
 
     private lateinit var ctx: Context
@@ -43,7 +40,6 @@ class PredictSingleFragment : Fragment(), IPredictSingleView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dependency().predictComponent().inject(this)
         presenter.attachView(this)
         ctx = requireContext()
 
