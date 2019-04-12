@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_CODE_GOOGLE_SIGN_IN) {
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == AppCompatActivity.RESULT_OK) {
                 viewModel.handleAuthData(data)
             }
         }

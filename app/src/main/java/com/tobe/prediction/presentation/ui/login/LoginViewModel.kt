@@ -21,11 +21,12 @@ class LoginViewModel(private val authGoogle: AuthGoogle) : BaseViewModel() {
     val authIntent: Intent
         get() = authGoogle.getSignInClient().signInIntent
 
-    private val showLoginForm = ObservableBoolean(false)
-    private val showLoginProgress = ObservableBoolean(false)
-    private val errorMessage = ObservableField<String>()
+    val enableLoginButton = ObservableBoolean(false)
+    val showLoginProgress = ObservableBoolean(false)
+    val errorMessage = ObservableField<String>()
 
     fun activityStart() {
+        showProgress()
         getAuthenticatedUser()
     }
 
@@ -63,25 +64,25 @@ class LoginViewModel(private val authGoogle: AuthGoogle) : BaseViewModel() {
     }
 
     private fun showProgress() {
-        showLoginForm.set(false)
+        enableLoginButton.set(false)
         showLoginProgress.set(true)
         errorMessage.set(null)
     }
 
     private fun showLogin() {
         showLoginProgress.set(false)
-        showLoginForm.set(true)
+        enableLoginButton.set(true)
     }
 
     private fun showError(msg: String) {
         showLoginProgress.set(false)
-        showLoginForm.set(true)
+        enableLoginButton.set(true)
         errorMessage.set(msg)
     }
 
     private fun hideAll() {
         showLoginProgress.set(false)
-        showLoginForm.set(false)
+        enableLoginButton.set(false)
         errorMessage.set(null)
     }
 }
