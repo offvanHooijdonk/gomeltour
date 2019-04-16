@@ -1,4 +1,4 @@
-package com.tobe.prediction.presentation.ui
+package com.tobe.prediction.presentation.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater

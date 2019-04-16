@@ -119,7 +119,7 @@ class AnswersGroup(private val maxAnswerNum: Int, private val minAnswerNum: Int,
     }
 
     /**
-     * Reset the positions of views according to actual position in the views list
+     * Reset the positions of views according to actual position in the views predictsList
      */
     private fun normalizePositions() {
         views.forEachIndexed { index, view -> view.updatePosition(index) }

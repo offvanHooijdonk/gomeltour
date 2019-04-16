@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                     android:layout_width="match_parent"
-                                                     android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -25,7 +26,7 @@
                 android:fontFamily="monospace"
                 android:text="@string/predict_list_title"
                 android:textColor="#FFF"
-                android:textSize="24sp"/>
+                android:textSize="24sp" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -34,31 +35,19 @@
         android:id="@+id/containerMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabAddNew"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:elevation="6dp"
-        android:insetBottom="0dp"
-        android:insetTop="0dp"
-        android:maxLines="1"
-        android:paddingEnd="24dp"
-        android:paddingStart="16dp"
+        android:layout_height="wrap_content"
         android:text="Predict"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:backgroundTint="?attr/colorAccent"
-        app:cornerRadius="28dp"
+        android:textColor="@color/md_white_1000"
+        app:backgroundTint="@color/colorAccent"
         app:icon="@drawable/ic_wand_24"
-        app:iconPadding="8dp"
-        app:iconSize="24dp"
-        app:iconTint="@android:color/white"
+        app:iconTint="@color/md_white_1000"
         app:layout_anchor="@id/bottomAppBar"
-        app:layout_anchorGravity="center_horizontal|top"/>
+        app:layout_anchorGravity="center_horizontal|top" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -69,6 +58,6 @@
         app:backgroundTint="@color/colorPrimary"
         app:hideOnScroll="true"
         app:navigationIcon="@drawable/ic_menu_white_24"
-        app:popupTheme="@style/AppTheme.AppBarOverlay"/>
+        app:popupTheme="@style/AppTheme.AppBarOverlay" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

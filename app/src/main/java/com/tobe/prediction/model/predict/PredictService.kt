@@ -12,7 +12,7 @@ import io.reactivex.Single
  * Created by Yahor_Fralou on 10/31/2018 2:09 PM.
  */
 
-class PredictInteractor constructor(var predictDao: IPredictDao, var userDao: IUserDao, var voteDao: IVoteDao) {
+class PredictService constructor(private var predictDao: IPredictDao, private var userDao: IUserDao/*, var voteDao: IVoteDao*/) {
     fun getPredicts(): Single<out List<PredictDTO>> {
         return predictDao.list()
                 .flattenAsObservable { list -> list }

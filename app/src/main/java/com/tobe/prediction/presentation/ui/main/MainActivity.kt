@@ -1,40 +1,32 @@
-package com.tobe.prediction.presentation.ui
+package com.tobe.prediction.presentation.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.tobe.prediction.R
 import com.tobe.prediction.helper.colorError
-import com.tobe.prediction.presentation.presenter.main.MainPresenter
-import com.tobe.prediction.presentation.ui.login.LoginActivity
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
 import com.tobe.prediction.presentation.ui.predict.view.PredictEditDialog
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleDialog
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleFragment
-import com.tobe.prediction.presentation.views.FabAnimator
 import kotlinx.android.synthetic.main.act_main.*
 import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.toast
+import org.koin.android.ext.android.inject
 
 /**
  * Created by Yahor_Fralou on 9/18/2018 5:15 PM.
  */
 
-class MainActivity : AppCompatActivity(), IMainView {
+class MainActivity : AppCompatActivity() {
+    private val viewModel: MainViewModel by inject()
 
-    lateinit var presenter: MainPresenter
-
-    private lateinit var fabAnimator: FabAnimator
+    //private lateinit var fabAnimator: FabAnimator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_main)
-
-        presenter.attachView(this)
 
         bottomAppBar.inflateMenu(R.menu.main)
         bottomAppBar.setOnMenuItemClickListener { item ->
@@ -52,12 +44,8 @@ class MainActivity : AppCompatActivity(), IMainView {
             PredictEditDialog().show(supportFragmentManager, "one")
         }
 
-        fabAnimator = FabAnimator(fabAddNew)
+        //fabAnimator = FabAnimator(fabAddNew)
 
-        // TODO remove when we do not do fragments navigation
-        /*supportFragmentManager.addOnBackStackChangedListener {
-            if (supportFragmentManager.backStackEntryCount == 0) showBackButton(false)
-        }*/
         navigate(FRAG_PREDICT_LIST, null)
     }
 
@@ -68,16 +56,10 @@ class MainActivity : AppCompatActivity(), IMainView {
     }
 
     private fun logOut() {
-        presenter.onLogoutSelected()
+        viewModel.logOut()
     }
 
-    override fun navigateLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean { // FIXME remove if unused
         when (item?.itemId) {
             //android.R.id.home -> supportFragmentManager.popBackStack()
             //android.R.id.home -> BottomNavigationDialog().show(supportFragmentManager, FRAG_BOTTOM_NAVIGATION)
@@ -94,17 +76,6 @@ class MainActivity : AppCompatActivity(), IMainView {
                 }
             }
         }
-    }
-
-    override fun showError(e: Exception) {
-        errorBar("Error! Log out failed.")
-        toast(e.toString())
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        presenter.detachView()
     }
 
     private fun navigate(destKey: String, bundle: Bundle?) {
@@ -128,9 +99,11 @@ class MainActivity : AppCompatActivity(), IMainView {
 
     private fun animateFABHiding(isHide: Boolean) {
         if (isHide) {
-            fabAnimator.startOutAnimation()
-        }else {
-            fabAnimator.startInAnimation()
+            //fabAnimator.startOutAnimation()
+            fabAddNew.hide()
+        } else {
+            //fabAnimator.startInAnimation()
+            fabAddNew.show()
         }
     }
 
@@ -140,27 +113,6 @@ class MainActivity : AppCompatActivity(), IMainView {
             arguments = Bundle().apply { putString(PredictSingleFragment.EXTRA_PREDICT_ID, predictId) }
         }.show(supportFragmentManager, FRAG_PREDICT_VIEW)
 
-    }
-
-    @Deprecated("Now Bottom Sheet Dialog is used")
-    private fun showLogOutDialog() {
-        AlertDialog.Builder(this)
-                .setTitle(R.string.sign_out_title)
-                .setMessage(R.string.sign_out_message)
-                .setCancelable(true)
-                .setPositiveButton(android.R.string.ok) { dialog, _ -> logOut(); dialog.dismiss() }
-                .setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.dismiss() }
-                .show()
-        /*alert {
-                titleResource = R.string.sign_out_title
-                messageResource = R.string.sign_out_message
-                isCancelable = true
-                okButton { dialog ->
-                    logOut()
-                    dialog.dismiss()
-                }
-                cancelButton { dialog -> dialog.dismiss() }
-            }.show()*/
     }
 
     private fun showBackButton(isShow: Boolean) {

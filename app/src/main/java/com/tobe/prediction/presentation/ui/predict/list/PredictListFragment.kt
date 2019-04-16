@@ -14,10 +14,10 @@ import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.hide
 import com.tobe.prediction.helper.setUp
 import com.tobe.prediction.helper.show
-import com.tobe.prediction.presentation.presenter.predict.list.PredictListPresenter
 import kotlinx.android.synthetic.main.fr_predict_list.*
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.longToast
+import org.koin.android.ext.android.inject
 
 /**
  * Created by Yahor_Fralou on 9/21/2018 4:36 PM.
@@ -33,7 +33,7 @@ class PredictListFragment : Fragment(), IPredictListView {
         }
     }
 
-    lateinit var presenter: PredictListPresenter
+    val viewModel: PredictListViewModel by inject()
 
     lateinit var scroll: (isDown: Boolean) -> Unit
     private lateinit var pick: (String) -> Unit
@@ -48,8 +48,6 @@ class PredictListFragment : Fragment(), IPredictListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        presenter.attachView(this)
 
         rvPredicts.layoutManager = LinearLayoutManager(ctx)
         adapter = PredictAdapter(ctx, predicts, this::onItemPicked)
@@ -68,14 +66,11 @@ class PredictListFragment : Fragment(), IPredictListView {
             }
         })
 
+        viewModel.loadPredicts()
+
         /*fabAdd.setOnClickListener {
             PredictEditDialog().show(fragmentManager, "one")
         }*/
-    }
-
-    override fun onStart() {
-        super.onStart()
-        presenter.loadPredictList()
     }
 
     override fun onDataLoaded(list: List<PredictDTO>) {
@@ -95,11 +90,6 @@ class PredictListFragment : Fragment(), IPredictListView {
     override fun showError(th: Throwable?) { // TODO use snackbars when they are fixed
         //rvPredicts.snackbar("Error loading data").colorError()
         ctx.longToast("Error loading data. ${th.toString()}")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.detachView()
     }
 
     private fun onItemPicked(predict: PredictDTO) {
