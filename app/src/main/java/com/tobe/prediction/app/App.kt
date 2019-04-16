@@ -4,6 +4,7 @@ import android.app.Application
 import com.tobe.prediction.dao.AppDatabase
 import com.tobe.prediction.di.daoModule
 import com.tobe.prediction.model.serviceModule
+import com.tobe.prediction.presentation.navModule
 import com.tobe.prediction.presentation.presentationModule
 import com.tobe.prediction.presentation.uiModule
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +27,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(serviceModule, daoModule, uiModule, presentationModule)
+            modules(serviceModule, daoModule, uiModule, presentationModule, navModule)
         }
     }
 }

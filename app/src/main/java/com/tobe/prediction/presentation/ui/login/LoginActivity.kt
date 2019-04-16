@@ -1,22 +1,16 @@
 package com.tobe.prediction.presentation.ui.login
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.tobe.prediction.R
 import com.tobe.prediction.databinding.ActLoginBinding
-import com.tobe.prediction.helper.hide
-import com.tobe.prediction.helper.hideBut
-import com.tobe.prediction.helper.show
-import com.tobe.prediction.presentation.ui.MainActivity
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.act_login.*
-import org.jetbrains.anko.longToast
-import org.jetbrains.anko.startActivity
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 /**
  * Created by Yahor_Fralou on 9/17/2018 5:33 PM.
@@ -28,7 +22,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private val viewModel: LoginViewModel by viewModel()
-    private lateinit var dispNavigation: Disposable
+    private val navigatorHolder: NavigatorHolder by inject()
+    private val navigator = SupportAppNavigator(this, 0) // todo try override and set Transition basing on some field in LoginViewModel
 
     private var isLoginProcessPassed = false
 
@@ -38,10 +33,6 @@ class LoginActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActLoginBinding>(this, R.layout.act_login)
         binding.model = viewModel
 
-        dispNavigation = viewModel.navigation.subscribe {
-            Toast.makeText(this, "Navigating to Main", Toast.LENGTH_LONG).show()
-        }
-
         btnGoogleSign.setOnClickListener {
             startAuth()
         }
@@ -50,13 +41,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        navigatorHolder.setNavigator(navigator)
         viewModel.activityStart()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
 
-        dispNavigation.dispose()
+        navigatorHolder.removeNavigator()
     }
 
     private fun startAuth() {
@@ -67,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_CODE_GOOGLE_SIGN_IN) {
-            if (resultCode == AppCompatActivity.RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 viewModel.handleAuthData(data)
             }
         }

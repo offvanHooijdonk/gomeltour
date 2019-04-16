@@ -6,17 +6,14 @@ import androidx.databinding.ObservableField
 import com.tobe.prediction.helper.attachTo
 import com.tobe.prediction.helper.schedulersIO
 import com.tobe.prediction.model.auth.AuthGoogle
+import com.tobe.prediction.presentation.navigation.MainScreen
 import com.tobe.prediction.presentation.ui.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
+import ru.terrakok.cicerone.Router
 
-class LoginViewModel(private val authGoogle: AuthGoogle) : BaseViewModel() {
-    companion object {
-        const val NAV_MAIN = "main"
-    }
+class LoginViewModel(private val authGoogle: AuthGoogle, private val router: Router) : BaseViewModel() {
+
     override val cd = CompositeDisposable()
-
-    val navigation = PublishSubject.create<String>() // todo use Cicero or Navigation
 
     val authIntent: Intent
         get() = authGoogle.getSignInClient().signInIntent
@@ -37,7 +34,7 @@ class LoginViewModel(private val authGoogle: AuthGoogle) : BaseViewModel() {
                     .schedulersIO()
                     .subscribe({
                         hideAll()
-                        navigateTo(NAV_MAIN)
+                        navigateToMain()
                     }, { th ->
                         showError(th.toString())
                     }).attachTo(cd)
@@ -53,14 +50,14 @@ class LoginViewModel(private val authGoogle: AuthGoogle) : BaseViewModel() {
                 .schedulersIO()
                 .subscribe({
                     hideAll()
-                    navigateTo(NAV_MAIN)
+                    navigateToMain()
                 }, { th -> errorMessage.set(th.message) }, {
                     showLogin()
                 }).attachTo(cd)
     }
 
-    private fun navigateTo(key: String) {
-        navigation.onNext(key)
+    private fun navigateToMain() {
+        router.navigateTo(MainScreen())
     }
 
     private fun showProgress() {
