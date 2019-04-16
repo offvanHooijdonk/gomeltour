@@ -11,6 +11,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import ru.terrakok.cicerone.commands.Forward
 
 /**
  * Created by Yahor_Fralou on 9/17/2018 5:33 PM.
@@ -23,9 +24,12 @@ class LoginActivity : AppCompatActivity() {
 
     private val viewModel: LoginViewModel by viewModel()
     private val navigatorHolder: NavigatorHolder by inject()
-    private val navigator = SupportAppNavigator(this, 0) // todo try override and set Transition basing on some field in LoginViewModel
-
-    private var isLoginProcessPassed = false
+    private val navigator = object : SupportAppNavigator(this, 0) {
+        override fun activityForward(command: Forward?) {
+            super.activityForward(command)
+            setTransitionToMain(viewModel.isLoginProcessPassed)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun setTransitionToMain() {
+    private fun setTransitionToMain(isLoginProcessPassed: Boolean) {
         val animEnter: Int
         val animLeave: Int
         if (isLoginProcessPassed) {

@@ -1,6 +1,9 @@
 package com.tobe.prediction.presentation
 
 import com.tobe.prediction.R
+import com.tobe.prediction.presentation.navigation.MainScreen
+import com.tobe.prediction.presentation.navigation.RouterHelper
+import com.tobe.prediction.presentation.navigation.Screens
 import com.tobe.prediction.presentation.ui.login.LoginViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -23,6 +26,12 @@ val navModule = module {
     single { Cicerone.create() as CiceroneBase }
     single { get<CiceroneBase>().navigatorHolder }
     single { get<CiceroneBase>().router }
+    single { RouterHelper(get(), get()) }
+
+    // region Screens
+    single { Screens() }
+    single { MainScreen() }
+    // endregion
 }
 
 typealias CiceroneBase = Cicerone<Router>

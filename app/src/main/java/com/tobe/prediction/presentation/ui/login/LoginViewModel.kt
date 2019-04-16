@@ -6,12 +6,11 @@ import androidx.databinding.ObservableField
 import com.tobe.prediction.helper.attachTo
 import com.tobe.prediction.helper.schedulersIO
 import com.tobe.prediction.model.auth.AuthGoogle
-import com.tobe.prediction.presentation.navigation.MainScreen
+import com.tobe.prediction.presentation.navigation.RouterHelper
 import com.tobe.prediction.presentation.ui.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
-import ru.terrakok.cicerone.Router
 
-class LoginViewModel(private val authGoogle: AuthGoogle, private val router: Router) : BaseViewModel() {
+class LoginViewModel(private val authGoogle: AuthGoogle, private val routerHelper: RouterHelper) : BaseViewModel() {
 
     override val cd = CompositeDisposable()
 
@@ -22,7 +21,10 @@ class LoginViewModel(private val authGoogle: AuthGoogle, private val router: Rou
     val showLoginProgress = ObservableBoolean(false)
     val errorMessage = ObservableField<String>()
 
+    var isLoginProcessPassed = false
+
     fun activityStart() {
+        isLoginProcessPassed = false
         showProgress()
         getAuthenticatedUser()
     }
@@ -33,6 +35,7 @@ class LoginViewModel(private val authGoogle: AuthGoogle, private val router: Rou
             authGoogle.signInUser(data)
                     .schedulersIO()
                     .subscribe({
+                        isLoginProcessPassed = true
                         hideAll()
                         navigateToMain()
                     }, { th ->
@@ -57,7 +60,7 @@ class LoginViewModel(private val authGoogle: AuthGoogle, private val router: Rou
     }
 
     private fun navigateToMain() {
-        router.navigateTo(MainScreen())
+        routerHelper.navigateToMain()
     }
 
     private fun showProgress() {
