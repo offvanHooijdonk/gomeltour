@@ -49,7 +49,7 @@ class PredictSingleDialog : DialogFragment(), IPredictSingleView {
         ctx = requireContext()
 
         imgBack.setOnClickListener { dialog?.dismiss() }
-        rlPredict.setUp()
+        rlPredict.setUpDefault()
 
         root.hide()
         rlPredict.isRefreshing = true

@@ -22,6 +22,7 @@
     <string name="it_authored_list">My Predictions</string>
     <string name="settings">Settings</string>
     <string name="fish_number">12.6k</string>
+    <string name="filter_empty_result">No predictions matching your filter</string>
 
     <integer name="max_answers">7</integer>
     <integer name="min_answers">2</integer>

@@ -23,7 +23,7 @@ fun View.hideBut() =
 
 //fun View.isShown() = this.visibility == View.VISIBLE
 
-fun SwipeRefreshLayout.setUp() {
+fun SwipeRefreshLayout.setUpDefault() {
     this.setColorSchemeResources(R.color.refresh_1, R.color.refresh_2, R.color.refresh_3)
 }
 

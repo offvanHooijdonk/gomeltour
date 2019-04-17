@@ -2,6 +2,7 @@ package com.tobe.prediction.presentation.ui.predict.list
 
 import android.util.Log
 import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.tobe.prediction.app.App
 import com.tobe.prediction.domain.dto.PredictDTO
@@ -15,6 +16,7 @@ class PredictListViewModel(private val predictService: PredictService) : BaseVie
 
     val predictsList = ObservableArrayList<PredictDTO>()
     val errorMsg = ObservableField<String>()
+    val showEmpty = ObservableBoolean(false)
 
     init {
         loadPredicts()
@@ -23,7 +25,7 @@ class PredictListViewModel(private val predictService: PredictService) : BaseVie
     fun loadPredicts() {
         predictService.getPredicts()
                 .subscribe(
-                        { predictsList.apply { clear(); addAll(it) } },
+                        { predictsList.apply { clear(); addAll(it); showEmpty.set(it.isEmpty()) } },
                         { th -> Log.e(App.LOGCAT, "Error loading predicts", th); errorMsg.set(th.message) } // todo apply better handling
                 ).attachTo(cd)
     }

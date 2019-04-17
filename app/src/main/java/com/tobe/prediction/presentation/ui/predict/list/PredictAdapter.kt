@@ -14,7 +14,9 @@ import kotlinx.android.synthetic.main.item_predict.view.*
  * Created by Yahor_Fralou on 9/21/2018 4:43 PM.
  */
 
-class PredictAdapter(var ctx: Context, private val predicts: List<PredictDTO>, var listener: (PredictDTO) -> Unit) : RecyclerView.Adapter<PredictAdapter.ViewHolder>() {
+class PredictAdapter(var ctx: Context, var listener: (PredictDTO) -> Unit) : RecyclerView.Adapter<PredictAdapter.ViewHolder>() {
+    private val predicts = mutableListOf<PredictDTO>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(ctx).inflate(R.layout.item_predict, parent, false))
 
@@ -32,5 +34,11 @@ class PredictAdapter(var ctx: Context, private val predicts: List<PredictDTO>, v
         }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    fun update(list: List<PredictDTO>) {
+        predicts.clear()
+        predicts.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) // todo use DataBinding here
 }

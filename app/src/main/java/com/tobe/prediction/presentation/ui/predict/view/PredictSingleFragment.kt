@@ -43,7 +43,7 @@ class PredictSingleFragment : Fragment(), IPredictSingleView {
         presenter.attachView(this)
         ctx = requireContext()
 
-        rlPredict.setUp()
+        rlPredict.setUpDefault()
 
         root.hide()
         rlPredict.isRefreshing = true
