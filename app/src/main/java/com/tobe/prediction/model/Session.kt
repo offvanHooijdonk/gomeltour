@@ -7,5 +7,5 @@ import com.tobe.prediction.domain.UserBean
  */
 
 object Session {
-    var user: UserBean? = null
+    var user: UserBean? = null // todo make not-null
 }

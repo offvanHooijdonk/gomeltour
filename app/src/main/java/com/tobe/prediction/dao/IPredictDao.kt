@@ -20,6 +20,6 @@ interface IPredictDao {
     @Query("select * from Predicts")
     fun list(): Maybe<MutableList<Predict>>
 
-    @Query("select * from Predicts where id = :id")
+    @Query("select * from Predicts where predictId = :id")
     fun getById(id: String): Maybe<Predict>
 }

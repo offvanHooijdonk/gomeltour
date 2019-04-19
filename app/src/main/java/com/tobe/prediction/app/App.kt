@@ -1,7 +1,8 @@
 package com.tobe.prediction.app
 
 import android.app.Application
-import com.tobe.prediction.di.daoModule
+import com.tobe.prediction.dao.daoModule
+import com.tobe.prediction.helper.helperModule
 import com.tobe.prediction.model.serviceModule
 import com.tobe.prediction.presentation.navModule
 import com.tobe.prediction.presentation.uiModule
@@ -24,7 +25,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(serviceModule, daoModule, uiModule, navModule)
+            modules(serviceModule, daoModule, uiModule, navModule, helperModule)
         }
     }
 }

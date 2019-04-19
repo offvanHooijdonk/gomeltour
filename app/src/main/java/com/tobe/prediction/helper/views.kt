@@ -11,7 +11,7 @@ import com.tobe.prediction.R
 /**
  * Created by Yahor_Fralou on 9/18/2018 1:55 PM.
  */
-
+// todo move to 'presentation' package
 fun View.show() =
         this.apply { visibility = View.VISIBLE }
 

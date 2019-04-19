@@ -2,8 +2,11 @@ package com.tobe.prediction.presentation.navigation
 
 import android.content.Context
 import android.content.Intent
+import androidx.fragment.app.Fragment
 import com.tobe.prediction.presentation.ui.login.LoginActivity
 import com.tobe.prediction.presentation.ui.main.MainActivity
+import com.tobe.prediction.presentation.ui.predict.edit.PredictEditDialog
+import com.tobe.prediction.presentation.ui.predict.edit.PredictEditViewModel
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import ru.terrakok.cicerone.android.support.SupportAppScreen

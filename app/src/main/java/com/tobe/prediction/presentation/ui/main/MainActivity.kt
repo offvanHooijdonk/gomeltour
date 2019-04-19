@@ -7,20 +7,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.tobe.prediction.R
 import com.tobe.prediction.helper.colorError
+import com.tobe.prediction.presentation.ui.predict.edit.PredictEditDialog
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
-import com.tobe.prediction.presentation.ui.predict.view.PredictEditDialog
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleDialog
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleFragment
 import kotlinx.android.synthetic.main.act_main.*
 import org.jetbrains.anko.design.snackbar
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 /**
  * Created by Yahor_Fralou on 9/18/2018 5:15 PM.
  */
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by inject()
+    companion object {
+        const val TAG_EDIT_DIALOG = "tag_edit_dialog"
+    }
+
+    private val viewModel: MainViewModel by viewModel()
+    private val navigatorHolder: NavigatorHolder by inject()
+    private val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.containerMain)
 
     //private lateinit var fabAnimator: FabAnimator
 
@@ -41,12 +50,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         fabAddNew.setOnClickListener {
-            PredictEditDialog().show(supportFragmentManager, "one")
+            PredictEditDialog().show(supportFragmentManager, TAG_EDIT_DIALOG)
         }
 
         //fabAnimator = FabAnimator(fabAddNew)
 
         navigate(FRAG_PREDICT_LIST, null)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        navigatorHolder.removeNavigator()
     }
 
     private fun startBottomMenu() {
@@ -99,10 +120,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun animateFABHiding(isHide: Boolean) {
         if (isHide) {
-            //fabAnimator.startOutAnimation()
             fabAddNew.hide()
         } else {
-            //fabAnimator.startInAnimation()
             fabAddNew.show()
         }
     }

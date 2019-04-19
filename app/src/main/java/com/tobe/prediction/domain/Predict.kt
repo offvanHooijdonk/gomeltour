@@ -10,11 +10,12 @@ import java.util.*
 
 @Entity(tableName = "Predicts")
 data class Predict(
-        @PrimaryKey var id: String = "",
+        @PrimaryKey(autoGenerate = true) var id: Int? = null,
+        var predictId: String = "",
         var title: String = "",
         var text: String = "",
         var dateOpenTill: Date = Date(),
         var dateFulfillment: Date = Date(),
         var isActive: Boolean = true,
         var userId: String = "",
-        var options: Array<String> = arrayOf())
+        var options: Array<String> = arrayOf("", ""))

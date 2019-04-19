@@ -7,24 +7,25 @@ import com.tobe.prediction.presentation.navigation.RouterHelper
 import com.tobe.prediction.presentation.navigation.Screens
 import com.tobe.prediction.presentation.ui.login.LoginViewModel
 import com.tobe.prediction.presentation.ui.main.MainViewModel
+import com.tobe.prediction.presentation.ui.predict.edit.PredictEditViewModel
 import com.tobe.prediction.presentation.ui.predict.list.PredictListViewModel
-import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 
-const val PACKAGE_NAME = "package_name"
-
 val uiModule = module {
     single(named(OPTION_POS_KEY)) { getInteger(get(), R.integer.option_positive) }
     single(named(OPTION_NEG_KEY)) { getInteger(get(), R.integer.option_negative) }
-    single(named(PACKAGE_NAME)) { androidApplication().packageName }
+    factory(named(OPTION_POS_VALUE)) { androidContext().getString(R.string.form_option_positive) }
+    factory(named(OPTION_NEG_VALUE)) { androidContext().getString(R.string.form_option_negative) }
 
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get(), get()) }
     viewModel { PredictListViewModel(get()) }
+    viewModel { PredictEditViewModel(get()) }
 }
 
 val navModule = module {
@@ -42,5 +43,7 @@ val navModule = module {
 
 typealias CiceroneBase = Cicerone<Router>
 
-const val OPTION_NEG_KEY = "option_negative"
-const val OPTION_POS_KEY = "option_positive"
+const val OPTION_NEG_KEY = "option_negative_key"
+const val OPTION_POS_KEY = "option_positive_key"
+const val OPTION_NEG_VALUE = "option_negative_value"
+const val OPTION_POS_VALUE = "option_positive_value"

@@ -8,7 +8,11 @@ import com.tobe.prediction.presentation.navigation.RouterHelper
 import com.tobe.prediction.presentation.ui.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
 
-class MainViewModel(private val authGoogle: AuthGoogle, private val authFirebase: AuthFirebase, private val routerHelper: RouterHelper) : BaseViewModel() {
+class MainViewModel(
+        private val authGoogle: AuthGoogle,
+        private val authFirebase: AuthFirebase,
+        private val routerHelper: RouterHelper
+) : BaseViewModel() {
     override val cd = CompositeDisposable()
 
     val errorMsg = ObservableField<String>()
@@ -22,4 +26,5 @@ class MainViewModel(private val authGoogle: AuthGoogle, private val authFirebase
             errorMsg.set(it.message) // todo better handling
         })
     }
+
 }

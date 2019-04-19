@@ -20,7 +20,7 @@ data class PredictDTO(
 
 fun convertToPredictDTO(p: Predict, u: UserBean): PredictDTO =
         PredictDTO(
-                id = p.id,
+                id = p.predictId,
                 title = p.title,
                 text = p.text,
                 options = p.options,

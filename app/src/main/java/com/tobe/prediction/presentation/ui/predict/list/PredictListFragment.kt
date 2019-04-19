@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.tobe.prediction.R
 import com.tobe.prediction.databinding.PredictListBinding
 import com.tobe.prediction.domain.dto.PredictDTO
@@ -19,7 +18,7 @@ import com.tobe.prediction.helper.show
 import kotlinx.android.synthetic.main.fr_predict_list.*
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.longToast
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Yahor_Fralou on 9/21/2018 4:36 PM.
@@ -35,7 +34,7 @@ class PredictListFragment : Fragment(), IPredictListView {
         }
     }
 
-    val viewModel: PredictListViewModel by inject()
+    private val viewModel: PredictListViewModel by viewModel()
 
     lateinit var scroll: (isDown: Boolean) -> Unit
     private lateinit var pick: (String) -> Unit
@@ -59,7 +58,7 @@ class PredictListFragment : Fragment(), IPredictListView {
         refreshPredicts.setUpDefault()
         refreshPredicts.setOnRefreshListener { /* todo sort of refresh */ Handler().postDelayed({ refreshPredicts.isRefreshing = false }, 1500) }
 
-        rvPredicts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        /*rvPredicts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             var prevDirDown = false
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val dirDown = dy > 0
@@ -68,13 +67,9 @@ class PredictListFragment : Fragment(), IPredictListView {
                 }
                 prevDirDown = dirDown
             }
-        })
+        })*/
 
         viewModel.loadPredicts()
-
-        /*fabAdd.setOnClickListener {
-            PredictEditDialog().show(fragmentManager, "one")
-        }*/
     }
 
     override fun onDataLoaded(list: List<PredictDTO>) {

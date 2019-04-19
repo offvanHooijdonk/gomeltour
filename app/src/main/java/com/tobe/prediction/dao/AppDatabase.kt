@@ -1,8 +1,6 @@
 package com.tobe.prediction.dao
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.tobe.prediction.dao.converter.DateTypeConverter
@@ -23,4 +21,4 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun voteDao() : IVoteDao
 }
 
-const val DB_NAME = "predict-0.2"
+const val DB_NAME = "predict-0.2.1"

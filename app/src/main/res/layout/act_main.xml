@@ -35,13 +35,14 @@
         android:id="@+id/containerMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabAddNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Predict"
+        android:text="@string/add_predict_cta"
         android:textColor="@color/md_white_1000"
         app:backgroundTint="@color/colorAccent"
         app:icon="@drawable/ic_wand_24"
@@ -56,7 +57,6 @@
         android:layout_gravity="bottom"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
         app:backgroundTint="@color/colorPrimary"
-        app:hideOnScroll="true"
         app:navigationIcon="@drawable/ic_menu_white_24"
         app:popupTheme="@style/AppTheme.AppBarOverlay" />
 

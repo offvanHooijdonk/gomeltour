@@ -1,9 +1,6 @@
-package com.tobe.prediction.di
+package com.tobe.prediction.dao
 
 import androidx.room.Room
-import com.tobe.prediction.dao.AppDatabase
-import com.tobe.prediction.dao.DB_NAME
-import com.tobe.prediction.dao.IUserDao
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
