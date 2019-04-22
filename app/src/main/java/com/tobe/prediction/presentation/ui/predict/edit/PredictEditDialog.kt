@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager.LayoutParams
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.tobe.prediction.R
@@ -45,12 +46,15 @@ class PredictEditDialog : DialogFragment() {
         return binding.root
     }
 
+    // todo handle Back button
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         ctx = requireContext()
 
-        viewModel.closeCommand.subscribe { hideKeyboard(); this.dismiss() }.attachTo(cd)
+        viewModel.closeCommand.subscribe { closeDialog() }.attachTo(cd)
+        viewModel.closeConfirmCommand.subscribe { showCloseConfirm() }.attachTo(cd)
+        viewModel.setupDialog(null)
 
         blockPickFulfillDate.setOnClickListener {
             startDatePicker(null) { datePicked -> viewModel.dateFulfillField.set(datePicked) }
@@ -76,6 +80,21 @@ class PredictEditDialog : DialogFragment() {
         super.onDismiss(dialog)
 
         cd.clear()
+    }
+
+    private fun showCloseConfirm() {
+        AlertDialog.Builder(ctx)
+                .setTitle(R.string.confirm_cancel_title)
+                .setMessage(R.string.confirm_cancel_message)
+                .setCancelable(true)
+                .setNegativeButton(R.string.confirm_btn_stay) { dialog, _ -> dialog.dismiss() }
+                .setPositiveButton(android.R.string.yes) { _, _ -> closeDialog() }
+                .show()
+    }
+
+    private fun closeDialog() {
+        hideKeyboard()
+        dismiss()
     }
 
     private fun startDatePicker(maxDate: Date?, listener: (datePicked: Date) -> Unit) {

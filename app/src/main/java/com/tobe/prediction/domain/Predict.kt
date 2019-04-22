@@ -18,4 +18,14 @@ data class Predict(
         var dateFulfillment: Date = Date(),
         var isActive: Boolean = true,
         var userId: String = "",
-        var options: Array<String> = arrayOf("", ""))
+        var options: Array<String> = arrayOf("", "")) {
+
+    override fun equals(other: Any?): Boolean {
+        return this === other ||
+                other is Predict && id != other.id
+    }
+
+    override fun hashCode(): Int =
+            Objects.hash(id, predictId, title, text, dateFulfillment, dateOpenTill, isActive, userId, options)
+
+}

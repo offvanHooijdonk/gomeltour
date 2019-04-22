@@ -20,6 +20,8 @@ class PredictEditViewModel(private val predictService: PredictService) : BaseVie
     private val configs: Configs by inject()
 
     val closeCommand = PublishSubject.create<Unit>()
+    val closeConfirmCommand = PublishSubject.create<Unit>()
+    private var initialPredict = Predict()
 
     val showProgress = ObservableBoolean(false)
     val invalidMsg = ObservableField<String>()
@@ -32,8 +34,22 @@ class PredictEditViewModel(private val predictService: PredictService) : BaseVie
     val dateFulfillField = ObservableField<Date?>().apply { set(null) }
     val dateOpenTillField = ObservableField<Date?>().apply { set(null) }
 
+    fun setupDialog(initValue: Predict?) {
+        if (initValue == null) {
+            initialPredict = Predict().apply {
+                options[0] = configs.optionPosDefault
+                options[1] = configs.optionNegDefault
+            }
+        } else {
+            initialPredict = initValue
+        }
+        predict.set(initialPredict.copy())
+        predict.get()?.apply {
+            dateFulfillment = Date(initialPredict.dateFulfillment.time)
+            dateOpenTill = Date(initialPredict.dateOpenTill.time)
+        }
+    }
 
-    // todo setup default value for the options
     fun savePredict() {
         showProgress.set(true)
 
@@ -41,6 +57,7 @@ class PredictEditViewModel(private val predictService: PredictService) : BaseVie
             validate()
         } catch (e: ValidationException) {
             invalidMsg.set(e.message)
+            showProgress.set(false)
             return
         }
 
@@ -56,8 +73,18 @@ class PredictEditViewModel(private val predictService: PredictService) : BaseVie
     }
 
     fun cancelEditing() {
-        // todo confirmation
-        closeCommand.onNext(Unit)
+        val currentPredict = predict.get()?.apply {
+            // todo move this to some method
+            fillOptionsValues(this)
+            dateFulfillField.get()?.let { dateFulfillment = it }
+            dateOpenTillField.get()?.let { dateOpenTill = it }
+        }
+
+        if (initialPredict.hashCode() != currentPredict?.hashCode()) {
+            closeConfirmCommand.onNext(Unit)
+        } else {
+            closeCommand.onNext(Unit)
+        }
     }
 
     fun onOptionSelected(isPositive: Boolean, value: Boolean) {
@@ -82,8 +109,8 @@ class PredictEditViewModel(private val predictService: PredictService) : BaseVie
                 dateFulfillment = dateFulfillField.get() ?: throw ValidationException("Date Fulfillment not set")
                 dateOpenTill = dateOpenTillField.get() ?: throw ValidationException("Date Fulfillment not set")
                 if (!votePositive.get() && !voteNegative.get()) throw ValidationException("Need to pick at least one option")
-                options[0] = votePositiveValue.get() ?: configs.optionPosDefault
-                options[1] = voteNegativeValue.get() ?: configs.optionNegDefault
+                options[0] = votePositiveValue.get() ?: throw ValidationException("Please fill the empty option")
+                options[1] = voteNegativeValue.get() ?: throw ValidationException("Please fill the empty option")
                 predictId = ""
                 userId = Session.user!!.id
             }
@@ -92,6 +119,13 @@ class PredictEditViewModel(private val predictService: PredictService) : BaseVie
         }
 
         return predict
+    }
+
+    private fun fillOptionsValues(p: Predict) {
+        p.apply {
+            options[0] = votePositiveValue.get() ?: ""
+            options[1] = voteNegativeValue.get() ?: ""
+        }
     }
 
     @Deprecated("Need to set at server")

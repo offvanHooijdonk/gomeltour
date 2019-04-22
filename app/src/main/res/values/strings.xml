@@ -26,6 +26,9 @@
     <string name="add_predict_cta">Predict</string>
     <string name="label_fulfills_on">Fulfills on</string>
     <string name="label_open_till">Open till</string>
+    <string name="confirm_cancel_title">Confirm</string>
+    <string name="confirm_cancel_message">Are you sure you want to discard your changes?</string>
+    <string name="confirm_btn_stay">No, Stay</string>
 
     <integer name="max_answers">7</integer>
     <integer name="min_answers">2</integer>
