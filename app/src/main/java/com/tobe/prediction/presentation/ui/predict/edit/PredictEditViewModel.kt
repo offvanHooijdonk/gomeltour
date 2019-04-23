@@ -19,7 +19,7 @@ class PredictEditViewModel(private val predictService: PredictService) : BaseVie
     override val cd = CompositeDisposable()
     private val configs: Configs by inject()
 
-    val closeCommand = PublishSubject.create<Unit>()
+    val closeCommand = PublishSubject.create<Unit>() // todo close with Observable interface
     val closeConfirmCommand = PublishSubject.create<Unit>()
     private var initialPredict = Predict()
 

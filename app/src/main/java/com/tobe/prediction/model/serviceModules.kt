@@ -8,5 +8,5 @@ import org.koin.dsl.module
 val serviceModule = module {
     single { AuthGoogle(get(), get(), get()) }
     single { AuthFirebase() }
-    single { PredictService(get(), get()) }
+    single { PredictService(get(), get(), get()) }
 }

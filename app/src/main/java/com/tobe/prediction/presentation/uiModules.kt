@@ -9,6 +9,7 @@ import com.tobe.prediction.presentation.ui.login.LoginViewModel
 import com.tobe.prediction.presentation.ui.main.MainViewModel
 import com.tobe.prediction.presentation.ui.predict.edit.PredictEditViewModel
 import com.tobe.prediction.presentation.ui.predict.list.PredictListViewModel
+import com.tobe.prediction.presentation.ui.predict.view.PredictSingleViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -26,6 +27,7 @@ val uiModule = module {
     viewModel { MainViewModel(get(), get(), get()) }
     viewModel { PredictListViewModel(get()) }
     viewModel { PredictEditViewModel(get()) }
+    viewModel { PredictSingleViewModel(get()) }
 }
 
 val navModule = module {

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fr_predict_view.*
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.toast
 
-class PredictSingleFragment : Fragment(), IPredictSingleView {
+class PredictSingleFragment : Fragment() {
     companion object {
 
         const val EXTRA_PREDICT_ID = "predict_id"
@@ -26,7 +26,7 @@ class PredictSingleFragment : Fragment(), IPredictSingleView {
 
     }
 
-    lateinit var presenter: PredictSinglePresenter
+    //lateinit var presenter: PredictSinglePresenter
 
     private lateinit var ctx: Context
 
@@ -40,17 +40,16 @@ class PredictSingleFragment : Fragment(), IPredictSingleView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter.attachView(this)
-        ctx = requireContext()
+        /*ctx = requireContext()
 
         rlPredict.setUpDefault()
 
         root.hide()
         rlPredict.isRefreshing = true
-        presenter.onViewStarted(predictId)
+        presenter.onViewStarted(predictId)*/
     }
 
-    override fun displayMainInfo(dto: PredictDTO) {
+    /*fun displayMainInfo(dto: PredictDTO) {
         txtPredictTitle.text = dto.title
         txtPredictText.text = dto.text
         txtAuthorName.text = dto.authorName
@@ -61,17 +60,13 @@ class PredictSingleFragment : Fragment(), IPredictSingleView {
         root.show()
     }
 
-    override fun showDataError(message: String) {
+    fun showDataError(message: String) {
         ctx.toast(message)
         txtPredictTitle.snackbar("Error loading data").colorError()
     }
 
-    override fun showNoIdError() {
+    fun showNoIdError() {
         txtPredictTitle.snackbar("Selected item ID was not provided").colorWarn()
-    }
+    }*/
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        presenter.detachView()
-    }
 }

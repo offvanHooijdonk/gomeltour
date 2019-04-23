@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.helper.colorWarn
@@ -51,9 +52,19 @@ fun setVisibleOrGone(view: View, isVisible: Boolean?) {
     view.visibility = if (isVisible == true) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("refreshing")
+fun setRefreshing(refreshLayout: SwipeRefreshLayout, refreshing: Boolean) {
+    refreshLayout.isRefreshing = refreshing
+}
+
 @BindingAdapter("predictsList")
 fun setPredictsList(recyclerView: RecyclerView, list: List<PredictDTO>) {
     (recyclerView.adapter as? PredictAdapter)?.update(list)
+}
+
+@BindingAdapter("numText")
+fun setNumberText(textView: TextView, number: Int) {
+    textView.text = number.toString() // todo implement numbers formatting as 28.4k
 }
 
 @BindingAdapter("dateLong")

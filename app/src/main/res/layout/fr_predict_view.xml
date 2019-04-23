@@ -1,142 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+<layout>
+
+    <data class="PredictSingleDataBinding">
+
+        <variable
+            name="model"
+            type="com.tobe.prediction.presentation.ui.predict.view.PredictSingleViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        errorMsg="@{model.errorMsg}"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <ImageView
-                android:id="@+id/imgBack"
-                style="@style/ClickableBorderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:src="@drawable/ic_arrow_back_24"
-                android:tint="@color/md_white_1000" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="monospace"
-                android:text="@string/predict_list_title"
-                android:textColor="#FFF"
-                android:textSize="24sp" />
-        </androidx.appcompat.widget.Toolbar>
+                <ImageView
+                    android:id="@+id/imgBack"
+                    style="@style/ClickableBorderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:src="@drawable/ic_arrow_back_24"
+                    android:tint="@color/md_white_1000" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="monospace"
+                    android:text="@string/predict_list_title"
+                    android:textColor="#FFF"
+                    android:textSize="24sp" />
+            </androidx.appcompat.widget.Toolbar>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/rlPredict"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/root"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/rlPredict"
+            refreshing="@{model.progressLoad}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:id="@+id/txtPredictTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                tools:text="@string/fish_short" />
-
-            <TextView
-                android:id="@+id/txtPredictText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/txtPredictTitle"
-                tools:text="@string/fish_text" />
-
-            <ImageView
-                android:id="@+id/imgAuthorPic"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_person_default_24"
-                app:layout_constraintTop_toBottomOf="@id/txtPredictText" />
-
-            <TextView
-                android:id="@+id/txtAuthorName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/md_black_1000"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/imgAuthorPic"
-                app:layout_constraintTop_toTopOf="@id/imgAuthorPic"
-                tools:text="@string/fish_full_name" />
-
-            <TextView
-                android:id="@+id/txtCreateDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/imgAuthorPic"
-                app:layout_constraintStart_toStartOf="@id/txtAuthorName"
-                tools:text="@string/fish_date_full" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgAuthorPic">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_vote_positive_24"
-                    android:tint="@color/form_option_positive" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                visible="@{model.predict != null}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/txtVotesPos"
-                    android:layout_width="0dp"
+                    android:id="@+id/txtPredictTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    tools:text="@string/fish_number" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
-                    android:src="@drawable/ic_vote_negative_24"
-                    android:tint="@color/form_option_negative" />
+                    android:text="@{model.predict.title}"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/fish_short" />
 
                 <TextView
-                    android:id="@+id/txtVotesNeg"
-                    android:layout_width="0dp"
+                    android:id="@+id/txtPredictText"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    tools:text="@string/fish_number" />
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                    android:layout_marginTop="16dp"
+                    android:text="@{model.predict.text}"
+                    android:textSize="24sp"
+                    app:layout_constraintTop_toBottomOf="@id/txtPredictTitle"
+                    tools:text="@string/fish_text" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <ImageView
+                    android:id="@+id/imgAuthorPic"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_person_default_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtPredictText" />
+
+                <TextView
+                    android:id="@+id/txtAuthorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{model.predict.authorName}"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/imgAuthorPic"
+                    app:layout_constraintTop_toTopOf="@id/imgAuthorPic"
+                    tools:text="@string/fish_full_name" />
+
+                <TextView
+                    android:id="@+id/txtCreateDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/imgAuthorPic"
+                    app:layout_constraintStart_toStartOf="@id/txtAuthorName"
+                    tools:text="@string/fish_date_full" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgAuthorPic">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_vote_positive_24"
+                        android:tint="@color/form_option_positive" />
+
+                    <TextView
+                        android:id="@+id/txtVotesPos"
+                        numText="@{model.predict.votePosCount}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        tools:text="@string/fish_number" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="64dp"
+                        android:src="@drawable/ic_vote_negative_24"
+                        android:tint="@color/form_option_negative" />
+
+                    <TextView
+                        android:id="@+id/txtVotesNeg"
+                        numText="@{model.predict.votePosCount}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        tools:text="@string/fish_number" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

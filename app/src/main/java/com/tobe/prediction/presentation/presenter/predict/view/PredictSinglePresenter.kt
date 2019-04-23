@@ -16,15 +16,10 @@ import org.koin.core.qualifier.named
 class PredictSinglePresenter(private val predictDao: IPredictDao, private val userDao: IUserDao, private val voteDao: IVoteDao)
     : KoinComponent {
 
-    private var view: IPredictSingleView? = null
     private val cd = CompositeDisposable()
 
-    fun attachView(v: IPredictSingleView) {
-        this.view = v
-    }
-
     fun onViewStarted(predictId: String?) {
-        if (predictId == null) {
+        /*if (predictId == null) {
             // todo show some error
             view?.showNoIdError()
             return
@@ -41,11 +36,7 @@ class PredictSinglePresenter(private val predictDao: IPredictDao, private val us
                     view?.displayMainInfo(it)
                 }, {
                     view?.showDataError(it.message ?: it.toString())
-                }).attachTo(cd)
+                }).attachTo(cd)*/
     }
 
-    fun detachView() {
-        cd.clear()
-        view = null
-    }
 }

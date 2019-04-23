@@ -24,7 +24,6 @@ import java.util.*
 /**
  * Created by Yahor_Fralou on 9/27/2018 3:05 PM.
  */
-const val NONE_SELECTED = -1
 
 class PredictEditDialog : DialogFragment() {
 

@@ -28,7 +28,7 @@ class PredictListFragment : Fragment(), IPredictListView {
     companion object {
         fun instance(pick: (String) -> Unit): PredictListFragment {
             val fr = PredictListFragment()
-            fr.pick = pick
+            fr.pick = pick // todo replace this
 
             return fr
         }
@@ -93,6 +93,5 @@ class PredictListFragment : Fragment(), IPredictListView {
 
     private fun onItemPicked(predict: PredictDTO) {
         pick(predict.id)
-        rvPredicts.snackbar("Oh you clicked", "Yes") { }
     }
 }
