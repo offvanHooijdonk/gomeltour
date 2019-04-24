@@ -17,16 +17,35 @@ class PredictListViewModel(private val predictService: PredictService) : BaseVie
     val predictsList = ObservableArrayList<PredictDTO>()
     val errorMsg = ObservableField<String>()
     val showEmpty = ObservableBoolean(false)
+    val progressLoad = ObservableBoolean(false)
 
-    init {
+    private var isInit = false
+
+    fun viewStart() {
+        isInit = if (!isInit) {
+            loadPredicts()
+            true
+        } else isInit
+    }
+
+    fun updatePredicts() {
         loadPredicts()
     }
 
-    fun loadPredicts() {
+    private fun loadPredicts() {
+        progressLoad.set(true)
         predictService.getPredicts()
-                .subscribe(
-                        { predictsList.apply { clear(); addAll(it); showEmpty.set(it.isEmpty()) } },
-                        { th -> Log.e(App.LOGCAT, "Error loading predicts", th); errorMsg.set(th.message) } // todo apply better handling
+                .subscribe({
+                    predictsList.apply {
+                        clear(); addAll(it)
+                        progressLoad.set(false)
+                        showEmpty.set(it.isEmpty())
+                    }
+                }, { th ->
+                    Log.e(App.LOGCAT, "Error loading predicts", th)
+                    progressLoad.set(false)
+                    errorMsg.set(th.message)
+                } // todo apply better handling
                 ).attachTo(cd)
     }
 }

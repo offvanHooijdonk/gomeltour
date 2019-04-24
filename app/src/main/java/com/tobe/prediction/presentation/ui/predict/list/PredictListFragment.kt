@@ -56,7 +56,7 @@ class PredictListFragment : Fragment(), IPredictListView {
         adapter = PredictAdapter(ctx, this::onItemPicked)
         rvPredicts.adapter = adapter
         refreshPredicts.setUpDefault()
-        refreshPredicts.setOnRefreshListener { /* todo sort of refresh */ Handler().postDelayed({ refreshPredicts.isRefreshing = false }, 1500) }
+        refreshPredicts.setOnRefreshListener { viewModel.updatePredicts() }
 
         /*rvPredicts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             var prevDirDown = false
@@ -69,7 +69,7 @@ class PredictListFragment : Fragment(), IPredictListView {
             }
         })*/
 
-        viewModel.loadPredicts()
+        viewModel.viewStart()
     }
 
     override fun onDataLoaded(list: List<PredictDTO>) {

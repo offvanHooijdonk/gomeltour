@@ -15,7 +15,8 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refreshPredicts"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            refreshing="@{model.progressLoad}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPredicts"

@@ -25,7 +25,9 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(serviceModule, daoModule, uiModule, navModule, helperModule)
+            modules(allModules)
         }
     }
 }
+
+internal val allModules = listOf(serviceModule, daoModule, uiModule, navModule, helperModule)
