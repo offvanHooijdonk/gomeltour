@@ -5,15 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.tobe.prediction.R
-import com.tobe.prediction.domain.dto.PredictDTO
-import com.tobe.prediction.helper.*
-import com.tobe.prediction.model.loadAvatar
-import com.tobe.prediction.presentation.presenter.predict.view.PredictSinglePresenter
+import com.tobe.prediction.databinding.PredictSingleDataBinding
+import com.tobe.prediction.helper.setUpDefault
 import kotlinx.android.synthetic.main.fr_predict_view.*
-import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.toast
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PredictSingleFragment : Fragment() {
     companion object {
@@ -27,46 +25,27 @@ class PredictSingleFragment : Fragment() {
     }
 
     //lateinit var presenter: PredictSinglePresenter
-
-    private lateinit var ctx: Context
+    private val viewModel: PredictSingleViewModel by viewModel()
+    private lateinit var binding: PredictSingleDataBinding
 
     private var predictId: String? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         predictId = arguments?.getString(EXTRA_PREDICT_ID)
 
-        return inflater.inflate(R.layout.fr_predict_view, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fr_predict_view, container, false)
+        binding.model = viewModel
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*ctx = requireContext()
-
         rlPredict.setUpDefault()
 
-        root.hide()
-        rlPredict.isRefreshing = true
-        presenter.onViewStarted(predictId)*/
+        predictId?.let {
+            viewModel.setPredictId(it)
+        } // todo else show error
     }
-
-    /*fun displayMainInfo(dto: PredictDTO) {
-        txtPredictTitle.text = dto.title
-        txtPredictText.text = dto.text
-        txtAuthorName.text = dto.authorName
-        imgAuthorPic.loadAvatar(dto.authorPic)
-
-        rlPredict.isRefreshing = false
-        rlPredict.isEnabled = false
-        root.show()
-    }
-
-    fun showDataError(message: String) {
-        ctx.toast(message)
-        txtPredictTitle.snackbar("Error loading data").colorError()
-    }
-
-    fun showNoIdError() {
-        txtPredictTitle.snackbar("Selected item ID was not provided").colorWarn()
-    }*/
 
 }

@@ -9,7 +9,6 @@ import com.tobe.prediction.R
 import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.presentation.ui.predict.edit.PredictEditDialog
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
-import com.tobe.prediction.presentation.ui.predict.view.PredictSingleDialog
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleFragment
 import kotlinx.android.synthetic.main.act_main.*
 import org.jetbrains.anko.design.snackbar
@@ -82,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean { // FIXME remove if unused
         when (item?.itemId) {
-            //android.R.id.home -> supportFragmentManager.popBackStack()
+            android.R.id.home -> supportFragmentManager.popBackStack()
             //android.R.id.home -> BottomNavigationDialog().show(supportFragmentManager, FRAG_BOTTOM_NAVIGATION)
         }
 
@@ -128,9 +127,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun startPredictView(predictId: String) {
         //navigate(FRAG_PREDICT_VIEW, Bundle().apply { putString(PredictSingleFragment.EXTRA_PREDICT_ID, predictId) })
-        PredictSingleDialog().apply {
+        /*PredictSingleDialog().apply {
             arguments = Bundle().apply { putString(PredictSingleFragment.EXTRA_PREDICT_ID, predictId) }
-        }.show(supportFragmentManager, FRAG_PREDICT_VIEW)
+        }.show(supportFragmentManager, FRAG_PREDICT_VIEW)*/
+
+        navigate(FRAG_PREDICT_VIEW, Bundle().apply { putString(PredictSingleFragment.EXTRA_PREDICT_ID, predictId) })
 
     }
 

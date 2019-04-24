@@ -41,7 +41,7 @@ class PredictSingleDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         imgBack.setOnClickListener { dialog?.dismiss() }
-        binding.rlPredict.setUpDefault()
+        rlPredict.setUpDefault()
 
         predictId?.let {
             viewModel.setPredictId(it)
