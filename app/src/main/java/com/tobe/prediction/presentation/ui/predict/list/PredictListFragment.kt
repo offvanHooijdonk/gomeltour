@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,19 +26,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 
 class PredictListFragment : Fragment(), IPredictListView {
-    companion object {
-        fun instance(pick: (String) -> Unit): PredictListFragment {
-            val fr = PredictListFragment()
-            fr.pick = pick // todo replace this
-
-            return fr
-        }
-    }
-
     private val viewModel: PredictListViewModel by viewModel()
 
-    lateinit var scroll: (isDown: Boolean) -> Unit
-    private lateinit var pick: (String) -> Unit
+    //lateinit var scroll: (isDown: Boolean) -> Unit
     private lateinit var adapter: PredictAdapter
     private val predicts = mutableListOf<PredictDTO>()
     private lateinit var ctx: Context
@@ -53,7 +44,7 @@ class PredictListFragment : Fragment(), IPredictListView {
         super.onViewCreated(view, savedInstanceState)
 
         rvPredicts.layoutManager = LinearLayoutManager(ctx)
-        adapter = PredictAdapter(ctx, this::onItemPicked)
+        adapter = PredictAdapter(ctx)
         rvPredicts.adapter = adapter
         refreshPredicts.setUpDefault()
         refreshPredicts.setOnRefreshListener { viewModel.updatePredicts() }
@@ -87,11 +78,6 @@ class PredictListFragment : Fragment(), IPredictListView {
     }
 
     override fun showError(th: Throwable?) { // TODO use snackbars when they are fixed
-        //rvPredicts.snackbar("Error loading data").colorError()
         ctx.longToast("Error loading data. ${th.toString()}")
-    }
-
-    private fun onItemPicked(predict: PredictDTO) {
-        pick(predict.id)
     }
 }

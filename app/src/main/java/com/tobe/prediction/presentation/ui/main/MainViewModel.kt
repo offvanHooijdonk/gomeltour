@@ -17,6 +17,10 @@ class MainViewModel(
 
     val errorMsg = ObservableField<String>()
 
+    fun viewStart() {
+        routerHelper.navigateToList()
+    }
+
     fun logOut() {
         authGoogle.signOut({
             authFirebase.signOut()
@@ -27,4 +31,7 @@ class MainViewModel(
         })
     }
 
+    fun back() {
+        routerHelper.navigateBack()
+    }
 }

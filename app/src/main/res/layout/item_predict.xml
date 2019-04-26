@@ -1,93 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="16dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ItemPredictBinding">
+
+        <variable
+            name="model"
+            type="com.tobe.prediction.presentation.ui.predict.list.ItemPredictViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/itemRoot"
+        android:onClick="@{(view) -> model.onSelectItem()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingBottom="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/imgPredictLogo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_stub_icon_24" />
-
-            <TextView
-                android:id="@+id/txtAuthorName"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@string/fish_short"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/imgPredictLogo"
-                app:layout_constraintStart_toEndOf="@id/imgPredictLogo"
-                app:layout_constraintTop_toTopOf="@id/imgPredictLogo" />
+                android:background="?android:attr/selectableItemBackground"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp">
 
-            <TextView
-                android:id="@+id/txtPredictTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="8dp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@string/fish_text"
-                android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@id/imgPredictLogo" />
+                <ImageView
+                    android:id="@+id/imgPredictLogo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    imageUrl="@{model.predict.authorPic}"
+                    tools:src="@drawable/ic_stub_icon_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txtPredictText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:text="@string/fish_text"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/txtPredictTitle" />
+                <TextView
+                    android:id="@+id/txtAuthorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:ellipsize="end"
+                    android:text="@{model.predict.authorName}"
+                    android:lines="1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/imgPredictLogo"
+                    app:layout_constraintStart_toEndOf="@id/imgPredictLogo"
+                    app:layout_constraintTop_toTopOf="@id/imgPredictLogo"
+                    tools:text="@string/fish_short" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/txtPredictTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@{model.predict.title}"
+                    tools:text="@string/fish_text"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toBottomOf="@id/imgPredictLogo" />
 
-    <ImageView
-        android:id="@+id/imgVotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/ic_votes"
-        android:tint="@color/md_light_blue_A400"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card" />
+                <TextView
+                    android:id="@+id/txtPredictText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="@{model.predict.text}"
+                    tools:text="@string/fish_text"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@id/txtPredictTitle" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="12k"
-        android:textColor="@color/md_light_blue_A400"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/imgVotes"
-        app:layout_constraintStart_toEndOf="@id/imgVotes"
-        app:layout_constraintTop_toTopOf="@id/imgVotes" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/imgVotes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_votes"
+            android:tint="@color/md_light_blue_A400"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            numText="@{model.predict.votePosCount + model.predict.voteNegCount}"
+            tools:text="12k"
+            android:textColor="@color/md_light_blue_A400"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/imgVotes"
+            app:layout_constraintStart_toEndOf="@id/imgVotes"
+            app:layout_constraintTop_toTopOf="@id/imgVotes" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

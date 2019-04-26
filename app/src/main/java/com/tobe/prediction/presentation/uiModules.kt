@@ -1,10 +1,7 @@
 package com.tobe.prediction.presentation
 
 import com.tobe.prediction.R
-import com.tobe.prediction.presentation.navigation.LoginScreen
-import com.tobe.prediction.presentation.navigation.MainScreen
-import com.tobe.prediction.presentation.navigation.RouterHelper
-import com.tobe.prediction.presentation.navigation.Screens
+import com.tobe.prediction.presentation.navigation.*
 import com.tobe.prediction.presentation.ui.login.LoginViewModel
 import com.tobe.prediction.presentation.ui.main.MainViewModel
 import com.tobe.prediction.presentation.ui.predict.edit.PredictEditViewModel
@@ -34,12 +31,15 @@ val navModule = module {
     single { Cicerone.create() as CiceroneBase }
     single { get<CiceroneBase>().navigatorHolder }
     single { get<CiceroneBase>().router }
-    single { RouterHelper(get(), get()) }
+    single { RouterHelper(get(), get(), get()) }
+    single { NavigationBackStack() }
 
     // region Screens
     single { Screens() }
     single { MainScreen() }
     single { LoginScreen() }
+    single { PredictListScreen() }
+    single { PredictSingleScreen() }
     // endregion
 }
 

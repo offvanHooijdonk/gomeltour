@@ -1,6 +1,7 @@
 package com.tobe.prediction.presentation.ui
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.BindingAdapter
@@ -11,6 +12,8 @@ import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.helper.colorWarn
 import com.tobe.prediction.helper.hide
 import com.tobe.prediction.helper.show
+import com.tobe.prediction.model.GlideApp
+import com.tobe.prediction.model.loadAvatar
 import com.tobe.prediction.presentation.ui.predict.list.PredictAdapter
 import org.jetbrains.anko.design.longSnackbar
 import java.text.DateFormat
@@ -75,4 +78,9 @@ fun setDateLong(textView: TextView, date: Date?) {
         textView.show()
         textView.text = dateFormatLong.format(date)
     }
+}
+
+@BindingAdapter("imageUrl")
+fun setImageUrl(imageView: ImageView, url: String?) {
+    imageView.loadAvatar(url)
 }

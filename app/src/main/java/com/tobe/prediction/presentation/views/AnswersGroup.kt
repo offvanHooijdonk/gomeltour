@@ -102,7 +102,7 @@ class AnswersGroup(private val maxAnswerNum: Int, private val minAnswerNum: Int,
     }
 
     /**
-     * Reacts on 'remove' button click. Calls external listener to inform about the remove request
+     * Reacts on 'remove' button click. Calls external handler to inform about the remove request
      */
     private fun onRemoveClick(position: Int) {
         removeListener(views[position], position)

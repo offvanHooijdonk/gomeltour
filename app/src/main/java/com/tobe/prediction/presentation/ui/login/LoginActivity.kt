@@ -49,12 +49,6 @@ class LoginActivity : AppCompatActivity() {
         viewModel.activityStart()
     }
 
-    override fun onStop() {
-        super.onStop()
-
-        navigatorHolder.removeNavigator()
-    }
-
     private fun startAuth() {
         startActivityForResult(viewModel.authIntent, REQUEST_CODE_GOOGLE_SIGN_IN)
     }
