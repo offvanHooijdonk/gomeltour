@@ -9,9 +9,14 @@ import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.attachTo
 import com.tobe.prediction.model.predict.PredictService
 import com.tobe.prediction.presentation.ui.BaseViewModel
+import com.tobe.prediction.presentation.ui.main.screenevents.ListScrollEvent
+import com.tobe.prediction.presentation.ui.main.screenevents.ScreenEvent
+import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 
-class PredictListViewModel(private val predictService: PredictService) : BaseViewModel() {
+class PredictListViewModel(private val predictService: PredictService,
+                           private val screenEvents: Observer<ScreenEvent>) : BaseViewModel() {
     override val cd = CompositeDisposable()
 
     val predictsList = ObservableArrayList<PredictDTO>()
@@ -30,6 +35,10 @@ class PredictListViewModel(private val predictService: PredictService) : BaseVie
 
     fun updatePredicts() {
         loadPredicts()
+    }
+
+    fun onListSroll(isDown: Boolean) {
+        screenEvents.onNext(ListScrollEvent(isDown))
     }
 
     private fun loadPredicts() {

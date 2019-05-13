@@ -7,12 +7,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.helper.colorWarn
 import com.tobe.prediction.helper.hide
 import com.tobe.prediction.helper.show
-import com.tobe.prediction.model.GlideApp
 import com.tobe.prediction.model.loadAvatar
 import com.tobe.prediction.presentation.ui.predict.list.PredictAdapter
 import org.jetbrains.anko.design.longSnackbar
@@ -77,6 +77,20 @@ fun setDateLong(textView: TextView, date: Date?) {
     } else {
         textView.show()
         textView.text = dateFormatLong.format(date)
+    }
+}
+
+@BindingAdapter("extendState")
+fun setExtendState(efab: ExtendedFloatingActionButton, isExtend: Boolean) {
+    if (isExtend xor efab.isExtended) {
+        if (isExtend) efab.extend() else efab.shrink()
+    }
+}
+
+@BindingAdapter("visible")
+fun setEFABVisibility(efab: ExtendedFloatingActionButton, isShow: Boolean) {
+    if (isShow xor efab.isShown) {
+        if (isShow) efab.show() else efab.hide()
     }
 }
 

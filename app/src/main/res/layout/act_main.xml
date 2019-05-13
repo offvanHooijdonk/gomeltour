@@ -1,63 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <com.google.android.material.appbar.AppBarLayout
+    <data>
+
+        <variable
+            name="model"
+            type="com.tobe.prediction.presentation.ui.main.MainViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="monospace"
-                android:text="@string/predict_list_title"
-                android:textColor="#FFF"
-                android:textSize="24sp" />
-        </androidx.appcompat.widget.Toolbar>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
-    </com.google.android.material.appbar.AppBarLayout>
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="monospace"
+                    android:text="@string/predict_list_title"
+                    android:textColor="#FFF"
+                    android:textSize="24sp" />
+            </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/containerMain"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="?actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fabAddNew"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_predict_cta"
-        android:textColor="@color/md_white_1000"
-        app:backgroundTint="@color/colorAccent"
-        app:icon="@drawable/ic_wand_24"
-        app:iconTint="@color/md_white_1000"
-        app:layout_anchor="@id/bottomAppBar"
-        app:layout_anchorGravity="center_horizontal|top" />
+        <FrameLayout
+            android:id="@+id/containerMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?actionBarSize"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-        app:backgroundTint="@color/colorPrimary"
-        app:navigationIcon="@drawable/ic_menu_white_24"
-        app:popupTheme="@style/AppTheme.AppBarOverlay" />
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fabAddNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_predict_cta"
+            android:textColor="@color/md_white_1000"
+            android:layout_marginBottom="72dp"
+            android:layout_marginEnd="16dp"
+            visible="@{model.showAddButton}"
+            extendState="@{model.extendState}"
+            app:backgroundTint="@color/colorAccent"
+            app:icon="@drawable/ic_wand_24"
+            app:iconTint="@color/md_white_1000"
+            android:layout_gravity="bottom|end"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:backgroundTint="@color/colorPrimary"
+            app:navigationIcon="@drawable/ic_menu_white_24"
+            app:popupTheme="@style/AppTheme.AppBarOverlay" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -5,12 +5,14 @@ import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.tobe.prediction.R
 import com.tobe.prediction.app.App.Companion.LOGCAT
+import com.tobe.prediction.databinding.ActMainBinding
 import com.tobe.prediction.presentation.navigation.BaseSupportAppNavigator
 import com.tobe.prediction.presentation.navigation.NavigationBackStack
 import com.tobe.prediction.presentation.navigation.Screens
@@ -21,12 +23,7 @@ import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Screen
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import ru.terrakok.cicerone.commands.BackTo
 import ru.terrakok.cicerone.commands.Command
-import ru.terrakok.cicerone.commands.Forward
-import ru.terrakok.cicerone.commands.Replace
 
 /**
  * Created by Yahor_Fralou on 9/18/2018 5:15 PM.
@@ -42,11 +39,11 @@ class MainActivity : AppCompatActivity() {
     private val navigatorHolder: NavigatorHolder by inject()
     private val navigator = MainNavigator(get(), this, supportFragmentManager, R.id.containerMain)
 
-    //private lateinit var fabAnimator: FabAnimator
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.act_main)
+
+        val binding = DataBindingUtil.setContentView<ActMainBinding>(this, R.layout.act_main)
+        binding.model = viewModel
 
         bottomAppBar.inflateMenu(R.menu.main)
         bottomAppBar.setOnMenuItemClickListener { item ->
@@ -88,6 +85,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.back()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean { // FIXME remove if unused
+        when (item?.itemId) {
+            android.R.id.home -> viewModel.back()
+        }
+
+        return true
+    }
+
     private fun startBottomMenu() {
         BottomOptionsDialog()
                 .apply { setMenuPickListener { option -> onBottomOptionsMenuPick(option) } }
@@ -96,14 +101,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun logOut() {
         viewModel.logOut()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean { // FIXME remove if unused
-        when (item?.itemId) {
-            android.R.id.home -> viewModel.back()
-        }
-
-        return true
     }
 
     private fun onBottomOptionsMenuPick(option: Int) {
@@ -116,6 +113,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun onScreenScrolled(isDown: Boolean) {
+        if (isDown) fabAddNew.shrink() else fabAddNew.extend()
+    }
+
     private fun showBackButton(isShow: Boolean) {
         Handler().postDelayed(Runnable {
             supportActionBar?.setDisplayShowHomeEnabled(isShow)
@@ -125,7 +126,6 @@ class MainActivity : AppCompatActivity() {
 
     private inner class MainNavigator(private val backStack: NavigationBackStack, act: FragmentActivity, fm: FragmentManager, containerId: Int)
         : BaseSupportAppNavigator(backStack, act, fm, containerId) {
-        //private var isHomeEnabled = false
 
         override fun applyCommand(command: Command?) {
             super.applyCommand(command)
@@ -133,12 +133,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         private fun checkEnableHomeButton() {
-            backStack.currentScreen?.let {
-                Log.i(LOGCAT, "Screen on check ${it.screenKey}")
+            backStack.currentScreen?.also {
                 if (it.screenKey != Screens.Keys.PREDICT_LIST.name) {
                     showBackButton(true)
+                    viewModel.showAddButton(false)
                 } else {
                     showBackButton(false)
+                    viewModel.showAddButton(true)
                 }
             }
         }
@@ -148,8 +149,6 @@ class MainActivity : AppCompatActivity() {
 
             if (nextFragment !is PredictListFragment) {
                 fragmentTransaction?.setCustomAnimations(R.anim.screen_slide_rl_in, R.anim.screen_slide_rl_out, R.anim.screen_slide_lr_in, R.anim.screen_slide_lr_out)
-                /*if (!isHomeEnabled)*/ //showBackButton(true)
-                //isHomeEnabled = true
             }
         }
     }
