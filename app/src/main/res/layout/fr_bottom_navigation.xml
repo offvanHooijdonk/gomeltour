@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <!-- TODO remove as deprecated -->
+
     <ImageView
         android:id="@+id/imgAvatar"
         android:layout_width="40dp"
@@ -59,6 +61,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgAvatar"
-        app:menu="@menu/bottom_nav_drawer" />
+        app:menu="@menu/bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

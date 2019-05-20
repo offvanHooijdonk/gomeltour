@@ -1,12 +1,17 @@
 package com.tobe.prediction.presentation.ui.main
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tobe.prediction.R
+import com.tobe.prediction.app.App.Companion.LOGCAT
+import com.tobe.prediction.presentation.navigation.RouterHelper
 import kotlinx.android.synthetic.main.fr_bottom_options_dialog.*
+import org.koin.android.ext.android.inject
 
 /**
  * Created by Yahor_Fralou on 10/10/2018 2:40 PM.
@@ -16,6 +21,8 @@ class BottomOptionsDialog : BottomSheetDialogFragment() {
     companion object {
         const val EVENT_SIGN_OUT = 0
     }
+
+    private val routerHelper: RouterHelper by inject()
 
     private var pickEventListener: (Int) -> Unit = {}
 

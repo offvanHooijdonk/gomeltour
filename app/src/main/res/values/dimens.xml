@@ -2,4 +2,6 @@
 <resources>
     <dimen name="bottom_sheet_corner">8dp</dimen>
     <dimen name="login_splash_image_size">180dp</dimen>
+    <dimen name="act_padding_v">16dp</dimen>
+    <dimen name="act_padding_h">16dp</dimen>
 </resources>

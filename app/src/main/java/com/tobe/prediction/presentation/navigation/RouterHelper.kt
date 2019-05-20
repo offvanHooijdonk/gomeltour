@@ -12,9 +12,20 @@ class RouterHelper(private val router: Router, private val navigatorHolder: Navi
         router.navigateTo(screens.loginScreen)
     }
 
+    fun navigateToAccounts() {
+        router.navigateTo(screens.accountScreen)
+    }
+
+    fun navigateToOptions() {
+        router.navigateTo(screens.optionsDialogScreen)
+    }
+
     fun navigateToList() {
         router.newRootScreen(screens.predictListScreen)
-        //router.navigateTo(screens.predictListScreen)
+    }
+
+    fun navigateToPredictEdit() {
+        router.navigateTo(screens.predictEditScreen)
     }
 
     fun navigateToPredictSingle(predictId: String) {

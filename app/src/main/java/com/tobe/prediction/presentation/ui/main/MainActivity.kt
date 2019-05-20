@@ -4,40 +4,38 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.*
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.tobe.prediction.R
 import com.tobe.prediction.app.App.Companion.LOGCAT
 import com.tobe.prediction.databinding.ActMainBinding
 import com.tobe.prediction.presentation.navigation.BaseSupportAppNavigator
 import com.tobe.prediction.presentation.navigation.NavigationBackStack
+import com.tobe.prediction.presentation.navigation.PredictSingleScreen
 import com.tobe.prediction.presentation.navigation.Screens
-import com.tobe.prediction.presentation.ui.predict.edit.PredictEditDialog
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
 import kotlinx.android.synthetic.main.act_main.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.support.SupportAppScreen
 import ru.terrakok.cicerone.commands.Command
+import ru.terrakok.cicerone.commands.Forward
 
 /**
  * Created by Yahor_Fralou on 9/18/2018 5:15 PM.
  */
 
 class MainActivity : AppCompatActivity() {
-    companion object {
-        private const val TAG_EDIT_DIALOG = "tag_edit_dialog"
-        private const val FRAG_BOTTOM_NAVIGATION = "bottom_navigation"
-    }
 
     private val viewModel: MainViewModel by viewModel()
     private val navigatorHolder: NavigatorHolder by inject()
     private val navigator = MainNavigator(get(), this, supportFragmentManager, R.id.containerMain)
+    private lateinit var transformer: EFABTransformer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,27 +43,17 @@ class MainActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActMainBinding>(this, R.layout.act_main)
         binding.model = viewModel
 
-        bottomAppBar.inflateMenu(R.menu.main)
-        bottomAppBar.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.it_bottom_menu) startBottomMenu()
-            return@setOnMenuItemClickListener true
-        }
-
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
-        bottomAppBar.setNavigationOnClickListener {
-            BottomNavigationDialog().show(supportFragmentManager, FRAG_BOTTOM_NAVIGATION)
-        }
+        transformer = EFABTransformer(R.drawable.ic_wand_24, fabAddNew)
 
-        fabAddNew.setOnClickListener {
-            PredictEditDialog().show(supportFragmentManager, TAG_EDIT_DIALOG)
+        navBottom.setOnNavigationItemSelectedListener { item ->
+            viewModel.onNavSelected(item)
+            item.itemId != R.id.it_more
         }
-
-        //fabAnimator = FabAnimator(fabAddNew)
 
         navigatorHolder.setNavigator(navigator)
         viewModel.viewStart()
-        //navigate(FRAG_PREDICT_LIST, null)
     }
 
     override fun onStart() {
@@ -93,28 +81,8 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun startBottomMenu() {
-        BottomOptionsDialog()
-                .apply { setMenuPickListener { option -> onBottomOptionsMenuPick(option) } }
-                .show(supportFragmentManager, "options_menu")
-    }
-
     private fun logOut() {
         viewModel.logOut()
-    }
-
-    private fun onBottomOptionsMenuPick(option: Int) {
-        with(BottomOptionsDialog) {
-            when (option) {
-                EVENT_SIGN_OUT -> logOut()
-                else -> {
-                }
-            }
-        }
-    }
-
-    private fun onScreenScrolled(isDown: Boolean) {
-        if (isDown) fabAddNew.shrink() else fabAddNew.extend()
     }
 
     private fun showBackButton(isShow: Boolean) {
@@ -124,22 +92,47 @@ class MainActivity : AppCompatActivity() {
         }, if (isShow) 350 else 0)
     }
 
-    private inner class MainNavigator(private val backStack: NavigationBackStack, act: FragmentActivity, fm: FragmentManager, containerId: Int)
+    private inner class MainNavigator(private val backStack: NavigationBackStack, act: FragmentActivity, private val fm: FragmentManager, containerId: Int)
         : BaseSupportAppNavigator(backStack, act, fm, containerId) {
+
+        private val screensHideBack = setOf(Screens.Keys.PREDICT_LIST.name)
+        private val screensSkipBack = emptySet<String>()
 
         override fun applyCommand(command: Command?) {
             super.applyCommand(command)
             checkEnableHomeButton()
         }
 
+        override fun fragmentForward(command: Forward?) {
+            val fragment = createFragment(command?.screen as SupportAppScreen)
+            if (fragment is DialogFragment) {
+                fragment.show(fm, command.screen.screenKey)
+            } else {
+                super.fragmentForward(command)
+            }
+        }
+
         private fun checkEnableHomeButton() {
             backStack.currentScreen?.also {
-                if (it.screenKey != Screens.Keys.PREDICT_LIST.name) {
-                    showBackButton(true)
-                    viewModel.showAddButton(false)
-                } else {
+                if (it.screenKey in screensHideBack) {
                     showBackButton(false)
-                    viewModel.showAddButton(true)
+                } else if (it.screenKey !in screensSkipBack) {
+                    showBackButton(true)
+                    //viewModel.showAddButton(false)
+                }
+
+                if (it.screenKey == Screens.Keys.PREDICT_SINGLE.name) { // todo simplify and refactor
+                    (it as? PredictSingleScreen)?.let { _ ->
+                        // todo check if current user is author
+                        transformer.transformToFAB(R.drawable.ic_edit_24)
+                        appBarLayout.setExpanded(true, true)
+                    }
+                } else if (it.screenKey == Screens.Keys.PREDICT_LIST.name) {
+                    if (fabAddNew.isShown) {
+                        transformer.transformBack()
+                    } else {
+                        fabAddNew.show()
+                    }
                 }
             }
         }

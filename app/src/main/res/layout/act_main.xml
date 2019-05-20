@@ -15,6 +15,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
@@ -36,6 +37,17 @@
                     android:text="@string/predict_list_title"
                     android:textColor="#FFF"
                     android:textSize="24sp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    appBarImageUrl="@{model.userPhotoUrl}"
+                    android:onClick="@{(view) -> model.onAppBarUserClick()}"
+                    android:background="?selectableItemBackgroundBorderless"
+                    tools:src="@drawable/ic_user_white_24" />
+
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -49,28 +61,26 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fabAddNew"
+            extendState="@{model.extendState}"
+            visible="@{model.showAddButton}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="72dp"
+            android:onClick="@{(view) -> model.onActionButtonClick()}"
             android:text="@string/add_predict_cta"
             android:textColor="@color/md_white_1000"
-            android:layout_marginBottom="72dp"
-            android:layout_marginEnd="16dp"
-            visible="@{model.showAddButton}"
-            extendState="@{model.extendState}"
             app:backgroundTint="@color/colorAccent"
             app:icon="@drawable/ic_wand_24"
-            app:iconTint="@color/md_white_1000"
-            android:layout_gravity="bottom|end"/>
+            app:iconTint="@color/md_white_1000" />
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            app:backgroundTint="@color/colorPrimary"
-            app:navigationIcon="@drawable/ic_menu_white_24"
-            app:popupTheme="@style/AppTheme.AppBarOverlay" />
+            app:menu="@menu/bottom_nav"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

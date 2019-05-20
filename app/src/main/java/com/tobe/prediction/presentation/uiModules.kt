@@ -40,9 +40,12 @@ val navModule = module {
 
     // region Screens
     single { Screens() }
-    single { MainScreen() }
     single { LoginScreen() }
+    single { MainScreen() }
+    single { AccountsScreen() }
+    single { OptionsDialogScreen() }
     single { PredictListScreen() }
+    single { PredictEditScreen() }
     single { PredictSingleScreen() }
     // endregion
 }

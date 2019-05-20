@@ -15,6 +15,7 @@ import org.jetbrains.anko.toast
  * Created by Yahor_Fralou on 10/22/2018 5:08 PM.
  */
 
+@Deprecated("Replaced with NavBottomBar")
 class BottomNavigationDialog : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

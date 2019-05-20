@@ -13,6 +13,7 @@ import com.tobe.prediction.helper.colorError
 import com.tobe.prediction.helper.colorWarn
 import com.tobe.prediction.helper.hide
 import com.tobe.prediction.helper.show
+import com.tobe.prediction.model.loadAppBarUserPhoto
 import com.tobe.prediction.model.loadAvatar
 import com.tobe.prediction.presentation.ui.predict.list.PredictAdapter
 import org.jetbrains.anko.design.longSnackbar
@@ -97,4 +98,9 @@ fun setEFABVisibility(efab: ExtendedFloatingActionButton, isShow: Boolean) {
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String?) {
     imageView.loadAvatar(url)
+}
+
+@BindingAdapter("appBarImageUrl")
+fun setAppBarImageUrl(imageView: ImageView, url: String?) {
+    imageView.loadAppBarUserPhoto(url)
 }
