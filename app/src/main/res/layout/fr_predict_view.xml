@@ -16,42 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-
-                <ImageView
-                    android:id="@+id/imgBack"
-                    style="@style/ClickableBorderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:src="@drawable/ic_arrow_back_24"
-                    android:tint="@color/md_white_1000" />
-
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="monospace"
-                    android:text="@string/predict_list_title"
-                    android:textColor="#FFF"
-                    android:textSize="24sp" />
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/rlPredict"
             refreshing="@{model.progressLoad}"
@@ -84,78 +48,137 @@
                     app:layout_constraintTop_toBottomOf="@id/txtPredictTitle"
                     tools:text="@string/fish_text" />
 
-                <ImageView
-                    android:id="@+id/imgAuthorPic"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/blockProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    tools:src="@drawable/ic_person_default_24"
+                    android:background="?selectableItemBackground"
+                    android:onClick="@{(view) -> model.onProfileClick()}"
+                    android:padding="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txtPredictText" />
+                    app:layout_constraintTop_toBottomOf="@id/txtPredictText">
 
-                <TextView
-                    android:id="@+id/txtAuthorName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@{model.predict.authorName}"
-                    android:textColor="@color/md_black_1000"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@id/imgAuthorPic"
-                    app:layout_constraintTop_toTopOf="@id/imgAuthorPic"
-                    tools:text="@string/fish_full_name" />
+                    <ImageView
+                        android:id="@+id/imgAuthorPic"
+                        imageUrl="@{model.predict.authorPic}"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/ic_person_default_24" />
 
-                <TextView
-                    android:id="@+id/txtCreateDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/imgAuthorPic"
-                    app:layout_constraintStart_toStartOf="@id/txtAuthorName"
-                    tools:text="@string/fish_date_full" />
+                    <TextView
+                        android:id="@+id/txtAuthorName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@{model.predict.authorName}"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@id/imgAuthorPic"
+                        app:layout_constraintTop_toTopOf="@id/imgAuthorPic"
+                        tools:text="@string/fish_full_name" />
+
+                    <TextView
+                        android:id="@+id/txtCreateDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@id/imgAuthorPic"
+                        app:layout_constraintStart_toStartOf="@id/txtAuthorName"
+                        tools:text="@string/fish_date_full" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <LinearLayout
+                    android:id="@+id/blockVotes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="28dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imgAuthorPic">
+                    app:layout_constraintTop_toBottomOf="@id/blockProfile">
 
-                    <ImageView
+                    <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_vote_positive_24"
-                        android:tint="@color/form_option_positive" />
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:onClick="@{(view) -> model.votePositive()}">
 
-                    <TextView
-                        android:id="@+id/txtVotesPos"
-                        numText="@{model.predict.votePosCount}"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:textSize="16sp"
-                        tools:text="@string/fish_number" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vote_positive_24"
+                            android:tint="@color/form_option_positive" />
 
-                    <ImageView
+                        <TextView
+                            android:id="@+id/txtVotesPos"
+                            votes="@{model.predict.votePosCount}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="36dp"
+                            android:textSize="16sp"
+                            tools:text="@string/fish_number" />
+                    </FrameLayout>
+
+                    <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="64dp"
-                        android:src="@drawable/ic_vote_negative_24"
-                        android:tint="@color/form_option_negative" />
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:onClick="@{(view) -> model.voteNegative()}">
 
-                    <TextView
-                        android:id="@+id/txtVotesNeg"
-                        numText="@{model.predict.votePosCount}"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:textSize="16sp"
-                        tools:text="@string/fish_number" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vote_negative_24"
+                            android:tint="@color/form_option_negative" />
+
+                        <TextView
+                            android:id="@+id/txtVotesNeg"
+                            votes="@{model.predict.voteNegCount}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="36dp"
+                            android:textSize="16sp"
+                            tools:text="@string/fish_number" />
+                    </FrameLayout>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lblRevealAt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:text="Reveals at"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/blockVotes" />
+
+                <TextView
+                    android:id="@+id/lblVoteTill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Vote till"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lblRevealAt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/lblRevealAt"
+                    tools:text="@string/fish_date_full" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/lblVoteTill"
+                    tools:text="@string/fish_date_full" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

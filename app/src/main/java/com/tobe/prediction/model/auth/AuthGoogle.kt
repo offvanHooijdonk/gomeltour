@@ -10,7 +10,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.tobe.prediction.R
-import com.tobe.prediction.dao.IUserDao
+import com.tobe.prediction.dao.UserDao
 import com.tobe.prediction.domain.UserBean
 import com.tobe.prediction.model.Session
 import io.reactivex.Maybe
@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers
  * Created by Yahor_Fralou on 9/18/2018 12:48 PM.
  */
 
-class AuthGoogle constructor(private val ctx: Context, private val userDao: IUserDao, private val authFirebase: AuthFirebase) {
+class AuthGoogle constructor(private val ctx: Context, private val userDao: UserDao, private val authFirebase: AuthFirebase) {
 
     fun getLoggedUser(): Maybe<UserBean> {
         val signedUser = FirebaseAuth.getInstance().currentUser

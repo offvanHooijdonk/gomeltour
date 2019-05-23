@@ -1,6 +1,5 @@
 package com.tobe.prediction.presentation.ui.predict.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +17,9 @@ class PredictSingleFragment : Fragment() {
 
         const val EXTRA_PREDICT_ID = "predict_id"
 
-        fun instance(): PredictSingleFragment {
-            return PredictSingleFragment()
+        fun instance(predictId: String): PredictSingleFragment {
+            return PredictSingleFragment().apply { arguments = Bundle().apply { putString(EXTRA_PREDICT_ID, predictId) } }
         }
-
     }
 
     //lateinit var presenter: PredictSinglePresenter

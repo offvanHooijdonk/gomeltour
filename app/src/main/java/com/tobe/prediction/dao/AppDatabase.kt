@@ -16,9 +16,9 @@ import com.tobe.prediction.domain.Vote
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun userDao() : IUserDao
-    abstract fun predictDao() : IPredictDao
-    abstract fun voteDao() : IVoteDao
+    abstract fun userDao() : UserDao
+    abstract fun predictDao() : PredictDao
+    abstract fun voteDao() : VoteDao
 }
 
 const val DB_NAME = "predict-0.2.1"

@@ -8,6 +8,8 @@ import com.tobe.prediction.presentation.ui.main.screenevents.ScreenEvent
 import com.tobe.prediction.presentation.ui.predict.edit.PredictEditViewModel
 import com.tobe.prediction.presentation.ui.predict.list.PredictListViewModel
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleViewModel
+import com.tobe.prediction.presentation.ui.profile.AccountsViewModel
+import com.tobe.prediction.presentation.ui.profile.ProfileViewModel
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -28,7 +30,9 @@ val uiModule = module {
     viewModel { MainViewModel(get(), get(), get(), get(named(MAIN_SCREEN_MANAGER))) }
     viewModel { PredictListViewModel(get(), get(named(MAIN_SCREEN_MANAGER))) }
     viewModel { PredictEditViewModel(get()) }
-    viewModel { PredictSingleViewModel(get()) }
+    viewModel { PredictSingleViewModel(get(), get()) }
+    viewModel { ProfileViewModel(get()) }
+    viewModel { AccountsViewModel(get(), get()) }
 }
 
 val navModule = module {
@@ -47,6 +51,7 @@ val navModule = module {
     single { PredictListScreen() }
     single { PredictEditScreen() }
     single { PredictSingleScreen() }
+    single { ProfileScreen() }
     // endregion
 }
 

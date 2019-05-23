@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bottom_sheet_corner">8dp</dimen>
+    <dimen name="alert_dialog_corner">8dp</dimen>
     <dimen name="login_splash_image_size">180dp</dimen>
     <dimen name="act_padding_v">16dp</dimen>
     <dimen name="act_padding_h">16dp</dimen>
+    <dimen name="alert_wide_margin_h">36dp</dimen>
 </resources>

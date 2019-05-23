@@ -12,10 +12,13 @@ import io.reactivex.Maybe
  */
 
 @Dao
-interface IUserDao {
+interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(user: UserBean)
 
     @Query("select * from Users where id = :id")
     fun getById(id: String): Maybe<UserBean>
+
+    @Query("select * from Users where id = :id")
+    fun getByIdSync(id: String): UserBean
 }

@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.tobe.prediction.R
+import java.math.RoundingMode
+import java.text.NumberFormat
 
 /**
  * Created by Yahor_Fralou on 9/18/2018 1:55 PM.
@@ -49,4 +51,32 @@ fun View.showKeyboard() {
 fun View.hideKeyBoard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun convertVotesPresentation(votes: Int, ctx: Context): String {
+    var numReduced = votes
+    var range = 0
+    while (numReduced >= 1000) {
+        numReduced /= 1000
+        range++
+    }
+
+    return when (numReduced.toString().length) {
+        1, 2 -> {
+            NumberFormat.getInstance().apply {
+                maximumFractionDigits = 1
+                minimumFractionDigits = 0
+                roundingMode = RoundingMode.DOWN
+            }.format(votes.toDouble() / Math.pow(1000.0, range.toDouble()))
+        }
+        else -> {
+            numReduced.toString()
+        }
+    } + when (range) {
+        1 -> ctx.getString(R.string.votes_thousand)
+        2 -> ctx.getString(R.string.votes_million)
+        3 -> ctx.getString(R.string.votes_billion)
+        4 -> ctx.getString(R.string.votes_trillion)
+        else -> ""
+    }
 }

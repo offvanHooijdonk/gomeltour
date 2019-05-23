@@ -32,6 +32,10 @@ class RouterHelper(private val router: Router, private val navigatorHolder: Navi
         router.navigateTo(screens.predictSingleScreen.apply { this.predictId = predictId })
     }
 
+    fun navigateToProfile(userId: String) {
+        router.navigateTo(screens.profileScreen.apply { this.userId = userId })
+    }
+
     fun navigateBack() {
         router.exit()
     }

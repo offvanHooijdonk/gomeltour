@@ -1,17 +1,19 @@
 package com.tobe.prediction.model.predict
 
-import com.tobe.prediction.dao.IPredictDao
-import com.tobe.prediction.dao.IUserDao
-import com.tobe.prediction.dao.IVoteDao
+import com.tobe.prediction.dao.PredictDao
+import com.tobe.prediction.dao.UserDao
+import com.tobe.prediction.dao.VoteDao
 import com.tobe.prediction.domain.Predict
+import com.tobe.prediction.domain.Vote
+import com.tobe.prediction.domain.createVote
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.domain.dto.convertToPredictDTO
 import com.tobe.prediction.helper.Configs
 import com.tobe.prediction.helper.schedulersIO
+import com.tobe.prediction.model.Session
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -19,7 +21,7 @@ import org.koin.core.inject
  * Created by Yahor_Fralou on 10/31/2018 2:09 PM.
  */
 
-class PredictService constructor(private var predictDao: IPredictDao, private var userDao: IUserDao, var voteDao: IVoteDao) : KoinComponent {
+class PredictService constructor(private var predictDao: PredictDao, private var userDao: UserDao, private var voteDao: VoteDao) : KoinComponent {
     private val configs: Configs by inject()
     // todo implement Observables for the data
 
@@ -37,11 +39,31 @@ class PredictService constructor(private var predictDao: IPredictDao, private va
 
     fun savePredict(predict: Predict, optionSelected: Int): Completable =
             Completable.fromAction { predictDao.save(predict) }
-                    /*.mergeWith(
-                            Completable.fromAction { voteDao.save(setUpId(createVote(Session.user!!.id, predict.predictId, optionId))) }
-                    )*/
-                    .subscribeOn(Schedulers.io()) // todo create transformers
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .mergeWith(
+                            Completable.fromAction { voteSync(predict.predictId, optionSelected) }
+                    )
+                    .schedulersIO()
+
+    fun saveVote(predictId: String, option: Int): Maybe<Pair<Int, Int>> = // todo return new votes numbers
+            Completable.fromAction {
+                voteDao.removeVote(predictId, Session.user!!.id)
+                voteSync(predictId, option)
+            }.andThen(
+                    /*.toMaybe<Unit>()
+                    .flatMap {*/
+                        voteDao.getVotesCount(predictId, configs.optionPosIndex)
+                    /*}*/.flatMap { pos ->
+                        voteDao.getVotesCount(predictId, configs.optionNegIndex).map { neg ->
+                            pos to neg
+                        }
+                    })
+                    .schedulersIO()
+
+    private fun voteSync(predictId: String, option: Int) {
+        voteDao.save(setUpId(createVote(Session.user!!.id, predictId, option)))
+    }
+
+    private fun setUpId(vote: Vote): Vote = vote.apply { id = "$predict|$user" }
 
     fun loadPredictData(predictId: String) =
             predictDao.getById(predictId)

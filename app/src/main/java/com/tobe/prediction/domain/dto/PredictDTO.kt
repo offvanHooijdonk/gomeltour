@@ -13,6 +13,7 @@ data class PredictDTO(
         val text: String,
         val options: Array<String>,
         val authorName: String,
+        val authorId: String,
         val authorPic: String?,
         var votePosCount: Int = 0,
         var voteNegCount: Int = 0
@@ -25,5 +26,6 @@ fun convertToPredictDTO(p: Predict, u: UserBean): PredictDTO =
                 text = p.text,
                 options = p.options,
                 authorName = u.name,
+                authorId = u.id,
                 authorPic = u.photoUrl
         )

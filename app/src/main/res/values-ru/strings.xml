@@ -22,4 +22,15 @@
     <string name="settings">Настройки</string>
     <string name="fish_number">12,6k</string>
     <string name="fish_full_name">Филипп Преображенский</string>
+    <string name="filter_empty_result">Нет предсказаний для вашего фильтра</string>
+    <string name="confirm_cancel_title">Подтвердить</string>
+    <string name="confirm_cancel_message">Уверены, что хотите сбросить изменения?</string>
+    <string name="confirm_btn_stay">Нет, остаться</string>
+    <string name="add_predict_cta">Предсказать</string>
+    <string name="label_fulfills_on">Исполняется</string>
+    <string name="label_open_till">Голосование до</string>
+    <string name="votes_billion">мрд</string>
+    <string name="votes_million">м</string>
+    <string name="votes_thousand">к</string>
+    <string name="votes_trillion">тр</string>
 </resources>

@@ -9,10 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.tobe.prediction.domain.dto.PredictDTO
-import com.tobe.prediction.helper.colorError
-import com.tobe.prediction.helper.colorWarn
-import com.tobe.prediction.helper.hide
-import com.tobe.prediction.helper.show
+import com.tobe.prediction.helper.*
 import com.tobe.prediction.model.loadAppBarUserPhoto
 import com.tobe.prediction.model.loadAvatar
 import com.tobe.prediction.presentation.ui.predict.list.PredictAdapter
@@ -103,4 +100,9 @@ fun setImageUrl(imageView: ImageView, url: String?) {
 @BindingAdapter("appBarImageUrl")
 fun setAppBarImageUrl(imageView: ImageView, url: String?) {
     imageView.loadAppBarUserPhoto(url)
+}
+
+@BindingAdapter("votes")
+fun setVotesNumber(textView: TextView, votesNumber: Int) {
+    textView.text = convertVotesPresentation(votesNumber, textView.context)
 }

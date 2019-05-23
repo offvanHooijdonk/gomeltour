@@ -13,7 +13,7 @@ import io.reactivex.Maybe
  */
 
 @Dao
-interface IPredictDao {
+interface PredictDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(predict: Predict)
 

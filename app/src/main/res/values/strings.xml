@@ -5,6 +5,7 @@
     <string name="sign_out_message">Are you sure you want to sign out?</string>
     <string name="fish_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
     <string name="fish_short">Lorem ipsum dolor sit amet</string>
+    <string name="fish_email" translatable="false">example.one@server.org</string>
     <string name="fish_full_name">John Doe</string>
     <string name="predict_list_title">Predictions</string>
     <string name="predict_title_label">Short title</string>
@@ -29,6 +30,11 @@
     <string name="confirm_cancel_title">Confirm</string>
     <string name="confirm_cancel_message">Are you sure you want to discard your changes?</string>
     <string name="confirm_btn_stay">No, Stay</string>
+
+    <string name="votes_thousand">k</string>
+    <string name="votes_million">m</string>
+    <string name="votes_billion">b</string>
+    <string name="votes_trillion">tr</string>
 
     <integer name="max_answers">7</integer>
     <integer name="min_answers">2</integer>
