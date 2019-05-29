@@ -43,7 +43,7 @@ class PredictSingleFragment : Fragment() {
 
         predictId?.let {
             viewModel.setPredictId(it)
-        } // todo else show error
+        } // todo else visible error
     }
 
 }

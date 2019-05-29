@@ -7,14 +7,19 @@
             android:title="@string/it_predict_list" />
 
         <item
+            android:id="@+id/it_play"
+            android:icon="@drawable/ic_stars_24"
+            android:title="Play" />
+
+        <item
             android:id="@+id/it_subscriptions"
             android:icon="@drawable/ic_notifications_24"
             android:title="@string/it_my_subscriptions" />
 
-        <item
+        <!--<item
             android:id="@+id/it_authored"
             android:icon="@drawable/ic_person_default_24"
-            android:title="@string/it_authored_list" />
+            android:title="@string/it_authored_list" />-->
 
         <item
             android:id="@+id/it_more"

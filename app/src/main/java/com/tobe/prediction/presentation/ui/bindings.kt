@@ -71,9 +71,9 @@ fun setNumberText(textView: TextView, number: Int) {
 @BindingAdapter("dateLong")
 fun setDateLong(textView: TextView, date: Date?) {
     if (date == null) {
-        textView.hide()
+        textView.gone()
     } else {
-        textView.show()
+        textView.visible()
         textView.text = dateFormatLong.format(date)
     }
 }

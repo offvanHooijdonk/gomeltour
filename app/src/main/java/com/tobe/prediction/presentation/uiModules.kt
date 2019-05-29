@@ -52,6 +52,7 @@ val navModule = module {
     single { PredictEditScreen() }
     single { PredictSingleScreen() }
     single { ProfileScreen() }
+    single { GameScreen() }
     // endregion
 }
 

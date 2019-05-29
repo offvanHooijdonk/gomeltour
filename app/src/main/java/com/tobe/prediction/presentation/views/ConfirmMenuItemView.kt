@@ -13,9 +13,9 @@ import android.view.ViewAnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import com.tobe.prediction.R
-import com.tobe.prediction.helper.hide
-import com.tobe.prediction.helper.hideBut
-import com.tobe.prediction.helper.show
+import com.tobe.prediction.helper.gone
+import com.tobe.prediction.helper.invisible
+import com.tobe.prediction.helper.visible
 import kotlinx.android.synthetic.main.view_menu_confirm.view.*
 import kotlin.math.max
 import kotlin.math.min
@@ -63,9 +63,9 @@ class ConfirmMenuItemView(ctx: Context, attrs: AttributeSet) : FrameLayout(ctx, 
     }
 
     private fun setUpView() {
-        blockButtons.hide()
+        blockButtons.gone()
 
-        if (icon == null) imgItemIcon.hide() else imgItemIcon.setImageDrawable(icon)
+        if (icon == null) imgItemIcon.gone() else imgItemIcon.setImageDrawable(icon)
         txtItemText.text = itemText
         btnPositive.text = positiveButton
         btnNegative.text = negativeButton
@@ -88,19 +88,19 @@ class ConfirmMenuItemView(ctx: Context, attrs: AttributeSet) : FrameLayout(ctx, 
 
     private fun revealButtons(isShowButtons: Boolean) {
         if (isShowButtons) {
-            txtItemText.hideBut()
-            if (icon != null) imgItemIcon.hideBut()
+            txtItemText.invisible()
+            if (icon != null) imgItemIcon.invisible()
             applyReveal(blockButtons, itemRoot.height.toFloat(), itemRoot.width.toFloat(), true)
         } else {
             applyReveal(blockButtons, itemRoot.height.toFloat(), itemRoot.width.toFloat(), false)
-            txtItemText.show()
-            if (icon != null) imgItemIcon.show()
+            txtItemText.visible()
+            if (icon != null) imgItemIcon.visible()
         }
     }
 
     private fun hideButtons() {
         hideBlock(blockButtons)
-        txtItemText.show()
+        txtItemText.visible()
     }
 
     private fun startListenItemTouch() {
@@ -114,7 +114,7 @@ class ConfirmMenuItemView(ctx: Context, attrs: AttributeSet) : FrameLayout(ctx, 
     }
 
     private fun applyReveal(v: View, height: Float, width: Float, isShow: Boolean) { // todo to helper
-        if (isShow) v.show()
+        if (isShow) v.visible()
 
         val radius = sqrt(max(max(height - eventY, eventY), max(width - eventX, eventX)).pow(2) +
                 min(max(height - eventY, eventY), max(width - eventX, eventX)).pow(2))
@@ -127,7 +127,7 @@ class ConfirmMenuItemView(ctx: Context, attrs: AttributeSet) : FrameLayout(ctx, 
                     interpolator = DecelerateInterpolator()
                     addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
-                            if (!isShow) v.hide()
+                            if (!isShow) v.gone()
                         }
                     })
                 }
@@ -140,7 +140,7 @@ class ConfirmMenuItemView(ctx: Context, attrs: AttributeSet) : FrameLayout(ctx, 
                     duration = 150 // todo set less time
                     addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
-                            v.hide()
+                            v.gone()
                             v.scaleY = 1f
                         }
                     })

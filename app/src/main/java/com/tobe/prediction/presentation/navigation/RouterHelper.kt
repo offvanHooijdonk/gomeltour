@@ -36,6 +36,10 @@ class RouterHelper(private val router: Router, private val navigatorHolder: Navi
         router.navigateTo(screens.profileScreen.apply { this.userId = userId })
     }
 
+    fun navigateToGame() {
+        router.newRootScreen(screens.gameScreen)
+    }
+
     fun navigateBack() {
         router.exit()
     }

@@ -8,6 +8,7 @@ import com.tobe.prediction.presentation.ui.profile.AccountsDialogFragment
 import com.tobe.prediction.presentation.ui.main.BottomOptionsDialog
 import com.tobe.prediction.presentation.ui.main.MainActivity
 import com.tobe.prediction.presentation.ui.predict.edit.PredictEditDialog
+import com.tobe.prediction.presentation.ui.predict.game.GameFragment
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
 import com.tobe.prediction.presentation.ui.predict.view.PredictSingleFragment
 import com.tobe.prediction.presentation.ui.profile.ProfileFragment
@@ -17,7 +18,7 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens : KoinComponent {
     enum class Keys {
-        LOGIN, MAIN, ACCOUNTS, OPTIONS, PREDICT_LIST, PREDICT_EDIT, PREDICT_SINGLE, PROFILE
+        LOGIN, MAIN, ACCOUNTS, OPTIONS, PREDICT_LIST, PREDICT_EDIT, PREDICT_SINGLE, PROFILE, GAME
     }
 
     val loginScreen: LoginScreen by inject()
@@ -28,6 +29,7 @@ class Screens : KoinComponent {
     val predictSingleScreen: PredictSingleScreen by inject()
     val optionsDialogScreen: OptionsDialogScreen by inject()
     val profileScreen: ProfileScreen by inject()
+    val gameScreen: GameScreen by inject()
 }
 
 abstract class BaseScreen(private val screenKeyValue: Screens.Keys) : SupportAppScreen() {
@@ -70,4 +72,8 @@ class ProfileScreen : BaseScreen(Screens.Keys.PROFILE) {
     var userId = ""
 
     override fun getFragment(): Fragment = ProfileFragment.instance(userId)
+}
+
+class  GameScreen : BaseScreen(Screens.Keys.GAME) {
+    override fun getFragment(): Fragment = GameFragment.instance()
 }

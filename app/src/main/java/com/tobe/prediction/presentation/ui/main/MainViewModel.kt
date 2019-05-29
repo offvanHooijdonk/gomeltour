@@ -57,6 +57,9 @@ class MainViewModel(
             R.id.it_more -> {
                 routerHelper.navigateToOptions()
             }
+            R.id.it_play -> {
+                routerHelper.navigateToGame()
+            }
         }
     }
 

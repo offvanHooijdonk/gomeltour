@@ -5,8 +5,8 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.tobe.prediction.helper.hide
-import com.tobe.prediction.helper.show
+import com.tobe.prediction.helper.gone
+import com.tobe.prediction.helper.visible
 import org.jetbrains.anko.dip
 
 /**
@@ -37,7 +37,7 @@ class FabAnimator(private val button: Button) {
                     //marginStart = 0
                     width = CoordinatorLayout.LayoutParams.WRAP_CONTENT
                 }
-        button.show()
+        button.visible()
         button.scaleX = 1f
         button.scaleY = 1f
         button.alpha = 1f
@@ -84,7 +84,7 @@ class FabAnimator(private val button: Button) {
                             button.scaleY = scale
                             button.alpha = 1 - (1 - value) * 0.8f
                             if (it.animatedFraction == 1.0f) {
-                                button.hide()
+                                button.gone()
                             }
                         }
                         duration = DURATION_SCALE
