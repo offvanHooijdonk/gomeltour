@@ -50,7 +50,11 @@ class GameFragment : Fragment() {
     }
 
     private fun highlightTarget(isHighlight: Boolean) {
-        imgTarget.alpha = if (isHighlight) 1.0f else 0.4f
+        //imgTarget.alpha = if (isHighlight) 0.8f else 0.3f
+        imgTarget.animate()
+                .alpha(if (isHighlight) 0.6f else 0.3f)
+                .setDuration(150)
+                .start()
     }
 
     private fun setTargetPositive() = imgTarget.setImageResource(R.drawable.target_ring_pos)

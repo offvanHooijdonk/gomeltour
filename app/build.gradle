@@ -24,6 +24,11 @@ android {
     dataBinding {
         enabled = true
     }
+    packagingOptions {
+        pickFirst 'META-INF/kotlinx-io.kotlin_module'
+        pickFirst 'META-INF/atomicfu.kotlin_module'
+        pickFirst 'META-INF/kotlinx-coroutines-io.kotlin_module'
+    }
 }
 
 dependencies {
@@ -34,22 +39,23 @@ dependencies {
     ext.dagger_version = '2.16'
     ext.firebase_auth_version = '16.2.0'
     ext.room_version = '1.1.1'
-    ext.coroutines_version = "1.1.0"
+    //ext.coroutines_version = "1.1.0"
+    ext.coroutines_version = "1.2.0-alpha-2"
 
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta1"
-    implementation "com.google.android.material:material:1.1.0-alpha06"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
+    implementation "com.google.android.material:material:1.2.0-alpha02"
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
     implementation ("org.jetbrains.anko:anko-design:$anko_version") {
         exclude group: "com.android.support", module: "support-v4"
     }
 
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
     implementation "io.reactivex.rxjava2:rxjava:$rx_version"
@@ -60,7 +66,7 @@ dependencies {
     implementation "ru.terrakok.cicerone:cicerone:$cicerone_version"
 
     implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
 
     implementation "android.arch.persistence.room:runtime:$room_version"
     implementation "android.arch.persistence.room:rxjava2:$room_version"
@@ -73,8 +79,8 @@ dependencies {
     testImplementation "org.mockito:mockito-core:2.27.0"
     testImplementation "org.koin:koin-test:$koin_version"
 
-    androidTestImplementation 'androidx.test:runner:1.2.0-alpha03'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha03'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

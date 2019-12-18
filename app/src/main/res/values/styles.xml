@@ -14,6 +14,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
     </style>
+    
+    <style name="ShapeApp.SignIn" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">10dp</item>
+    </style>
 
     <style name="NoBarAppTheme.Login" parent="NoBarAppTheme">
         <!--<item name="android:windowTranslucentStatus">true</item>-->

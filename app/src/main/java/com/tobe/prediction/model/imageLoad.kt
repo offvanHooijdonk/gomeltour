@@ -3,8 +3,10 @@ package com.tobe.prediction.model
 import android.widget.ImageView
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.tobe.prediction.R
 
 /**
@@ -26,9 +28,11 @@ fun ImageView.loadAvatar(url: String?) {
 fun ImageView.loadAppBarUserPhoto(url: String?) {
     GlideApp.with(this.context)
             .load(url)
+            .apply(RequestOptions().optionalCircleCrop())
+            .transition(withCrossFade(crossFadeFactory))
             .fallback(R.drawable.ic_user_white_24)
             .placeholder(R.drawable.ic_user_white_24)
-            .apply(RequestOptions().optionalCircleCrop())
-            .transition(DrawableTransitionOptions.withCrossFade())
             .into(this)
 }
+
+private val crossFadeFactory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()

@@ -1,5 +1,8 @@
 package com.tobe.prediction.presentation.ui.main.screenevents
 
-interface ScreenEvent
+import androidx.annotation.StringRes
+
+interface ScreenEvent // todo sealed class?
 
 class ListScrollEvent(val isDown: Boolean) : ScreenEvent
+class ErrorEvent(@StringRes stringRes: Int)

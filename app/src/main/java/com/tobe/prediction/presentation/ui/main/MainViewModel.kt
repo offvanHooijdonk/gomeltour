@@ -16,8 +16,6 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 
 class MainViewModel(
-        private val authGoogle: AuthGoogle,
-        private val authFirebase: AuthFirebase,
         private val routerHelper: RouterHelper,
         private val screenEvents: Observable<ScreenEvent>
 ) : BaseViewModel() {
@@ -42,16 +40,6 @@ class MainViewModel(
         showAddButton.set(isShow)
     }
 
-    fun logOut() {
-        authGoogle.signOut({
-            authFirebase.signOut()
-            Session.user = null
-            routerHelper.navigateToLogin()
-        }, {
-            errorMsg.set(it.message) // todo better handling
-        })
-    }
-
     fun onNavSelected(item: MenuItem) {
         when (item.itemId) {
             R.id.it_more -> {
@@ -61,11 +49,6 @@ class MainViewModel(
                 routerHelper.navigateToGame()
             }
         }
-    }
-
-    fun onActionButtonClick() {
-        // todo probably will need to determine navigation stack position here
-        routerHelper.navigateToPredictEdit()
     }
 
     fun onAppBarUserClick() {

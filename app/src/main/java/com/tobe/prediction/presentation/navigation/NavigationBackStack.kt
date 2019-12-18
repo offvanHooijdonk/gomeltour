@@ -11,7 +11,7 @@ class NavigationBackStack {
     private val stack = Stack<Screen>()
 
     val currentScreen: Screen?
-        get() = if (stack.isNotEmpty()) stack.peek() else null
+        get() = if (stack.isNotEmpty()) stack.peek() else null // todo can have a default value, Login or Dummy?
 
     private fun addToBackStack(screen: Screen) {
         stack.push(screen)

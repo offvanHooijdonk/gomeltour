@@ -6,6 +6,7 @@ import com.tobe.prediction.helper.helperModule
 import com.tobe.prediction.model.serviceModule
 import com.tobe.prediction.presentation.navModule
 import com.tobe.prediction.presentation.uiModule
+import com.tobe.prediction.presentation.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -30,4 +31,4 @@ class App : Application() {
     }
 }
 
-internal val allModules = listOf(serviceModule, daoModule, uiModule, navModule, helperModule)
+internal val allModules = listOf(serviceModule, daoModule, viewModelModule, uiModule, navModule, helperModule)

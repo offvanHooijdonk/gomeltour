@@ -4,23 +4,21 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.tobe.prediction.R
 import com.tobe.prediction.app.App.Companion.LOGCAT
 import com.tobe.prediction.databinding.ActMainBinding
 import com.tobe.prediction.presentation.navigation.BaseSupportAppNavigator
 import com.tobe.prediction.presentation.navigation.NavigationBackStack
-import com.tobe.prediction.presentation.navigation.PredictSingleScreen
 import com.tobe.prediction.presentation.navigation.Screens
 import com.tobe.prediction.presentation.ui.predict.list.PredictListFragment
 import kotlinx.android.synthetic.main.act_main.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 import ru.terrakok.cicerone.commands.Command
@@ -31,7 +29,6 @@ import ru.terrakok.cicerone.commands.Forward
  */
 
 class MainActivity : AppCompatActivity() {
-
     private val viewModel: MainViewModel by viewModel()
     private val navigatorHolder: NavigatorHolder by inject()
     private val navigator = MainNavigator(get(), this, supportFragmentManager, R.id.containerMain)
@@ -45,14 +42,18 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
-        transformer = EFABTransformer(R.drawable.ic_wand_24, fabAddNew)
+        transformer = get(parameters = { parametersOf(fabAddNew, R.drawable.ic_wand_24) })
 
         navBottom.setOnNavigationItemSelectedListener { item ->
             viewModel.onNavSelected(item)
             item.itemId != R.id.it_more
         }
-
         navigatorHolder.setNavigator(navigator)
+
+        fabAddNew.setOnClickListener {
+            handleFABClick()
+        }
+
         viewModel.viewStart()
     }
 
@@ -81,8 +82,12 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun logOut() {
-        viewModel.logOut()
+    private fun handleFABClick() {
+        val frag = supportFragmentManager.fragments.firstOrNull { it.isVisible }
+
+        if (frag is FABClickListener) {
+            frag.onFabClicked()
+        }
     }
 
     private fun showBackButton(isShow: Boolean) {
@@ -96,7 +101,6 @@ class MainActivity : AppCompatActivity() {
         : BaseSupportAppNavigator(backStack, act, fm, containerId) {
 
         private val screensHideBack = setOf(Screens.Keys.PREDICT_LIST.name)
-        private val screensSkipBack = emptySet<String>()
 
         override fun applyCommand(command: Command?) {
             super.applyCommand(command)
@@ -113,27 +117,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         private fun checkEnableHomeButton() {
-            backStack.currentScreen?.also {
-                if (it.screenKey in screensHideBack) {
-                    showBackButton(false)
-                } else if (it.screenKey !in screensSkipBack) {
-                    showBackButton(true)
-                    //viewModel.showAddButton(false)
-                }
-
-                if (it.screenKey == Screens.Keys.PREDICT_SINGLE.name) { // todo simplify and refactor
-                    (it as? PredictSingleScreen)?.let { _ ->
-                        // todo check if current user is author
-                        transformer.transformToFAB(R.drawable.ic_edit_24)
-                        appBarLayout.setExpanded(true, true)
-                    }
-                } else if (it.screenKey == Screens.Keys.PREDICT_LIST.name) {
-                    if (fabAddNew.isShown) {
-                        transformer.transformBack()
-                    } else {
-                        fabAddNew.show()
-                    }
-                }
+            backStack.currentScreen?.let {
+                if (it.screenKey in screensHideBack) showBackButton(false) else showBackButton(true)
             }
         }
 
@@ -144,5 +129,9 @@ class MainActivity : AppCompatActivity() {
                 fragmentTransaction?.setCustomAnimations(R.anim.screen_slide_rl_in, R.anim.screen_slide_rl_out, R.anim.screen_slide_lr_in, R.anim.screen_slide_lr_out)
             }
         }
+    }
+
+    interface FABClickListener {
+        fun onFabClicked()
     }
 }

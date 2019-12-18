@@ -5,6 +5,7 @@ import androidx.databinding.ObservableField
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.Configs
 import com.tobe.prediction.helper.attachTo
+import com.tobe.prediction.model.Session
 import com.tobe.prediction.model.predict.PredictService
 import com.tobe.prediction.presentation.navigation.RouterHelper
 import com.tobe.prediction.presentation.ui.BaseViewModel
@@ -21,6 +22,7 @@ class PredictSingleViewModel(private val predictService: PredictService, private
     val errorMsg = ObservableField<String>()
     val predict = ObservableField<PredictDTO>()
     val progressLoad = ObservableBoolean(false)
+    val isAuthor = ObservableBoolean(false)
 
     fun setPredictId(id: String?) {
         if (predictId == null) {
@@ -66,6 +68,8 @@ class PredictSingleViewModel(private val predictService: PredictService, private
         predictService.loadPredictData(id)
                 .subscribe({ dto ->
                     predict.set(dto)
+                    val authorFlag = Session.user?.id == dto.authorId
+                    if (isAuthor.get() == authorFlag) isAuthor.notifyChange() else isAuthor.set(authorFlag)
                     progressLoad.set(false)
                 }, { th ->
                     errorMsg.set(th.message)

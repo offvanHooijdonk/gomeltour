@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.jetbrains.anko.dip
 
 @SuppressLint("ClickableViewAccessibility")
 fun FloatingActionButton.setDragToRing(targetView: View,
@@ -78,7 +79,7 @@ fun FloatingActionButton.setDragToRing(targetView: View,
         }
 
         private fun animateToTargetCenter(location: Float, doAfter: () -> Unit) {
-            if (Math.abs(location - posStartInTarget) > 10) { // todo calculate somehow?
+            if (Math.abs(location - posStartInTarget) > dip(4)) {
                 this@setDragToRing.animate()
                         .x(posStartInTarget)
                         .setDuration(DURATION_TO_CENTER)

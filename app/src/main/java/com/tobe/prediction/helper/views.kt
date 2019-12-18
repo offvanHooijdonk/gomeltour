@@ -54,6 +54,18 @@ fun View.hideKeyBoard() {
 }
 
 fun convertVotesPresentation(votes: Int, ctx: Context): String {
+    val results = convertVotesPresentation(votes)
+
+    return results.first + when (results.second) {
+        1 -> ctx.getString(R.string.votes_thousand)
+        2 -> ctx.getString(R.string.votes_million)
+        3 -> ctx.getString(R.string.votes_billion)
+        4 -> ctx.getString(R.string.votes_trillion)
+        else -> ""
+    }
+}
+
+fun convertVotesPresentation(votes: Int): Pair<String, Int> {
     var numReduced = votes
     var range = 0
     while (numReduced >= 1000) {
@@ -67,16 +79,10 @@ fun convertVotesPresentation(votes: Int, ctx: Context): String {
                 maximumFractionDigits = 1
                 minimumFractionDigits = 0
                 roundingMode = RoundingMode.DOWN
-            }.format(votes.toDouble() / Math.pow(1000.0, range.toDouble()))
+            }.format(votes.toDouble() / Math.pow(1000.0, range.toDouble())) to range
         }
         else -> {
-            numReduced.toString()
+            numReduced.toString() to range
         }
-    } + when (range) {
-        1 -> ctx.getString(R.string.votes_thousand)
-        2 -> ctx.getString(R.string.votes_million)
-        3 -> ctx.getString(R.string.votes_billion)
-        4 -> ctx.getString(R.string.votes_trillion)
-        else -> ""
     }
 }

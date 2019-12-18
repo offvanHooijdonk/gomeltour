@@ -8,14 +8,15 @@ import com.tobe.prediction.app.App
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.attachTo
 import com.tobe.prediction.model.predict.PredictService
+import com.tobe.prediction.presentation.navigation.RouterHelper
 import com.tobe.prediction.presentation.ui.BaseViewModel
 import com.tobe.prediction.presentation.ui.main.screenevents.ListScrollEvent
 import com.tobe.prediction.presentation.ui.main.screenevents.ScreenEvent
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 
 class PredictListViewModel(private val predictService: PredictService,
+                           private val routerHelper: RouterHelper,
                            private val screenEvents: Observer<ScreenEvent>) : BaseViewModel() {
     override val cd = CompositeDisposable()
 
@@ -37,8 +38,12 @@ class PredictListViewModel(private val predictService: PredictService,
         loadPredicts()
     }
 
-    fun onListSroll(isDown: Boolean) {
+    fun onListScroll(isDown: Boolean) {
         screenEvents.onNext(ListScrollEvent(isDown))
+    }
+
+    fun onActionButtonClick() {
+        routerHelper.navigateToPredictEdit()
     }
 
     private fun loadPredicts() {

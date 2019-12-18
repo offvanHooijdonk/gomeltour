@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.tobe.prediction.R
 import com.tobe.prediction.domain.dto.PredictDTO
 import com.tobe.prediction.helper.*
 import com.tobe.prediction.model.loadAppBarUserPhoto
@@ -99,7 +100,7 @@ fun setImageUrl(imageView: ImageView, url: String?) {
 
 @BindingAdapter("appBarImageUrl")
 fun setAppBarImageUrl(imageView: ImageView, url: String?) {
-    imageView.loadAppBarUserPhoto(url)
+    if (url == null) imageView.setImageResource(R.drawable.ic_user_white_24) else imageView.loadAppBarUserPhoto(url)
 }
 
 @BindingAdapter("votes")

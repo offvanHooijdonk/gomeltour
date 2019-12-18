@@ -12,20 +12,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tobe.prediction.R
 import com.tobe.prediction.databinding.PredictListBinding
 import com.tobe.prediction.helper.setUpDefault
+import com.tobe.prediction.presentation.ui.main.EFABTransformer
+import com.tobe.prediction.presentation.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fr_predict_list.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Yahor_Fralou on 9/21/2018 4:36 PM.
  */
 
-class PredictListFragment : Fragment() {
+class PredictListFragment : Fragment(), MainActivity.FABClickListener {
 
     private val viewModel: PredictListViewModel by viewModel()
 
     private lateinit var adapter: PredictAdapter
     private lateinit var ctx: Context
     private var prevScrollDirDown = false
+    private val fabTransformer: EFABTransformer by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         ctx = requireContext()
@@ -40,19 +44,29 @@ class PredictListFragment : Fragment() {
         rvPredicts.layoutManager = LinearLayoutManager(ctx)
         adapter = PredictAdapter(ctx)
         rvPredicts.adapter = adapter
-        refreshPredicts.setUpDefault()
-        refreshPredicts.setOnRefreshListener { viewModel.updatePredicts() }
+        refresh_predict_info.setUpDefault()
+        refresh_predict_info.setOnRefreshListener { viewModel.updatePredicts() }
 
         rvPredicts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val dirDown = dy > 0
                 if (prevScrollDirDown xor dirDown) {
-                    viewModel.onListSroll(dirDown)
+                    viewModel.onListScroll(dirDown)
                 }
                 prevScrollDirDown = dirDown
             }
         })
 
         viewModel.viewStart()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        fabTransformer.transformTo(iconRes = R.drawable.ic_wand_24, extended = true, text = context?.getString(R.string.add_predict_cta))
+    }
+
+    override fun onFabClicked() {
+        viewModel.onActionButtonClick()
     }
 }

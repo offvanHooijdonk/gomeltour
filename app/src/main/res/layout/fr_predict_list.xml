@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/refreshPredicts"
+            android:id="@+id/refresh_predict_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             refreshing="@{model.progressLoad}">

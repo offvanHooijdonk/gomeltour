@@ -39,13 +39,13 @@
                     android:textSize="24sp" />
 
                 <ImageView
+                    appBarImageUrl="@{model.userPhotoUrl}"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="end"
                     android:layout_marginEnd="16dp"
-                    appBarImageUrl="@{model.userPhotoUrl}"
-                    android:onClick="@{(view) -> model.onAppBarUserClick()}"
                     android:background="?selectableItemBackgroundBorderless"
+                    android:onClick="@{(view) -> model.onAppBarUserClick()}"
                     tools:src="@drawable/ic_user_white_24" />
 
             </androidx.appcompat.widget.Toolbar>
@@ -56,11 +56,10 @@
             android:id="@+id/containerMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_anchor="@id/navBottom"
-            app:layout_anchorGravity="top"
             android:layout_marginBottom="?actionBarSize"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_marginTop="?actionBarSize" />
 
+        <!-- android:onClick="@{(view) -> model.onActionButtonClick()}" -->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fabAddNew"
             extendState="@{model.extendState}"
@@ -70,19 +69,20 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="72dp"
-            android:onClick="@{(view) -> model.onActionButtonClick()}"
             android:text="@string/add_predict_cta"
             android:textColor="@color/md_white_1000"
+            android:visibility="gone"
             app:backgroundTint="@color/colorAccent"
             app:icon="@drawable/ic_wand_24"
-            app:iconTint="@color/md_white_1000" />
+            app:iconTint="@color/md_white_1000"
+            tools:visibility="visible" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:menu="@menu/bottom_nav"/>
+            app:menu="@menu/bottom_nav" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

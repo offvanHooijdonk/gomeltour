@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/rlPredict"
+            android:id="@+id/refresh_predict_info"
             refreshing="@{model.progressLoad}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
