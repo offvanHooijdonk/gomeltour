@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.tobe.gomeltour.R
-import com.tobe.gomeltour.databinding.PredictListBinding
+import by.gomeltour.R
+import by.gomeltour.databinding.PredictListBinding
 import by.gomeltour.helper.setUpDefault
 import by.gomeltour.presentation.ui.main.EFABTransformer
 import by.gomeltour.presentation.ui.main.MainActivity

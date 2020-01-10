@@ -1,6 +1,6 @@
 package by.gomeltour.presentation
 
-import com.tobe.gomeltour.R
+import by.gomeltour.R
 import by.gomeltour.presentation.navigation.*
 import by.gomeltour.presentation.ui.login.LoginViewModel
 import by.gomeltour.presentation.ui.main.BottomOptionsViewModel

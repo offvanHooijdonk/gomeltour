@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.tobe.gomeltour.R
+import by.gomeltour.R
 import by.gomeltour.helper.gone
 import by.gomeltour.helper.setDragToRing
 import by.gomeltour.presentation.ui.main.MainActivity

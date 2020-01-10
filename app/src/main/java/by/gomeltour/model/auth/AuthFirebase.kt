@@ -15,9 +15,9 @@ class AuthFirebase  {
     fun signIn(credential: AuthCredential): Maybe<UserBean> {
         val subj = PublishSubject.create<UserBean>()
         FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
-            val result = it.result
-            if (result != null) {
-                subj.onNext(createUser(result.user.uid))
+            val user = it.result?.user
+            if (user != null) {
+                subj.onNext(createUser(user.uid))
             } else {
                 subj.onError(Exception("No result while signing in with Firebase"))
             }

@@ -1,12 +1,12 @@
 package by.gomeltour.model
 
 import android.widget.ImageView
+import by.gomeltour.R
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
-import com.tobe.gomeltour.R
 
 /**
  * Created by Yahor_Fralou on 10/29/2018 6:30 PM.

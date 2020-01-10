@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.gomeltour.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.tobe.gomeltour.R
 import by.gomeltour.model.Session
 import by.gomeltour.model.loadAvatar
 import kotlinx.android.synthetic.main.fr_bottom_navigation.*

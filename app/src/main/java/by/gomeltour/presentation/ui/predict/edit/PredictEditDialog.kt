@@ -11,8 +11,8 @@ import android.view.WindowManager.LayoutParams
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import com.tobe.gomeltour.R
-import com.tobe.gomeltour.databinding.PredictEditDataBinding
+import by.gomeltour.R
+import by.gomeltour.databinding.PredictEditDataBinding
 import by.gomeltour.helper.attachTo
 import by.gomeltour.helper.hideKeyBoard
 import by.gomeltour.helper.showKeyboard

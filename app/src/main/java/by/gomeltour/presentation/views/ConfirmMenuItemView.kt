@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
-import com.tobe.gomeltour.R
+import by.gomeltour.R
 import by.gomeltour.helper.gone
 import by.gomeltour.helper.invisible
 import by.gomeltour.helper.visible

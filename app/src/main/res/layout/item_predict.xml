@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.tobe.gomeltour.presentation.ui.predict.list.ItemPredictViewModel" />
+            type="by.gomeltour.presentation.ui.predict.list.ItemPredictViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

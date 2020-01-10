@@ -7,9 +7,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
-import com.tobe.gomeltour.R
+import by.gomeltour.R
 import by.gomeltour.app.App.Companion.LOGCAT
-import com.tobe.gomeltour.databinding.ActMainBinding
+import by.gomeltour.databinding.ActMainBinding
 import by.gomeltour.presentation.navigation.BaseSupportAppNavigator
 import by.gomeltour.presentation.navigation.NavigationBackStack
 import by.gomeltour.presentation.navigation.Screens

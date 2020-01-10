@@ -8,8 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
-import com.tobe.gomeltour.R
-import com.tobe.gomeltour.databinding.PredictSingleDataBinding
+import by.gomeltour.R
+import by.gomeltour.databinding.PredictSingleDataBinding
 import by.gomeltour.helper.setUpDefault
 import by.gomeltour.presentation.ui.main.EFABTransformer
 import by.gomeltour.presentation.ui.main.MainActivity

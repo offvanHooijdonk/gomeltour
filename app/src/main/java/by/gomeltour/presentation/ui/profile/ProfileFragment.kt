@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.tobe.gomeltour.R
-import com.tobe.gomeltour.databinding.ProfileViewBinding
+import by.gomeltour.R
+import by.gomeltour.databinding.ProfileViewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {

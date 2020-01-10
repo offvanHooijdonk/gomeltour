@@ -4,11 +4,11 @@
 
     <data class="PredictEditDataBinding">
 
-        <import type="com.tobe.gomeltour.domain.Predict" />
+        <import type="by.gomeltour.domain.Predict" />
 
         <variable
             name="model"
-            type="com.tobe.gomeltour.presentation.ui.predict.edit.PredictEditViewModel" />
+            type="by.gomeltour.presentation.ui.predict.edit.PredictEditViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"

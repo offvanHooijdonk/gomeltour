@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.tobe.gomeltour.R
-import com.tobe.gomeltour.databinding.ActLoginBinding
+import by.gomeltour.R
+import by.gomeltour.databinding.ActLoginBinding
 import kotlinx.android.synthetic.main.act_login.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

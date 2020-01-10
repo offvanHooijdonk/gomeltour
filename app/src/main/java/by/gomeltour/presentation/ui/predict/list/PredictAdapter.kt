@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.tobe.gomeltour.R
-import com.tobe.gomeltour.databinding.ItemPredictBinding
+import by.gomeltour.R
+import by.gomeltour.databinding.ItemPredictBinding
 import by.gomeltour.domain.dto.PredictDTO
 
 /**

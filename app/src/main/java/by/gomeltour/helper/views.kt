@@ -5,8 +5,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import by.gomeltour.R
 import com.google.android.material.snackbar.Snackbar
-import com.tobe.gomeltour.R
 import java.math.RoundingMode
 import java.text.NumberFormat
 

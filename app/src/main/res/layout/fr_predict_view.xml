@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.tobe.gomeltour.presentation.ui.predict.view.PredictSingleViewModel" />
+            type="by.gomeltour.presentation.ui.predict.view.PredictSingleViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"

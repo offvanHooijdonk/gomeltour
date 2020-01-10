@@ -5,7 +5,7 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import com.tobe.gomeltour.R
+import by.gomeltour.R
 import kotlinx.android.synthetic.main.item_answer_form.view.*
 
 /**

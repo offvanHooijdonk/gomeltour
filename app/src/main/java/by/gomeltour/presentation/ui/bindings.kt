@@ -7,8 +7,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import by.gomeltour.R
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.tobe.gomeltour.R
 import by.gomeltour.domain.dto.PredictDTO
 import by.gomeltour.helper.*
 import by.gomeltour.model.loadAppBarUserPhoto

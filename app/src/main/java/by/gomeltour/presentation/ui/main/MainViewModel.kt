@@ -3,7 +3,7 @@ package by.gomeltour.presentation.ui.main
 import android.view.MenuItem
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import com.tobe.gomeltour.R
+import by.gomeltour.R
 import by.gomeltour.helper.attachTo
 import by.gomeltour.model.Session
 import by.gomeltour.presentation.navigation.RouterHelper
@@ -32,10 +32,6 @@ class MainViewModel(
                 is ListScrollEvent -> if (event.isDown) extendState.set(false) else extendState.set(true)
             }
         }.attachTo(cd)
-    }
-
-    fun showAddButton(isShow: Boolean) {
-        showAddButton.set(isShow)
     }
 
     fun onNavSelected(item: MenuItem) {
