@@ -31,7 +31,7 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <com.tobe.prediction.presentation.views.ConfirmMenuItemView
+    <by.gomeltour.presentation.views.ConfirmMenuItemView
         android:id="@+id/itemConfirmSignOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

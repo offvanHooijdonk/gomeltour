@@ -1,52 +1,45 @@
 {
   "project_info": {
-    "project_number": "758060049159",
-    "firebase_url": "https://predictions-1537281972059.firebaseio.com",
-    "project_id": "predictions-1537281972059",
-    "storage_bucket": "predictions-1537281972059.appspot.com"
+    "project_number": "596330561330",
+    "firebase_url": "https://gomeltour.firebaseio.com",
+    "project_id": "gomeltour",
+    "storage_bucket": "gomeltour.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:758060049159:android:0951124f6606ade2",
+        "mobilesdk_app_id": "1:596330561330:android:080c322f3cf8a919c1a12b",
         "android_client_info": {
-          "package_name": "com.tobe.prediction"
+          "package_name": "by.gomeltour"
         }
       },
       "oauth_client": [
         {
-          "client_id": "758060049159-snc80nft29ecmhbvgkkoc7fue8tunqvp.apps.googleusercontent.com",
+          "client_id": "596330561330-tigftitc7p8jpjgopo9lt150bk5ulul9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.tobe.prediction",
-            "certificate_hash": "bcb402df34bd48ad7292e44f3d788e9340efec09"
+            "package_name": "by.gomeltour",
+            "certificate_hash": "0bc9e20fbcbfb62fe60a6145ee52590e3fbbe587"
           }
         },
         {
-          "client_id": "758060049159-5bo0llaq1aipv0vc3c4j2qumktf9280r.apps.googleusercontent.com",
+          "client_id": "596330561330-mejtgesdv1nfo1cqvei8rgkrmtp505l3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAQp5JoRYArsgGI4w-L9qbPtO4Y4OqBBnA"
+          "current_key": "AIzaSyA6X9lZva0-jUlq-ne2eT1jSUDzH_EjlYU"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "758060049159-5bo0llaq1aipv0vc3c4j2qumktf9280r.apps.googleusercontent.com",
+              "client_id": "596330561330-mejtgesdv1nfo1cqvei8rgkrmtp505l3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
