@@ -8,12 +8,12 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import by.gomeltour.R
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import by.gomeltour.domain.dto.PredictDTO
 import by.gomeltour.helper.*
-import by.gomeltour.model.loadAppBarUserPhoto
-import by.gomeltour.model.loadAvatar
-import by.gomeltour.presentation.ui.predict.list.PredictAdapter
+import by.gomeltour.model.EventModel
+import by.gomeltour.presentation.ui.event.list.EventAdapter
+import by.gomeltour.service.loadAppBarUserPhoto
+import by.gomeltour.service.loadAvatar
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.jetbrains.anko.design.longSnackbar
 import java.text.DateFormat
 import java.util.*
@@ -59,9 +59,9 @@ fun setRefreshing(refreshLayout: SwipeRefreshLayout, refreshing: Boolean) {
     refreshLayout.isRefreshing = refreshing
 }
 
-@BindingAdapter("predictsList")
-fun setPredictsList(recyclerView: RecyclerView, list: List<PredictDTO>) {
-    (recyclerView.adapter as? PredictAdapter)?.update(list)
+@BindingAdapter("eventsList")
+fun setEventsList(recyclerView: RecyclerView, list: List<EventModel>) {
+    (recyclerView.adapter as? EventAdapter)?.update(list)
 }
 
 @BindingAdapter("numText")

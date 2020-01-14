@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import by.gomeltour.domain.UserBean
+import by.gomeltour.model.UserModel
 import io.reactivex.Maybe
 
 /**
@@ -14,11 +14,11 @@ import io.reactivex.Maybe
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(user: UserBean)
+    fun save(user: UserModel)
 
     @Query("select * from Users where id = :id")
-    fun getById(id: String): Maybe<UserBean>
+    fun getById(id: String): Maybe<UserModel>
 
     @Query("select * from Users where id = :id")
-    fun getByIdSync(id: String): UserBean
+    fun getByIdSync(id: String): UserModel
 }

@@ -13,7 +13,7 @@ import by.gomeltour.databinding.ActMainBinding
 import by.gomeltour.presentation.navigation.BaseSupportAppNavigator
 import by.gomeltour.presentation.navigation.NavigationBackStack
 import by.gomeltour.presentation.navigation.Screens
-import by.gomeltour.presentation.ui.predict.list.PredictListFragment
+import by.gomeltour.presentation.ui.event.list.EventListFragment
 import kotlinx.android.synthetic.main.act_main.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
     private inner class MainNavigator(private val backStack: NavigationBackStack, act: FragmentActivity, private val fm: FragmentManager, containerId: Int)
         : BaseSupportAppNavigator(backStack, act, fm, containerId) {
 
-        private val screensHideBack = setOf(Screens.Keys.PREDICT_LIST.name)
+        private val screensHideBack = setOf(Screens.Keys.EVENT_LIST.name)
 
         override fun applyCommand(command: Command?) {
             super.applyCommand(command)
@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
         override fun setupFragmentTransaction(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
             super.setupFragmentTransaction(command, currentFragment, nextFragment, fragmentTransaction)
 
-            if (nextFragment !is PredictListFragment) {
+            if (nextFragment !is EventListFragment) {
                 fragmentTransaction?.setCustomAnimations(R.anim.screen_slide_rl_in, R.anim.screen_slide_rl_out, R.anim.screen_slide_lr_in, R.anim.screen_slide_lr_out)
             }
         }

@@ -5,7 +5,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import by.gomeltour.helper.attachTo
 import by.gomeltour.helper.schedulersIO
-import by.gomeltour.model.auth.AuthGoogle
+import by.gomeltour.service.auth.AuthGoogle
 import by.gomeltour.presentation.navigation.RouterHelper
 import by.gomeltour.presentation.ui.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable

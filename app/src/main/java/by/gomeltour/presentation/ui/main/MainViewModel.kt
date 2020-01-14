@@ -5,7 +5,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import by.gomeltour.R
 import by.gomeltour.helper.attachTo
-import by.gomeltour.model.Session
+import by.gomeltour.service.Session
 import by.gomeltour.presentation.navigation.RouterHelper
 import by.gomeltour.presentation.ui.BaseViewModel
 import by.gomeltour.presentation.ui.main.screenevents.ListScrollEvent
@@ -25,7 +25,7 @@ class MainViewModel(
     val userPhotoUrl = ObservableField<String>(Session.user?.photoUrl)
 
     fun viewStart() {
-        routerHelper.navigateToList()
+        routerHelper.navigateToEventList()
 
         screenEvents.subscribe { event ->
             when (event) {
@@ -36,11 +36,14 @@ class MainViewModel(
 
     fun onNavSelected(item: MenuItem) {
         when (item.itemId) {
+            R.id.it_events -> {
+                routerHelper.navigateToEventList()
+            }
             R.id.it_more -> {
                 routerHelper.navigateToOptions()
             }
-            R.id.it_play -> {
-                routerHelper.navigateToGame()
+            R.id.it_museums -> {
+                //routerHelper.navigateToGame()
             }
         }
     }

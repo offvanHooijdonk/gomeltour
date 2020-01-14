@@ -8,6 +8,10 @@ class RouterHelper(private val router: Router, private val navigatorHolder: Navi
         router.navigateTo(screens.mainScreen)
     }
 
+    fun navigateToPreferences() {
+        router.navigateTo(screens.preferencesScreen)
+    }
+
     fun navigateToLogin() {
         router.navigateTo(screens.loginScreen)
     }
@@ -20,24 +24,16 @@ class RouterHelper(private val router: Router, private val navigatorHolder: Navi
         router.navigateTo(screens.optionsDialogScreen)
     }
 
-    fun navigateToList() {
-        router.newRootScreen(screens.predictListScreen)
+    fun navigateToEventList() {
+        router.newRootScreen(screens.eventListScreen)
     }
 
-    fun navigateToPredictEdit() {
-        router.navigateTo(screens.predictEditScreen)
-    }
-
-    fun navigateToPredictSingle(predictId: String) {
-        router.navigateTo(screens.predictSingleScreen.apply { this.predictId = predictId })
+    fun navigateToEditSingle(eventId: String) {
+        router.navigateTo(screens.eventSingleScreen.apply { this.eventId = eventId })
     }
 
     fun navigateToProfile(userId: String) {
         router.navigateTo(screens.profileScreen.apply { this.userId = userId })
-    }
-
-    fun navigateToGame() {
-        router.newRootScreen(screens.gameScreen)
     }
 
     fun navigateBack() {

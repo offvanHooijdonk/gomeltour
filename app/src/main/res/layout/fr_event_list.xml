@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class="PredictListBinding">
+
+        <variable
+            name="model"
+            type="by.gomeltour.presentation.ui.event.list.EventListViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_predict_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            refreshing="@{model.progressLoad}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPredicts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
+                visible="@{!model.showEmpty}"
+                eventsList="@{model.eventsList}"
+                android:paddingBottom="8dp" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!--<FrameLayout
+            android:id="@+id/blockEmptyList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+    -->
+        <TextView
+            android:id="@+id/txtEmptyList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            visible="@{model.showEmpty}"
+            android:text="@string/filter_empty_result" />
+        <!--</FrameLayout>-->
+
+        <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add_24"
+            android:tint="@color/accentText"
+            app:fabSize="normal" />
+    -->
+    </FrameLayout>
+</layout>

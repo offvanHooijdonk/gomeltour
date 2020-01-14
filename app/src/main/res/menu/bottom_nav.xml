@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/it_list"
-            android:icon="@drawable/ic_list_24"
+            android:id="@+id/it_events"
+            android:icon="@drawable/ic_events_24"
             android:title="@string/it_predict_list" />
 
         <item
-            android:id="@+id/it_play"
-            android:icon="@drawable/ic_stars_24"
-            android:title="Play" />
+            android:id="@+id/it_museums"
+            android:icon="@drawable/ic_museum_24"
+            android:title="Museums" />
 
         <item
-            android:id="@+id/it_subscriptions"
-            android:icon="@drawable/ic_notifications_24"
-            android:title="@string/it_my_subscriptions" />
+            android:id="@+id/it_achievements"
+            android:icon="@drawable/ic_stars_24"
+            android:title="Achievements" />
 
         <!--<item
             android:id="@+id/it_authored"

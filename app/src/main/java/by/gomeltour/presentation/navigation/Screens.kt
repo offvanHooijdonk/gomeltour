@@ -7,10 +7,9 @@ import by.gomeltour.presentation.ui.login.LoginActivity
 import by.gomeltour.presentation.ui.profile.AccountsDialogFragment
 import by.gomeltour.presentation.ui.main.BottomOptionsDialog
 import by.gomeltour.presentation.ui.main.MainActivity
-import by.gomeltour.presentation.ui.predict.edit.PredictEditDialog
-import by.gomeltour.presentation.ui.predict.game.GameFragment
-import by.gomeltour.presentation.ui.predict.list.PredictListFragment
-import by.gomeltour.presentation.ui.predict.view.PredictSingleFragment
+import by.gomeltour.presentation.ui.event.list.EventListFragment
+import by.gomeltour.presentation.ui.event.view.EventSingleFragment
+import by.gomeltour.presentation.ui.preferences.PreferencesActivity
 import by.gomeltour.presentation.ui.profile.ProfileFragment
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -18,22 +17,25 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens : KoinComponent {
     enum class Keys {
-        LOGIN, MAIN, ACCOUNTS, OPTIONS, PREDICT_LIST, PREDICT_EDIT, PREDICT_SINGLE, PROFILE, GAME
+        LOGIN, PREFERENCES, MAIN, ACCOUNTS, OPTIONS, EVENT_LIST, EVENT_SINGLE, PROFILE
     }
 
     val loginScreen: LoginScreen by inject()
+    val preferencesScreen: PreferencesScreen by inject()
     val mainScreen: MainScreen by inject()
     val accountScreen: AccountsScreen by inject()
-    val predictListScreen: PredictListScreen by inject()
-    val predictEditScreen: PredictEditScreen by inject()
-    val predictSingleScreen: PredictSingleScreen by inject()
+    val eventListScreen: EventListScreen by inject()
+    val eventSingleScreen: EventSingleScreen by inject()
     val optionsDialogScreen: OptionsDialogScreen by inject()
     val profileScreen: ProfileScreen by inject()
-    val gameScreen: GameScreen by inject()
 }
 
 abstract class BaseScreen(private val screenKeyValue: Screens.Keys) : SupportAppScreen() {
     override fun getScreenKey(): String = screenKeyValue.name
+}
+
+class PreferencesScreen : BaseScreen(Screens.Keys.PREFERENCES) {
+    override fun getActivityIntent(context: Context?): Intent = Intent(context, PreferencesActivity::class.java)
 }
 
 class MainScreen : BaseScreen(Screens.Keys.MAIN) {
@@ -54,26 +56,18 @@ class LoginScreen : BaseScreen(Screens.Keys.LOGIN) {
     }
 }
 
-class PredictSingleScreen : BaseScreen(Screens.Keys.PREDICT_SINGLE) {
-    var predictId: String = ""
+class EventSingleScreen : BaseScreen(Screens.Keys.EVENT_SINGLE) {
+    var eventId: String = ""
 
-    override fun getFragment(): Fragment = PredictSingleFragment.instance(predictId)
+    override fun getFragment(): Fragment = EventSingleFragment.instance(eventId)
 }
 
-class PredictEditScreen : BaseScreen(Screens.Keys.PREDICT_EDIT) {
-    override fun getFragment(): Fragment = PredictEditDialog()
-}
-
-class PredictListScreen : BaseScreen(Screens.Keys.PREDICT_LIST) {
-    override fun getFragment(): Fragment = PredictListFragment()
+class EventListScreen : BaseScreen(Screens.Keys.EVENT_LIST) {
+    override fun getFragment(): Fragment = EventListFragment()
 }
 
 class ProfileScreen : BaseScreen(Screens.Keys.PROFILE) {
     var userId = ""
 
     override fun getFragment(): Fragment = ProfileFragment.instance(userId)
-}
-
-class  GameScreen : BaseScreen(Screens.Keys.GAME) {
-    override fun getFragment(): Fragment = GameFragment.instance()
 }

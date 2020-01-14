@@ -1,9 +1,9 @@
 package by.gomeltour.presentation.ui.profile
 
 import androidx.databinding.ObservableField
-import by.gomeltour.domain.UserBean
+import by.gomeltour.model.UserModel
 import by.gomeltour.helper.attachTo
-import by.gomeltour.model.profile.ProfileService
+import by.gomeltour.service.profile.ProfileService
 import by.gomeltour.presentation.ui.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
 
@@ -11,7 +11,7 @@ class ProfileViewModel(private val profileService: ProfileService) : BaseViewMod
     override val cd: CompositeDisposable = CompositeDisposable()
     private var userId: String? = null
 
-    val user = ObservableField<UserBean>()
+    val user = ObservableField<UserModel>()
 
     init {
         profileService.profileInfo.subscribe {

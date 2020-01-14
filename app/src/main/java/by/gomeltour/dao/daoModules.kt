@@ -9,7 +9,5 @@ val daoModule = module {
 
     single { get<AppDatabase>().userDao() }
 
-    single { get<AppDatabase>().predictDao() }
-
-    single { get<AppDatabase>().voteDao() }
+    single { get<AppDatabase>().eventDao() }
 }

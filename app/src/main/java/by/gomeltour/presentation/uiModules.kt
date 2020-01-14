@@ -7,9 +7,8 @@ import by.gomeltour.presentation.ui.main.BottomOptionsViewModel
 import by.gomeltour.presentation.ui.main.EFABTransformer
 import by.gomeltour.presentation.ui.main.MainViewModel
 import by.gomeltour.presentation.ui.main.screenevents.ScreenEvent
-import by.gomeltour.presentation.ui.predict.edit.PredictEditViewModel
-import by.gomeltour.presentation.ui.predict.list.PredictListViewModel
-import by.gomeltour.presentation.ui.predict.view.PredictSingleViewModel
+import by.gomeltour.presentation.ui.event.list.EventListViewModel
+import by.gomeltour.presentation.ui.event.view.EventSingleViewModel
 import by.gomeltour.presentation.ui.profile.AccountsViewModel
 import by.gomeltour.presentation.ui.profile.ProfileViewModel
 import io.reactivex.subjects.PublishSubject
@@ -29,9 +28,8 @@ val viewModelModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get(named(MAIN_SCREEN_MANAGER))) }
     viewModel { BottomOptionsViewModel(get(), get(), get()) }
-    viewModel { PredictListViewModel(get(), get(), get(named(MAIN_SCREEN_MANAGER))) }
-    viewModel { PredictEditViewModel(get()) }
-    viewModel { PredictSingleViewModel(get(), get()) }
+    viewModel { EventListViewModel(/*get(), */get(), get(named(MAIN_SCREEN_MANAGER))) }
+    viewModel { EventSingleViewModel(/*get(),*/ get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { AccountsViewModel(get(), get()) }
 }
@@ -47,13 +45,12 @@ val navModule = module {
     single { Screens() }
     single { LoginScreen() }
     single { MainScreen() }
+    single { PreferencesScreen() }
     single { AccountsScreen() }
     single { OptionsDialogScreen() }
-    single { PredictListScreen() }
-    single { PredictEditScreen() }
-    single { PredictSingleScreen() }
+    single { EventListScreen() }
+    single { EventSingleScreen() }
     single { ProfileScreen() }
-    single { GameScreen() }
     // endregion
 }
 

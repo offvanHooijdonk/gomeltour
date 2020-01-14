@@ -3,7 +3,7 @@ package by.gomeltour.app
 import android.app.Application
 import by.gomeltour.dao.daoModule
 import by.gomeltour.helper.helperModule
-import by.gomeltour.model.serviceModule
+import by.gomeltour.service.serviceModule
 import by.gomeltour.presentation.navModule
 import by.gomeltour.presentation.uiModule
 import by.gomeltour.presentation.viewModelModule

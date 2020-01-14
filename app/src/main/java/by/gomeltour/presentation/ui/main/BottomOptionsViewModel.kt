@@ -1,11 +1,12 @@
 package by.gomeltour.presentation.ui.main
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
 import by.gomeltour.app.App
-import by.gomeltour.model.Session
-import by.gomeltour.model.auth.AuthFirebase
-import by.gomeltour.model.auth.AuthGoogle
+import by.gomeltour.service.Session
+import by.gomeltour.service.auth.AuthFirebase
+import by.gomeltour.service.auth.AuthGoogle
 import by.gomeltour.presentation.navigation.RouterHelper
 
 class BottomOptionsViewModel(
@@ -26,5 +27,9 @@ class BottomOptionsViewModel(
             Session.user = null
             routerHelper.navigateToLogin()
         })
+    }
+
+    fun openSettings() {
+        routerHelper.navigateToPreferences()
     }
 }

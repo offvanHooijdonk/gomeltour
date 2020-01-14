@@ -22,10 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".presentation.ui.main.MainActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/NoBarAppTheme" />
+            android:theme="@style/NoBarAppTheme"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <activity android:name=".presentation.ui.preferences.PreferencesActivity" />
     </application>
 
 </manifest>
