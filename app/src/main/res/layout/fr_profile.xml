@@ -20,7 +20,7 @@
 
         <ImageView
             android:id="@+id/imgAuthorPic"
-            imageUrl="@{model.user.photoUrl}"
+            avatarUrl="@{model.user.photoUrl}"
             android:layout_width="64dp"
             android:layout_height="64dp"
             app:layout_constraintStart_toStartOf="parent"

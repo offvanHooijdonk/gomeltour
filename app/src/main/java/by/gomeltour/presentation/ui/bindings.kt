@@ -13,6 +13,7 @@ import by.gomeltour.model.EventModel
 import by.gomeltour.presentation.ui.event.list.EventAdapter
 import by.gomeltour.service.loadAppBarUserPhoto
 import by.gomeltour.service.loadAvatar
+import by.gomeltour.service.loadPoster
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.jetbrains.anko.design.longSnackbar
 import java.text.DateFormat
@@ -27,19 +28,19 @@ fun setErrorMessage(textView: TextView, message: String?) {
 }
 
 @BindingAdapter("errorMsg")
-fun setErrorSnackbar(coordinatorLayout: CoordinatorLayout, errorMessage: String?) {
-    errorMessage?.let {
-        if (it.isNotEmpty()) {
-            coordinatorLayout.longSnackbar(it).colorError()
+fun setErrorSnackbar(/*coordinatorLayout: CoordinatorLayout,*/view: View, stringRes: Int?) {
+    stringRes?.let {
+        if (stringRes != 0) {
+            /*coordinatorLayout*/view.longSnackbar(it).colorError()
         }
     }
 }
 
 @BindingAdapter("invalidMsg")
-fun setWarnSnackbar(coordinatorLayout: CoordinatorLayout, invalidMessage: String?) {
+fun setWarnSnackbar(/*coordinatorLayout: CoordinatorLayout,*/view: View, invalidMessage: String?) {
     invalidMessage?.let {
         if (it.isNotEmpty()) {
-            coordinatorLayout.longSnackbar(it).colorWarn()
+            /*coordinatorLayout*/view.longSnackbar(it).colorWarn()
         }
     }
 }
@@ -93,13 +94,18 @@ fun setEFABVisibility(efab: ExtendedFloatingActionButton, isShow: Boolean) {
     }
 }
 
-@BindingAdapter("imageUrl")
-fun setImageUrl(imageView: ImageView, url: String?) {
+@BindingAdapter("avatarUrl")
+fun setAvatarUrl(imageView: ImageView, url: String?) {
     imageView.loadAvatar(url)
 }
 
-@BindingAdapter("appBarImageUrl")
-fun setAppBarImageUrl(imageView: ImageView, url: String?) {
+@BindingAdapter("posterUrl")
+fun setPosterUrl(imageView: ImageView, url: String?) {
+    imageView.loadPoster(url)
+}
+
+@BindingAdapter("appBarAvatarUrl")
+fun setAppBarAvatarUrl(imageView: ImageView, url: String?) {
     if (url == null) imageView.setImageResource(R.drawable.ic_user_white_24) else imageView.loadAppBarUserPhoto(url)
 }
 

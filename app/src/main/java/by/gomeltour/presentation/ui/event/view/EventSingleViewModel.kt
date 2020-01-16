@@ -2,6 +2,8 @@ package by.gomeltour.presentation.ui.event.view
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
+import by.gomeltour.R
 import by.gomeltour.helper.Configs
 import by.gomeltour.model.EventModel
 import by.gomeltour.service.Session
@@ -17,7 +19,7 @@ class EventSingleViewModel(/*private val predictService: PredictService,*/ priva
     private val configs: Configs by inject()
     private var predictId: String? = null
 
-    val errorMsg = ObservableField<String>()
+    val errorMsg = ObservableInt()
     val event = ObservableField<EventModel>()
     val progressLoad = ObservableBoolean(false)
     val isAuthor = ObservableBoolean(false)
@@ -28,7 +30,7 @@ class EventSingleViewModel(/*private val predictService: PredictService,*/ priva
             if (id != null) {
                 //loadPredictData(id)
             } else {
-                errorMsg.set("No data") // todo use context
+                errorMsg.set(R.string.error_no_data)
             }
         }
     }

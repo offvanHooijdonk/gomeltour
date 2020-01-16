@@ -2,11 +2,11 @@
 <resources>
     <string name="app_name">Гомель Тур</string>
     <string name="sign_out">Выйти</string>
-    <string name="sign_out_title">Выйти</string>
-    <string name="sign_out_message">Вы уверены, что хотите выйти из своего аккаунта?</string>
+    <string name="sign_out__confirm_title">Выйти</string>
+    <string name="sign_out_confirm_msg">Вы уверены, что хотите выйти из своего аккаунта?</string>
     <string name="fish_text">Според лексикалния им строеж фразеологизмите биват разделяни на фразеологизирани изречения (преди всичко пословици и поговорки – Блага реч железни врати отваря.) и фразеологически съчетания (на вятъра, на вересия). Според семантичния им строеж биват.</string>
     <string name="fish_short">Според лексикалния им строеж</string>
-    <string name="predict_list_title">Предсказания</string>
+    <string name="events_list_title">События</string>
     <string name="predict_title_label">Заголовок</string>
     <string name="predict_text_label">Предсказание</string>
     <string name="form_hint_answer">Вариант %1$s</string>
@@ -33,4 +33,6 @@
     <string name="votes_million">м</string>
     <string name="votes_thousand">к</string>
     <string name="votes_trillion">тр</string>
+    <string name="error_loading">Не удалось загрузить данные</string>
+    <string name="error_no_data">Данные отсутствуют</string>
 </resources>

@@ -45,6 +45,11 @@
             android:text="@string/filter_empty_result" />
         <!--</FrameLayout>-->
 
+        <View
+            errorMsg="@{model.errorMsg}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAdd"
             android:layout_width="wrap_content"

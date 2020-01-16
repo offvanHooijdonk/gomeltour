@@ -3,36 +3,38 @@ package by.gomeltour.presentation.ui.event.list
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
+import by.gomeltour.R
 import by.gomeltour.model.EventModel
 import by.gomeltour.presentation.navigation.RouterHelper
 import by.gomeltour.presentation.ui.BaseViewModel
 import by.gomeltour.presentation.ui.main.screenevents.ListScrollEvent
 import by.gomeltour.presentation.ui.main.screenevents.ScreenEvent
+import by.gomeltour.service.event.EventService
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 
-class EventListViewModel(//private val predictService: PredictService,
+class EventListViewModel(private val eventService: EventService,
                          private val routerHelper: RouterHelper,
                          private val screenEvents: Observer<ScreenEvent>) : BaseViewModel() {
     override val cd = CompositeDisposable()
 
     val eventsList = ObservableArrayList<EventModel>()
-    val errorMsg = ObservableField<String>()
-    val showEmpty = ObservableBoolean(false)
+    val errorMsg = ObservableInt()
+    val showEmpty = ObservableBoolean(true)
     val progressLoad = ObservableBoolean(false)
 
     private var isInit = false
 
-    fun viewStart() {
-        showEmpty.set(true) // FIXME temp, remove
-        isInit = if (!isInit) {
-            //loadPredicts()
-            true
-        } else isInit
+    init {
+        loadEvents()
     }
 
     fun updatePredicts() {
-        //loadPredicts()
+        loadEvents()
     }
 
     fun onListScroll(isDown: Boolean) {
@@ -41,6 +43,15 @@ class EventListViewModel(//private val predictService: PredictService,
 
     fun onActionButtonClick() {
         //routerHelper.navigateToPredictEdit()
+    }
+
+    private fun loadEvents() {
+        eventService.getEventsForPeriod(0, System.currentTimeMillis())
+                .onStart { progressLoad.set(true) }
+                .onEach { eventsList.apply { clear(); addAll(it) } }
+                .catch { errorMsg.set(R.string.error_loading) }
+                .onCompletion { progressLoad.set(false) }
+                .launchIn(CoroutineScope(Dispatchers.Main))
     }
 
     /*private fun loadPredicts() {

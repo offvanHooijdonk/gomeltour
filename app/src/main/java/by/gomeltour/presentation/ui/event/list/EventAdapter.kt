@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.gomeltour.R
 import by.gomeltour.databinding.ItemEventBinding
 import by.gomeltour.model.EventModel
+import kotlinx.android.synthetic.main.item_event.view.*
 
 /**
  * Created by Yahor_Fralou on 9/21/2018 4:43 PM.
@@ -27,16 +28,6 @@ class EventAdapter(var ctx: Context) : RecyclerView.Adapter<EventAdapter.ViewHol
     override fun onBindViewHolder(vh: ViewHolder, position: Int) {
         val predict = events[position]
         vh.bind(predict)
-
-        // todo remove
-        /*with(vh.itemView) {
-            txtPredictTitle.text = predict.title
-            txtPredictText.text = predict.text
-            txtAuthorName.text = predict.authorName
-            imgPredictLogo.loadAvatar(predict.authorPic)
-
-            card.setOnClickListener { handler(predict) }
-        }*/
     }
 
     fun update(list: List<EventModel>) {

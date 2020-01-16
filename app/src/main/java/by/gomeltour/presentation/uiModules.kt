@@ -28,7 +28,7 @@ val viewModelModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get(named(MAIN_SCREEN_MANAGER))) }
     viewModel { BottomOptionsViewModel(get(), get(), get()) }
-    viewModel { EventListViewModel(/*get(), */get(), get(named(MAIN_SCREEN_MANAGER))) }
+    viewModel { EventListViewModel(get(), get(), get(named(MAIN_SCREEN_MANAGER))) }
     viewModel { EventSingleViewModel(/*get(),*/ get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { AccountsViewModel(get(), get()) }

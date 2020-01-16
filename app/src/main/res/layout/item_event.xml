@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
     <data class="ItemEventBinding">
 
@@ -11,10 +11,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/itemRoot"
-        android:onClick="@{(view) -> model.onSelectItem()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{(view) -> model.onSelectItem()}"
         android:paddingBottom="16dp">
 
         <com.google.android.material.card.MaterialCardView
@@ -27,12 +28,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
-                android:paddingStart="16dp"
-                android:paddingTop="16dp"
-                android:paddingEnd="16dp"
                 android:paddingBottom="16dp">
 
+                <ImageView
+                    android:id="@+id/img_poster"
+                    posterUrl="@{model.event.titleImageUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@sample/poster_sample.jpg" />
 
+                <TextView
+                    android:id="@+id/txt_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/act_padding_h"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/act_padding_h"
+                    android:text="@{model.event.title}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toBottomOf="@id/img_poster"
+                    tools:text="@string/fish_short" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

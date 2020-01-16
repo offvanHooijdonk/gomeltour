@@ -56,8 +56,6 @@ class EventListFragment : Fragment(), MainActivity.FABClickListener {
                 prevScrollDirDown = dirDown
             }
         })
-
-        viewModel.viewStart()
     }
 
     override fun onStart() {

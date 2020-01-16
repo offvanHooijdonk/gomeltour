@@ -34,12 +34,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="monospace"
-                    android:text="@string/predict_list_title"
+                    android:text="@string/events_list_title"
                     android:textColor="#FFF"
                     android:textSize="24sp" />
 
                 <ImageView
-                    appBarImageUrl="@{model.userPhotoUrl}"
+                    appBarAvatarUrl="@{model.userPhotoUrl}"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="end"

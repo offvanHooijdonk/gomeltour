@@ -34,4 +34,13 @@ fun ImageView.loadAppBarUserPhoto(url: String?) {
             .into(this)
 }
 
+fun ImageView.loadPoster(url: String?) {
+    GlideApp.with(this.context)
+            .load(url)
+            .transition(withCrossFade(crossFadeFactory))
+            .fallback(R.drawable.ic_museum_24)
+            .placeholder(R.drawable.ic_museum_24)
+            .into(this)
+}
+
 private val crossFadeFactory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()
