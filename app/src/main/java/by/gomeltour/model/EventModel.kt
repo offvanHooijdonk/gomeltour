@@ -14,5 +14,7 @@ data class EventModel(
         val description: String?,
         val dateStart: Date,
         val dateEnd: Date?,
+        val timeStart: Date?,
+        val timeEnd: Date?,
         val titleImageUrl: String?
 )

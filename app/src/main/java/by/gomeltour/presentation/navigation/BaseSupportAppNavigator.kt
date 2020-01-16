@@ -8,7 +8,7 @@ import ru.terrakok.cicerone.commands.*
 open class BaseSupportAppNavigator(private val backStack: NavigationBackStack, activity: FragmentActivity?, fm: FragmentManager?, containerId: Int)
     : SupportAppNavigator(activity, fm, containerId) {
 
-    private val screensSkipBack = setOf(Screens.Keys.ACCOUNTS.name, Screens.Keys.OPTIONS.name)
+    private val screensSkipBack = setOf(Screens.Keys.ACCOUNTS.name, Screens.Keys.OPTIONS.name, Screens.Keys.PREFERENCES.name)
 
     override fun applyCommand(command: Command?) {
         super.applyCommand(command)

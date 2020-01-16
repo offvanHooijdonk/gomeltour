@@ -68,6 +68,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
     implementation "io.reactivex.rxjava2:rxjava:$rx_version"
 
+    implementation "com.google.code.gson:gson:2.8.6"
 
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"

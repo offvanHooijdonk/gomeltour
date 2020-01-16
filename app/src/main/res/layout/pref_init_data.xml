@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -13,10 +14,19 @@
         android:text="Init data" />
 
     <ProgressBar
+        android:id="@+id/progress_init_data"
         style="?android:progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:visibility="gone"
         tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/img_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_check"
+        android:tint="@color/colorAccentDark"
+        android:visibility="invisible" />
 </LinearLayout>

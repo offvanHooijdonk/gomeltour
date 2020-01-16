@@ -17,12 +17,10 @@
         android:paddingBottom="8dp">
 
         <LinearLayout
-            android:id="@+id/blockOptions"
+            android:id="@+id/blockPreferences"
+            style="@style/Clickable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{(view) -> model.openSettings()}"
-            android:clickable="true"
-            android:focusable="true"
             android:orientation="horizontal">
 
             <ImageView

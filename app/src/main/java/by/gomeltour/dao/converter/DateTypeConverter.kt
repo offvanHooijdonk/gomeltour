@@ -5,10 +5,10 @@ import java.util.*
 
 class DateTypeConverter {
     @TypeConverter
-    fun convertDateToLong(date: Date) = date.time
+    fun convertDateToLong(date: Date?) = date?.time
 
     @TypeConverter
-    fun convertLongToDate(time: Long) = Date(time)
+    fun convertLongToDate(time: Long?) = time?.let { Date(time) }
 
     @TypeConverter
     fun convertListToString(list: Array<String>) = list.joinToString(SEPARATOR_OPTIONS)

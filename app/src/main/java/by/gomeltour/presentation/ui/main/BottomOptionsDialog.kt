@@ -32,6 +32,7 @@ class BottomOptionsDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        blockPreferences.setOnClickListener { viewModel.openSettings(); dismiss() }
         setupSignOutOption()
     }
 

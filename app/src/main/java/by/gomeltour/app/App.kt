@@ -7,6 +7,7 @@ import by.gomeltour.service.serviceModule
 import by.gomeltour.presentation.navModule
 import by.gomeltour.presentation.uiModule
 import by.gomeltour.presentation.viewModelModule
+import by.gomeltour.repository.repoModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -31,4 +32,4 @@ class App : Application() {
     }
 }
 
-internal val allModules = listOf(serviceModule, daoModule, viewModelModule, uiModule, navModule, helperModule)
+internal val allModules = listOf(serviceModule, repoModule, daoModule, viewModelModule, uiModule, navModule, helperModule)

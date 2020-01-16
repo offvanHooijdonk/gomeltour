@@ -14,5 +14,6 @@ class EventRepo(private val eventDao: EventDao) {
         events.forEach {
             if (eventDao.insert(it) == -1L) eventDao.update(it)
         }
+        emit(Unit)
     }
 }
