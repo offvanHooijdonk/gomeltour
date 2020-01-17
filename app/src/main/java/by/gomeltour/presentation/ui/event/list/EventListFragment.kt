@@ -42,7 +42,7 @@ class EventListFragment : Fragment(), MainActivity.FABClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         rv_events.layoutManager = LinearLayoutManager(ctx)
-        adapter = EventAdapter(ctx)
+        adapter = EventAdapter()
         rv_events.adapter = adapter
         refresh_predict_info.setUpDefault()
         refresh_predict_info.setOnRefreshListener { viewModel.updatePredicts() }
