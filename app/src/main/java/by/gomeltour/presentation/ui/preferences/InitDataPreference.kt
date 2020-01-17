@@ -14,13 +14,15 @@ import by.gomeltour.helper.invisible
 import by.gomeltour.helper.launchScopeIO
 import by.gomeltour.helper.visible
 import by.gomeltour.model.EventModel
+import by.gomeltour.model.LocationModel
 import by.gomeltour.repository.EventRepo
+import by.gomeltour.repository.LocationRepo
 import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.pref_init_data.view.*
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.single
-import kotlinx.coroutines.flow.singleOrNull
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -30,6 +32,7 @@ import java.util.*
 
 class InitDataPreference(private val ctx: Context, attrs: AttributeSet) : Preference(ctx, attrs), KoinComponent {
     private val eventRepo: EventRepo by inject()
+    private val locationRepo: LocationRepo by inject()
 
     init {
         layoutResource = R.layout.pref_init_data
@@ -47,18 +50,23 @@ class InitDataPreference(private val ctx: Context, attrs: AttributeSet) : Prefer
         showProgress(true, view)
 
         try {
-            launchScopeIO {
-                val events = GsonBuilder()
-                        .registerTypeAdapter(Date::class.java, DateDeserializer)
-                        .registerTypeAdapter(Date::class.java, DateSerializer)
-                        .create().fromJson<Array<EventModel>>(ctx.resources.openRawResource(R.raw.initdata).reader(), TypeToken.getArray(EventModel::class.java).type)
-                eventRepo.upsertBatch(listOf(*events)).singleOrNull()
-            }
-            view.img_done.visible()
+            val events = GsonBuilder()
+                    .registerTypeAdapter(Date::class.java, DateDeserializer)
+                    .registerTypeAdapter(Date::class.java, DateSerializer)
+                    .create().fromJson<Array<EventModel>>(ctx.resources.openRawResource(R.raw.initdata).reader(), TypeToken.getArray(EventModel::class.java).type)
+
+            val locations = GsonBuilder().create().fromJson<Array<LocationModel>>(ctx.resources.openRawResource(R.raw.locations).reader(), TypeToken.getArray(LocationModel::class.java).type)
+            eventRepo.upsertBatch(listOf(*events))
+                    .zip(locationRepo.upsertBatch(listOf(*locations))) { _, _->}
+                    .onCompletion {
+                        view.img_done.visible();
+                        showProgress(false, view)
+                    }
+                    .launchIn(CoroutineScope(Dispatchers.Main))
+
         } catch (e: Exception) {
             Toast.makeText(ctx, e.toString(), Toast.LENGTH_LONG).show()
             Log.e("g-tour", "Error saving init data", e)
-        } finally {
             showProgress(false, view)
         }
     }

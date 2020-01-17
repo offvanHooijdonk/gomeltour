@@ -14,11 +14,11 @@ import kotlinx.android.synthetic.main.item_event.view.*
  * Created by Yahor_Fralou on 9/21/2018 4:43 PM.
  */
 
-class EventAdapter(var ctx: Context) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
+class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
     private val events = mutableListOf<EventModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = DataBindingUtil.inflate<ItemEventBinding>(LayoutInflater.from(ctx), R.layout.item_event, parent, false)
+        val binding = DataBindingUtil.inflate<ItemEventBinding>(LayoutInflater.from(parent.context), R.layout.item_event, parent, false)
 
         return ViewHolder(binding, ItemEventViewModel())
     }
@@ -41,5 +41,5 @@ class EventAdapter(var ctx: Context) : RecyclerView.Adapter<EventAdapter.ViewHol
             model.event = eventModel
             binding.model = model
         }
-    } // todo use DataBinding here
+    }
 }

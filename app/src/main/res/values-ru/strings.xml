@@ -16,9 +16,7 @@
     <string name="form_option_negative">Нет</string>
     <string name="fish_date_full">Пн 25 Октября 2017</string>
     <string name="btn_confirm_sign_out">Да, выйти</string>
-    <string name="it_my_subscriptions">Подписки</string>
-    <string name="it_authored_list">Мои предсказания</string>
-    <string name="it_predict_list">Все</string>
+    <string name="it_events">События</string>
     <string name="settings">Настройки</string>
     <string name="fish_number">12,6k</string>
     <string name="fish_full_name">Филипп Преображенский</string>
@@ -35,4 +33,6 @@
     <string name="votes_trillion">тр</string>
     <string name="error_loading">Не удалось загрузить данные</string>
     <string name="error_no_data">Данные отсутствуют</string>
+    <string name="it_achievements">Достижения</string>
+    <string name="it_museums">Выставки</string>
 </resources>

@@ -41,13 +41,13 @@ class EventListFragment : Fragment(), MainActivity.FABClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvPredicts.layoutManager = LinearLayoutManager(ctx)
+        rv_events.layoutManager = LinearLayoutManager(ctx)
         adapter = EventAdapter(ctx)
-        rvPredicts.adapter = adapter
+        rv_events.adapter = adapter
         refresh_predict_info.setUpDefault()
         refresh_predict_info.setOnRefreshListener { viewModel.updatePredicts() }
 
-        rvPredicts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        /*rv_events.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val dirDown = dy > 0
                 if (prevScrollDirDown xor dirDown) {
@@ -55,7 +55,7 @@ class EventListFragment : Fragment(), MainActivity.FABClickListener {
                 }
                 prevScrollDirDown = dirDown
             }
-        })
+        })*/
     }
 
     override fun onStart() {

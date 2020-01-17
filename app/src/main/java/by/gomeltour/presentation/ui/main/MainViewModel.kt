@@ -21,7 +21,7 @@ class MainViewModel(
 
     val errorMsg = ObservableField<String>()
     val extendState = ObservableBoolean(true)
-    val showAddButton = ObservableBoolean(true)
+    val showAddButton = ObservableBoolean(false)
     val userPhotoUrl = ObservableField<String>(Session.user?.photoUrl)
 
     fun viewStart() {

@@ -14,51 +14,31 @@
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_predict_info"
+            refreshing="@{model.progressLoad}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            refreshing="@{model.progressLoad}">
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvPredicts"
+                android:id="@+id/rv_events"
+                eventsList="@{model.eventsList}"
+                visible="@{!model.showEmpty}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingTop="8dp"
-                visible="@{!model.showEmpty}"
-                eventsList="@{model.eventsList}"
-                android:paddingBottom="8dp" />
+                android:background="#eeeeee" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <!--<FrameLayout
-            android:id="@+id/blockEmptyList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-    -->
         <TextView
             android:id="@+id/txtEmptyList"
+            visible="@{model.showEmpty}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            visible="@{model.showEmpty}"
             android:text="@string/filter_empty_result" />
-        <!--</FrameLayout>-->
 
         <View
             errorMsg="@{model.errorMsg}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
-        <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_add_24"
-            android:tint="@color/accentText"
-            app:fabSize="normal" />
-    -->
     </FrameLayout>
 </layout>

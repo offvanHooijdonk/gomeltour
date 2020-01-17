@@ -1,10 +1,12 @@
 package by.gomeltour.presentation.ui.event.list
 
+import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.viewModelScope
 import by.gomeltour.R
+import by.gomeltour.app.LOGCAT
 import by.gomeltour.model.EventModel
 import by.gomeltour.presentation.navigation.RouterHelper
 import by.gomeltour.presentation.ui.BaseViewModel
@@ -13,8 +15,6 @@ import by.gomeltour.presentation.ui.main.screenevents.ScreenEvent
 import by.gomeltour.service.event.EventService
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 class EventListViewModel(private val eventService: EventService,
@@ -27,7 +27,6 @@ class EventListViewModel(private val eventService: EventService,
     val showEmpty = ObservableBoolean(true)
     val progressLoad = ObservableBoolean(false)
 
-    private var isInit = false
 
     init {
         loadEvents()
@@ -48,10 +47,16 @@ class EventListViewModel(private val eventService: EventService,
     private fun loadEvents() {
         eventService.getEventsForPeriod(0, System.currentTimeMillis())
                 .onStart { progressLoad.set(true) }
-                .onEach { eventsList.apply { clear(); addAll(it) } }
-                .catch { errorMsg.set(R.string.error_loading) }
+                .onEach {
+                    eventsList.apply { clear(); addAll(it) }
+                    showEmpty.set(it.isEmpty())
+                }
+                .catch {
+                    errorMsg.set(R.string.error_loading)
+                    Log.e(LOGCAT, "ERROR", it)
+                }
                 .onCompletion { progressLoad.set(false) }
-                .launchIn(CoroutineScope(Dispatchers.Main))
+                .launchIn(viewModelScope)
     }
 
     /*private fun loadPredicts() {

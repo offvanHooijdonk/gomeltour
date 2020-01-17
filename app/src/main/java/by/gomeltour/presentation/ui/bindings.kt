@@ -1,9 +1,9 @@
 package by.gomeltour.presentation.ui
 
+import android.text.format.DateFormat
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -16,10 +16,7 @@ import by.gomeltour.service.loadAvatar
 import by.gomeltour.service.loadPoster
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.jetbrains.anko.design.longSnackbar
-import java.text.DateFormat
 import java.util.*
-
-val dateFormatLong: DateFormat = DateFormat.getDateInstance(DateFormat.FULL)
 
 @BindingAdapter("errorMsg")
 fun setErrorMessage(textView: TextView, message: String?) {
@@ -70,13 +67,34 @@ fun setNumberText(textView: TextView, number: Int) {
     textView.text = number.toString() // todo implement numbers formatting as 28.4k
 }
 
+@BindingAdapter("timeShort")
+fun setTimeShort(textView: TextView, date: Date?) {
+    if (date == null) {
+        textView.gone()
+    } else {
+        textView.text = DateFormat.getTimeFormat(textView.context).format(date)
+        textView.visible()
+    }
+}
+
+@BindingAdapter("dateShort")
+fun setDateShort(textView: TextView, date: Date?) {
+    if (date == null) {
+        textView.gone()
+    } else {
+        val pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "dd MMMM")
+        textView.text = DateFormat.format(pattern, date)
+        textView.visible()
+    }
+}
+
 @BindingAdapter("dateLong")
 fun setDateLong(textView: TextView, date: Date?) {
     if (date == null) {
         textView.gone()
     } else {
         textView.visible()
-        textView.text = dateFormatLong.format(date)
+        textView.text = DateFormat.getLongDateFormat(textView.context).format(date)
     }
 }
 

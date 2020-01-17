@@ -4,22 +4,17 @@
         <item
             android:id="@+id/it_events"
             android:icon="@drawable/ic_events_24"
-            android:title="@string/it_predict_list" />
+            android:title="@string/it_events" />
 
         <item
             android:id="@+id/it_museums"
             android:icon="@drawable/ic_museum_24"
-            android:title="Museums" />
+            android:title="@string/it_museums" />
 
         <item
             android:id="@+id/it_achievements"
             android:icon="@drawable/ic_stars_24"
-            android:title="Achievements" />
-
-        <!--<item
-            android:id="@+id/it_authored"
-            android:icon="@drawable/ic_person_default_24"
-            android:title="@string/it_authored_list" />-->
+            android:title="@string/it_achievements" />
 
         <item
             android:id="@+id/it_more"

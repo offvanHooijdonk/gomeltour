@@ -10,4 +10,6 @@ val daoModule = module {
     single { get<AppDatabase>().userDao() }
 
     single { get<AppDatabase>().eventDao() }
+
+    single { get<AppDatabase>().locationDao() }
 }

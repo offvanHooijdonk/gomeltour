@@ -11,6 +11,6 @@ interface EventDao {
     @Update
     fun update(event: EventModel)
 
-    @Query("select * from Events where dateStart >= :startDate and dateEnd <= :endDate") // todo
-    fun getEventsForPeriod(startDate: Long, endDate: Long): List<EventModel>
+    @Query("select * from Events") // todo
+    fun getEventsForPeriod(/*startDate: Long, endDate: Long*/): List<EventModel>
 }
