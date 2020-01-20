@@ -10,9 +10,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import by.gomeltour.R
 import by.gomeltour.helper.*
 import by.gomeltour.model.EventModel
+import by.gomeltour.model.LocationModel
+import by.gomeltour.presentation.ui.achievements.LocationsAdapter
 import by.gomeltour.presentation.ui.event.list.EventAdapter
 import by.gomeltour.service.loadAppBarUserPhoto
-import by.gomeltour.service.loadAvatar
+import by.gomeltour.service.loadImageRounded
 import by.gomeltour.service.loadPoster
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.jetbrains.anko.design.longSnackbar
@@ -60,6 +62,11 @@ fun setRefreshing(refreshLayout: SwipeRefreshLayout, refreshing: Boolean) {
 @BindingAdapter("eventsList")
 fun setEventsList(recyclerView: RecyclerView, list: List<EventModel>) {
     (recyclerView.adapter as? EventAdapter)?.update(list)
+}
+
+@BindingAdapter("locationsList")
+fun setLocationsList(recyclerView: RecyclerView, list: List<LocationModel>) {
+    (recyclerView.adapter as? LocationsAdapter)?.update(list)
 }
 
 @BindingAdapter("numText")
@@ -114,7 +121,12 @@ fun setEFABVisibility(efab: ExtendedFloatingActionButton, isShow: Boolean) {
 
 @BindingAdapter("avatarUrl")
 fun setAvatarUrl(imageView: ImageView, url: String?) {
-    imageView.loadAvatar(url)
+    imageView.loadImageRounded(url, R.drawable.ic_person_default_24)
+}
+
+@BindingAdapter("locationImageUrl")
+fun setLocationImageUrl(imageView: ImageView, url: String?) {
+    imageView.loadImageRounded(url, R.drawable.ic_place_black_24)
 }
 
 @BindingAdapter("posterUrl")
@@ -130,4 +142,13 @@ fun setAppBarAvatarUrl(imageView: ImageView, url: String?) {
 @BindingAdapter("votes")
 fun setVotesNumber(textView: TextView, votesNumber: Int) {
     textView.text = convertVotesPresentation(votesNumber, textView.context)
+}
+
+@BindingAdapter("placeName")
+fun setPlaceName(textView: TextView, placeName: String?) {
+    if (placeName != null && placeName.isNotBlank()) {
+        textView.text = placeName
+    } else {
+        textView.text = textView.context.getString(R.string.place_none)
+    }
 }

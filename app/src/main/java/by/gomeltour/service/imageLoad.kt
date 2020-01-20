@@ -1,6 +1,7 @@
 package by.gomeltour.service
 
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import by.gomeltour.R
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
@@ -15,11 +16,11 @@ import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 @GlideModule
 class GlideAppModule : AppGlideModule()
 
-fun ImageView.loadAvatar(url: String?) {
+fun ImageView.loadImageRounded(url: String?, @DrawableRes placeholderResId: Int) {
     GlideApp.with(this.context)
             .load(url)
-            .fallback(R.drawable.ic_person_default_24)
-            .placeholder(R.drawable.ic_person_default_24)
+            .fallback(placeholderResId)
+            .placeholder(placeholderResId)
             .apply(RequestOptions().optionalCircleCrop())
             .into(this)
 }

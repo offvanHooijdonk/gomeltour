@@ -45,6 +45,7 @@ class MainViewModel(
             R.id.it_museums -> {
                 //routerHelper.navigateToGame()
             }
+            R.id.it_achievements -> routerHelper.navigateToAchievements()
         }
     }
 

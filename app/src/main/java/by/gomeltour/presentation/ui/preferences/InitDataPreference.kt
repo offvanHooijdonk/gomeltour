@@ -1,7 +1,6 @@
 package by.gomeltour.presentation.ui.preferences
 
 import android.content.Context
-import android.provider.Contacts
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -11,10 +10,11 @@ import androidx.preference.PreferenceViewHolder
 import by.gomeltour.R
 import by.gomeltour.helper.gone
 import by.gomeltour.helper.invisible
-import by.gomeltour.helper.launchScopeIO
 import by.gomeltour.helper.visible
+import by.gomeltour.model.AchievementModel
 import by.gomeltour.model.EventModel
 import by.gomeltour.model.LocationModel
+import by.gomeltour.repository.AchievementsRepo
 import by.gomeltour.repository.EventRepo
 import by.gomeltour.repository.LocationRepo
 import com.google.gson.*
@@ -23,16 +23,15 @@ import kotlinx.android.synthetic.main.pref_init_data.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.lang.reflect.Type
-import java.net.URI.create
 import java.util.*
 
 class InitDataPreference(private val ctx: Context, attrs: AttributeSet) : Preference(ctx, attrs), KoinComponent {
     private val eventRepo: EventRepo by inject()
     private val locationRepo: LocationRepo by inject()
+    private val achievementsRepo: AchievementsRepo by inject()
 
     init {
         layoutResource = R.layout.pref_init_data
@@ -55,9 +54,14 @@ class InitDataPreference(private val ctx: Context, attrs: AttributeSet) : Prefer
                     .registerTypeAdapter(Date::class.java, DateSerializer)
                     .create().fromJson<Array<EventModel>>(ctx.resources.openRawResource(R.raw.initdata).reader(), TypeToken.getArray(EventModel::class.java).type)
 
-            val locations = GsonBuilder().create().fromJson<Array<LocationModel>>(ctx.resources.openRawResource(R.raw.locations).reader(), TypeToken.getArray(LocationModel::class.java).type)
+            val locations = GsonBuilder().create()
+                    .fromJson<Array<LocationModel>>(ctx.resources.openRawResource(R.raw.locations).reader(), TypeToken.getArray(LocationModel::class.java).type)
+            val achievements = GsonBuilder().create()
+                    .fromJson<Array<AchievementModel>>(ctx.resources.openRawResource(R.raw.achievements).reader(), TypeToken.getArray(AchievementModel::class.java).type)
+
             eventRepo.upsertBatch(listOf(*events))
-                    .zip(locationRepo.upsertBatch(listOf(*locations))) { _, _->}
+                    .zip(locationRepo.upsertBatch(listOf(*locations))) { _, _ -> }
+                    .zip(achievementsRepo.upsertBatch(listOf(*achievements))) { _, _ -> }
                     .onCompletion {
                         view.img_done.visible();
                         showProgress(false, view)

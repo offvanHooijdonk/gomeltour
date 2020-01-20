@@ -14,6 +14,7 @@ import by.gomeltour.presentation.navigation.BaseSupportAppNavigator
 import by.gomeltour.presentation.navigation.NavigationBackStack
 import by.gomeltour.presentation.navigation.Screens
 import by.gomeltour.presentation.ui.event.list.EventListFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.act_main.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
@@ -43,8 +44,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
         transformer = get(parameters = { parametersOf(fabAddNew, R.drawable.ic_wand_24) })
+        fabAddNew.hide()
 
-        navBottom.setOnNavigationItemSelectedListener { item ->
+        nav_bottom.setOnNavigationItemSelectedListener { item ->
             viewModel.onNavSelected(item)
             item.itemId != R.id.it_more
         }
@@ -81,6 +83,8 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
+
+    fun createSnackbar(text: String, duration: Int) = Snackbar.make(coordinator_layout, text, duration).setAnchorView(nav_bottom)
 
     private fun handleFABClick() {
         val frag = supportFragmentManager.fragments.firstOrNull { it.isVisible }

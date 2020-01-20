@@ -6,4 +6,6 @@ val repoModule = module {
     single { EventRepo(get()) }
 
     single { LocationRepo(get()) }
+
+    single { AchievementsRepo(get()) }
 }

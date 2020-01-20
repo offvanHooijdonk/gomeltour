@@ -19,6 +19,7 @@
     <string name="fish_date_full">Mon, 25 Oct 2017</string>
     <string name="fish_date_short">October 25</string>
     <string name="fish_time_short">12:30</string>
+    <string name="place_none">\?????????</string>
 
     <string name="btn_confirm_sign_out">Confirm</string>
     <string name="it_events">Events</string>

@@ -3,6 +3,7 @@ package by.gomeltour.presentation.navigation
 import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.Fragment
+import by.gomeltour.presentation.ui.achievements.AchievmentsFragment
 import by.gomeltour.presentation.ui.login.LoginActivity
 import by.gomeltour.presentation.ui.profile.AccountsDialogFragment
 import by.gomeltour.presentation.ui.main.BottomOptionsDialog
@@ -17,7 +18,7 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens : KoinComponent {
     enum class Keys {
-        LOGIN, PREFERENCES, MAIN, ACCOUNTS, OPTIONS, EVENT_LIST, EVENT_SINGLE, PROFILE
+        LOGIN, PREFERENCES, MAIN, ACCOUNTS, OPTIONS, EVENT_LIST, ACHIEVEMENTS, EVENT_SINGLE, PROFILE
     }
 
     val loginScreen: LoginScreen by inject()
@@ -25,6 +26,7 @@ class Screens : KoinComponent {
     val mainScreen: MainScreen by inject()
     val accountScreen: AccountsScreen by inject()
     val eventListScreen: EventListScreen by inject()
+    val achievementsScreen: AchievementsScreen by inject()
     val eventSingleScreen: EventSingleScreen by inject()
     val optionsDialogScreen: OptionsDialogScreen by inject()
     val profileScreen: ProfileScreen by inject()
@@ -64,6 +66,10 @@ class EventSingleScreen : BaseScreen(Screens.Keys.EVENT_SINGLE) {
 
 class EventListScreen : BaseScreen(Screens.Keys.EVENT_LIST) {
     override fun getFragment(): Fragment = EventListFragment()
+}
+
+class AchievementsScreen : BaseScreen(Screens.Keys.ACHIEVEMENTS) {
+    override fun getFragment(): Fragment = AchievmentsFragment()
 }
 
 class ProfileScreen : BaseScreen(Screens.Keys.PROFILE) {

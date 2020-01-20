@@ -3,15 +3,20 @@ package by.gomeltour.presentation.ui.achievements
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import by.gomeltour.R
+import by.gomeltour.databinding.ItemLocationBinding
 import by.gomeltour.model.LocationModel
 
 class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
     private val locations = mutableListOf<LocationModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_location, parent, false), ItemLocationViewModel())
+            ViewHolder(
+                    DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_location, parent, false),
+                    ItemLocationViewModel()
+            )
 
     override fun getItemCount(): Int = locations.size
 
@@ -24,9 +29,10 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class ViewHolder(private val itemView: View, private val viewModel: ItemLocationViewModel) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(private val binding: ItemLocationBinding, private val viewModel: ItemLocationViewModel) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: LocationModel) {
-            // todo
+            viewModel.location.set(model)
+            binding.model = viewModel
         }
     }
 }

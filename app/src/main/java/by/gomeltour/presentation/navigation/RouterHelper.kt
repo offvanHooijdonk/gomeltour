@@ -28,6 +28,10 @@ class RouterHelper(private val router: Router, private val navigatorHolder: Navi
         router.newRootScreen(screens.eventListScreen)
     }
 
+    fun navigateToAchievements() {
+        router.newRootScreen(screens.achievementsScreen)
+    }
+
     fun navigateToEditSingle(eventId: String) {
         router.navigateTo(screens.eventSingleScreen.apply { this.eventId = eventId })
     }

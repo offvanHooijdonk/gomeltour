@@ -12,4 +12,6 @@ val daoModule = module {
     single { get<AppDatabase>().eventDao() }
 
     single { get<AppDatabase>().locationDao() }
+
+    single { get<AppDatabase>().achievementsDao() }
 }

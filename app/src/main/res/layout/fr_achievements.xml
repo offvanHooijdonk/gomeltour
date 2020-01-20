@@ -1,13 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_locations"
+    <data class="AchievementsBinding">
+
+        <variable
+            name="model"
+            type="by.gomeltour.presentation.ui.achievements.AchievementsViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            visible="@{!model.locationEnabled}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/act_padding_h"
+            android:layout_marginEnd="@dimen/act_padding_h"
+            android:onClick="@{(view) -> model.requestLocationPermission()}"
+            android:text="Allow Location" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            visible="@{model.locationEnabled}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/act_padding_h"
+            android:paddingTop="@dimen/act_padding_v"
+            android:paddingEnd="@dimen/act_padding_h"
+            android:paddingBottom="@dimen/act_padding_v">
+
+            <TextView
+                android:id="@+id/txt_search_location_label"
+                visible="@{model.locationProgress}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Looking for your location..."
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txt_place_name"
+                placeName="@{model.currentPlace}"
+                visible="@{!model.locationProgress}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/fish_short" />
+
+            <TextView
+                visible="@{!model.locationProgress}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_place_name"
+                tools:text="52°26′04″ , 30°58′31″" />
+
+            <ProgressBar
+                android:id="@+id/pb_location"
+                style="?android:progressBarStyleSmall"
+                visible="@{model.locationProgress}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@id/txt_search_location_label"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_locations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            locationsList="@{model.locations}"
+            android:layout_marginTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_achievements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+</layout>

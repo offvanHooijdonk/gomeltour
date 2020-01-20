@@ -2,6 +2,7 @@ package by.gomeltour.presentation
 
 import by.gomeltour.R
 import by.gomeltour.presentation.navigation.*
+import by.gomeltour.presentation.ui.achievements.AchievementsViewModel
 import by.gomeltour.presentation.ui.login.LoginViewModel
 import by.gomeltour.presentation.ui.main.BottomOptionsViewModel
 import by.gomeltour.presentation.ui.main.EFABTransformer
@@ -32,6 +33,7 @@ val viewModelModule = module {
     viewModel { EventSingleViewModel(/*get(),*/ get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { AccountsViewModel(get(), get()) }
+    viewModel { AchievementsViewModel(get(), get(), get(), get()) }
 }
 
 val navModule = module {
@@ -49,6 +51,7 @@ val navModule = module {
     single { AccountsScreen() }
     single { OptionsDialogScreen() }
     single { EventListScreen() }
+    single { AchievementsScreen() }
     single { EventSingleScreen() }
     single { ProfileScreen() }
     // endregion
