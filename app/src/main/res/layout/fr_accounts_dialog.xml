@@ -13,15 +13,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
             android:background="?selectableItemBackground"
             android:onClick="@{(view) -> model.onAccountPressed()}"
-            android:padding="8dp">
+            android:padding="16dp">
 
             <ImageView
                 android:id="@+id/imgAuthorPic"
@@ -60,18 +61,45 @@
 
         <View
             android:id="@+id/separator"
+            style="@style/DividerLight"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
-            android:background="#cccccc" />
+            android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/blockPreferences"
+            style="@style/Clickable"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16sp"
-            android:layout_marginBottom="@dimen/act_padding_v"
-            android:text="About"
-            android:textSize="12sp" />
+            android:onClick="@{(view) -> model.onPreferencesPressed()}"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:alpha="0.8"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_settings_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/md_black_1000"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="@string/settings"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <by.gomeltour.presentation.views.ConfirmMenuItemView
+            android:id="@+id/itemConfirmSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:negativeButton="@android:string/cancel"
+            app:positiveButton="@string/btn_confirm_sign_out"
+            app:text="@string/sign_out" />
     </LinearLayout>
 </layout>

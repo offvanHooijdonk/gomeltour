@@ -61,7 +61,7 @@
             android:layout_marginTop="?actionBarSize" />
 
         <!-- android:onClick="@{(view) -> model.onActionButtonClick()}" -->
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        <!--<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fabAddNew"
             extendState="@{model.extendState}"
             visible="@{model.showAddButton}"
@@ -76,7 +76,7 @@
             app:backgroundTint="@color/colorAccent"
             app:icon="@drawable/ic_wand_24"
             app:iconTint="@color/md_white_1000"
-            tools:visibility="visible" />
+            tools:visibility="visible" />-->
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_bottom"

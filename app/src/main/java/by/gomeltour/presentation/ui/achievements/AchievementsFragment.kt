@@ -18,14 +18,14 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fr_achievements.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AchievmentsFragment : Fragment() {
+class AchievementsFragment : Fragment() {
     companion object {
         private const val PERMISSION = Manifest.permission.ACCESS_FINE_LOCATION
         private const val PERMISSION_REQUEST_LOCATION = 1001
     }
 
     private val viewModel: AchievementsViewModel by viewModel()
-    //private var forceRequestPermission = false
+    private var forceRequestPermission = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<AchievementsBinding>(inflater, R.layout.fr_achievements, container, false)
@@ -47,7 +47,10 @@ class AchievmentsFragment : Fragment() {
         }
         )
 
+        (activity as? MainActivity)?.setTitle(getString(R.string.achievements_title))
+
         rv_locations.adapter = LocationsAdapter()
+        rv_achievements.adapter = AchievementsAdapter()
     }
 
     override fun onResume() {
@@ -56,17 +59,22 @@ class AchievmentsFragment : Fragment() {
         viewModel.onViewActive()
     }
 
+    override fun onStop() {
+        super.onStop()
+
+        viewModel.onViewInactive()
+    }
+
     private fun checkPermission() =
             context?.let { ContextCompat.checkSelfPermission(it, PERMISSION) == PackageManager.PERMISSION_GRANTED } ?: false
 
     private fun requestPermission(force: Boolean) {
-        //forceRequestPermission = force
         if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), PERMISSION) && !force) {
             (requireActivity() as MainActivity)
                     .createSnackbar("Please grant location permission", Snackbar.LENGTH_LONG)
-                    .setAction("Grant") { requestPermission(true) }
+                    .setAction("Grant") { requestPermission(forceRequestPermission) }
                     .show()
-            //forceRequestPermission = true
+            forceRequestPermission = true
         } else {
             requestPermissions(arrayOf(PERMISSION), PERMISSION_REQUEST_LOCATION)
         }

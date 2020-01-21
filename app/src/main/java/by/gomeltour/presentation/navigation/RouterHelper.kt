@@ -20,10 +20,6 @@ class RouterHelper(private val router: Router, private val navigatorHolder: Navi
         router.navigateTo(screens.accountScreen)
     }
 
-    fun navigateToOptions() {
-        router.navigateTo(screens.optionsDialogScreen)
-    }
-
     fun navigateToEventList() {
         router.newRootScreen(screens.eventListScreen)
     }

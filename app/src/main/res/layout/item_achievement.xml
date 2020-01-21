@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class="ItemAchievementBinding">
+
+        <variable
+            name="model"
+            type="by.gomeltour.presentation.ui.achievements.ItemAchievementViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/act_padding_h"
+        android:paddingTop="@dimen/act_padding_v"
+        android:paddingEnd="@dimen/act_padding_h"
+        android:paddingBottom="@dimen/act_padding_v">
+
+        <ImageView
+            visible="@{model.achievement.earned}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/circle_achievement_earned"
+            app:layout_constraintBottom_toBottomOf="@id/img_achievement_logo"
+            app:layout_constraintEnd_toEndOf="@id/img_achievement_logo"
+            app:layout_constraintStart_toStartOf="@id/img_achievement_logo"
+            app:layout_constraintTop_toTopOf="@id/img_achievement_logo" />
+
+        <ImageView
+            android:id="@+id/img_achievement_logo"
+            achievementImageUrl="@{model.achievement.imageUrl}"
+            earned="@{model.achievement.earned}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_stars_24" />
+
+        <TextView
+            android:id="@+id/txt_achievement_title"
+            earned="@{model.achievement.earned}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/act_padding_h"
+            android:text="@{model.achievement.title}"
+            android:textColor="@color/md_black_1000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/img_achievement_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/fish_short" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{model.achievement.description}"
+            app:layout_constraintStart_toStartOf="@id/txt_achievement_title"
+            app:layout_constraintTop_toBottomOf="@id/txt_achievement_title"
+            tools:text="@string/fish_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

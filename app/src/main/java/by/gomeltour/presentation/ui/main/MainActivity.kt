@@ -6,20 +6,20 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.*
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import by.gomeltour.R
 import by.gomeltour.app.App.Companion.LOGCAT
 import by.gomeltour.databinding.ActMainBinding
 import by.gomeltour.presentation.navigation.BaseSupportAppNavigator
 import by.gomeltour.presentation.navigation.NavigationBackStack
 import by.gomeltour.presentation.navigation.Screens
-import by.gomeltour.presentation.ui.event.list.EventListFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.act_main.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 import ru.terrakok.cicerone.commands.Command
@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModel()
     private val navigatorHolder: NavigatorHolder by inject()
     private val navigator = MainNavigator(get(), this, supportFragmentManager, R.id.containerMain)
-    private lateinit var transformer: EFABTransformer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,18 +42,12 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
-        transformer = get(parameters = { parametersOf(fabAddNew, R.drawable.ic_wand_24) })
-        fabAddNew.hide()
 
         nav_bottom.setOnNavigationItemSelectedListener { item ->
             viewModel.onNavSelected(item)
-            item.itemId != R.id.it_more
+            true
         }
         navigatorHolder.setNavigator(navigator)
-
-        fabAddNew.setOnClickListener {
-            handleFABClick()
-        }
 
         viewModel.viewStart()
     }
@@ -84,15 +77,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun createSnackbar(text: String, duration: Int) = Snackbar.make(coordinator_layout, text, duration).setAnchorView(nav_bottom)
-
-    private fun handleFABClick() {
-        val frag = supportFragmentManager.fragments.firstOrNull { it.isVisible }
-
-        if (frag is FABClickListener) {
-            frag.onFabClicked()
-        }
+    fun setTitle(title: String) {
+        toolbar_title.text = title
     }
+
+    fun createSnackbar(text: String, duration: Int) = Snackbar.make(coordinator_layout, text, duration).setAnchorView(nav_bottom)
 
     private fun showBackButton(isShow: Boolean) {
         Handler().postDelayed(Runnable {
@@ -104,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     private inner class MainNavigator(private val backStack: NavigationBackStack, act: FragmentActivity, private val fm: FragmentManager, containerId: Int)
         : BaseSupportAppNavigator(backStack, act, fm, containerId) {
 
-        private val screensHideBack = setOf(Screens.Keys.EVENT_LIST.name)
+        private val screensHideBack = setOf(Screens.Keys.EVENT_LIST.name, Screens.Keys.ACHIEVEMENTS.name)
 
         override fun applyCommand(command: Command?) {
             super.applyCommand(command)
@@ -126,16 +115,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        override fun setupFragmentTransaction(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
+        /*override fun setupFragmentTransaction(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
             super.setupFragmentTransaction(command, currentFragment, nextFragment, fragmentTransaction)
 
             if (nextFragment !is EventListFragment) {
                 fragmentTransaction?.setCustomAnimations(R.anim.screen_slide_rl_in, R.anim.screen_slide_rl_out, R.anim.screen_slide_lr_in, R.anim.screen_slide_lr_out)
             }
-        }
-    }
-
-    interface FABClickListener {
-        fun onFabClicked()
+        }*/
     }
 }

@@ -14,6 +14,7 @@ val serviceModule = module {
     single { AuthFirebase() }
     single { EventService(get()) }
     single { ProfileService(get()) }
+    single { LocationsService(get()) }
 
     single { LocationServices.getFusedLocationProviderClient(get<Context>()) }
     single { Geocoder(get<Context>()) }

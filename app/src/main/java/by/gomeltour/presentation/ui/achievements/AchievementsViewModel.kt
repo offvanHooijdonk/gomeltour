@@ -1,6 +1,5 @@
 package by.gomeltour.presentation.ui.achievements
 
-import android.content.Context
 import android.location.Geocoder
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
@@ -10,43 +9,47 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import by.gomeltour.model.AchievementModel
 import by.gomeltour.model.LocationModel
-import by.gomeltour.repository.LocationRepo
+import by.gomeltour.repository.AchievementsRepo
+import by.gomeltour.service.LocationsService
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 
 class AchievementsViewModel(
-        private val ctx: Context,
-        private val locationRepo: LocationRepo,
+        private val achievementsRepo: AchievementsRepo,
+        private val locationsService: LocationsService,
         private val geocoder: Geocoder,
         private val locationClient: FusedLocationProviderClient
 ) : ViewModel() {
+    companion object {
+        private const val LOCATION_REQUEST_INTERVAL = 2000L
+    }
 
     val permissionRequestLiveData = MutableLiveData<Boolean>()
 
     val locations = ObservableArrayList<LocationModel>()
-    val achievents = ObservableArrayList<AchievementModel>()
-    val locationProgress = ObservableBoolean(false)
+    val achievements = ObservableArrayList<AchievementModel>()
+    val progressLocation = ObservableBoolean(false)
+    val progressClosestLocations = ObservableBoolean(false)
     val currentLocation = ObservableField<LatLng>()
     val currentPlace = ObservableField<String?>()
     val locationEnabled = ObservableBoolean(false)
 
+    private val locationRequest = LocationRequest.create().setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY).setInterval(LOCATION_REQUEST_INTERVAL)
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(result: LocationResult?) {
             result?.let {
-                locationProgress.set(false)
+                progressLocation.set(false)
                 handleLocation(LatLng(it.lastLocation.latitude, it.lastLocation.longitude))
             }
         }
     }
 
     init {
-        // todo
+        loadAchievements()
     }
 
     fun onViewActive() {
@@ -54,7 +57,7 @@ class AchievementsViewModel(
     }
 
     fun onViewInactive() {
-
+        locationClient.removeLocationUpdates(locationCallback)
     }
 
     fun onPermissionResult(result: Boolean) {
@@ -73,12 +76,12 @@ class AchievementsViewModel(
     }
 
     private fun getCurrentLocation() {
-        locationProgress.set(true)
+        progressLocation.set(true)
 
         locationClient.lastLocation.addOnCompleteListener { task ->
             val loc = task.result
             if (task.isSuccessful && loc != null) {
-                locationProgress.set(false)
+                progressLocation.set(false)
                 handleLocation(LatLng(loc.latitude, loc.longitude))
             }
         }
@@ -89,32 +92,43 @@ class AchievementsViewModel(
                 //todo show location not enabled
             }
         }*/
-        locationClient.removeLocationUpdates(locationCallback)
+        locationClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 
     private fun handleLocation(latLng: LatLng) {
         decodeLocation(latLng)
 
-        loadLocations()
+        loadLocations(latLng)
     }
 
     private fun decodeLocation(latLng: LatLng) {
         currentLocation.set(latLng)
         currentPlace.set(null)
 
-        geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5).firstOrNull { it.maxAddressLineIndex > 0 }
+        geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5)
+                .firstOrNull { it.getAddressLine(0) != null }
                 ?.let { address ->
                     currentPlace.set(address.getAddressLine(0))
                 }
     }
 
-    private fun loadLocations() {
-        locationRepo.listAll()
+    private fun loadAchievements() {
+        achievementsRepo.listAll()
+                .onEach { achievements.apply { clear(); addAll(it) } }
+                .onStart { }
+                .catch { }
+                .onCompletion { }
+                .launchIn(viewModelScope)
+    }
+
+    private fun loadLocations(location: LatLng) {
+        locationsService.listClosest(location)
                 .onEach {
                     locations.apply { clear(); addAll(it) }
                 }
+                .onStart { progressClosestLocations.set(true) }
                 .catch { }
-                .onCompletion { }
+                .onCompletion { progressClosestLocations.set(false) }
                 .launchIn(viewModelScope)
     }
 }

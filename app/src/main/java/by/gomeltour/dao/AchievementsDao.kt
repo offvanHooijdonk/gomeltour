@@ -1,19 +1,16 @@
 package by.gomeltour.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import by.gomeltour.model.AchievementModel
 
 @Dao
 interface AchievementsDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(model: AchievementModel): Long
 
     @Update
     fun update(model: AchievementModel)
 
-    @Query("select * from achievements")
+    @Query("select * from achievements order by isEarned desc, title")
     fun listAll(): List<AchievementModel>
 }

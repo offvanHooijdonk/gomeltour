@@ -41,30 +41,6 @@ fun Snackbar.colorWarn() =
                     .setTextColor(this.context.resources.getColor(R.color.snackbar_warn_text))
         }
 
-fun View.showKeyboard() {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    this.requestFocus()
-    imm.showSoftInput(this, 0)
-    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-}
-
-fun View.hideKeyBoard() {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(windowToken, 0)
-}
-
-fun convertVotesPresentation(votes: Int, ctx: Context): String {
-    val results = convertVotesPresentation(votes)
-
-    return results.first + when (results.second) {
-        1 -> ctx.getString(R.string.votes_thousand)
-        2 -> ctx.getString(R.string.votes_million)
-        3 -> ctx.getString(R.string.votes_billion)
-        4 -> ctx.getString(R.string.votes_trillion)
-        else -> ""
-    }
-}
-
 fun convertVotesPresentation(votes: Int): Pair<String, Int> {
     var numReduced = votes
     var range = 0

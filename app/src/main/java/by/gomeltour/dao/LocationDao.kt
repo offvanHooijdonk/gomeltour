@@ -1,14 +1,11 @@
 package by.gomeltour.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import by.gomeltour.model.LocationModel
 
 @Dao
 interface LocationDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(location: LocationModel): Long
 
     @Update

@@ -9,13 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import by.gomeltour.R
 import by.gomeltour.helper.*
+import by.gomeltour.model.AchievementModel
 import by.gomeltour.model.EventModel
 import by.gomeltour.model.LocationModel
+import by.gomeltour.presentation.formatDegrees
+import by.gomeltour.presentation.formatDistance
+import by.gomeltour.presentation.ui.achievements.AchievementsAdapter
 import by.gomeltour.presentation.ui.achievements.LocationsAdapter
 import by.gomeltour.presentation.ui.event.list.EventAdapter
 import by.gomeltour.service.loadAppBarUserPhoto
 import by.gomeltour.service.loadImageRounded
 import by.gomeltour.service.loadPoster
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.jetbrains.anko.design.longSnackbar
 import java.util.*
@@ -67,6 +72,11 @@ fun setEventsList(recyclerView: RecyclerView, list: List<EventModel>) {
 @BindingAdapter("locationsList")
 fun setLocationsList(recyclerView: RecyclerView, list: List<LocationModel>) {
     (recyclerView.adapter as? LocationsAdapter)?.update(list)
+}
+
+@BindingAdapter("achievementsList")
+fun setAchievementsList(recyclerView: RecyclerView, list: List<AchievementModel>) {
+    (recyclerView.adapter as? AchievementsAdapter)?.update(list)
 }
 
 @BindingAdapter("numText")
@@ -126,7 +136,12 @@ fun setAvatarUrl(imageView: ImageView, url: String?) {
 
 @BindingAdapter("locationImageUrl")
 fun setLocationImageUrl(imageView: ImageView, url: String?) {
-    imageView.loadImageRounded(url, R.drawable.ic_place_black_24)
+    imageView.loadImageRounded(url, R.drawable.ic_placeholder_place_24)
+}
+
+@BindingAdapter("achievementImageUrl")
+fun setAchievementImageUrl(imageView: ImageView, url: String?) {
+    imageView.loadImageRounded(url, R.drawable.ic_placeholder_achievement_24)
 }
 
 @BindingAdapter("posterUrl")
@@ -139,11 +154,6 @@ fun setAppBarAvatarUrl(imageView: ImageView, url: String?) {
     if (url == null) imageView.setImageResource(R.drawable.ic_user_white_24) else imageView.loadAppBarUserPhoto(url)
 }
 
-@BindingAdapter("votes")
-fun setVotesNumber(textView: TextView, votesNumber: Int) {
-    textView.text = convertVotesPresentation(votesNumber, textView.context)
-}
-
 @BindingAdapter("placeName")
 fun setPlaceName(textView: TextView, placeName: String?) {
     if (placeName != null && placeName.isNotBlank()) {
@@ -151,4 +161,29 @@ fun setPlaceName(textView: TextView, placeName: String?) {
     } else {
         textView.text = textView.context.getString(R.string.place_none)
     }
+}
+
+@BindingAdapter("latLng")
+fun setLocationLatLng(textView: TextView, location: LatLng?) {
+    location?.let {
+        val latString = formatDegrees(textView.context, location.latitude)
+        val lngString = formatDegrees(textView.context, location.longitude)
+
+        textView.text = textView.context.getString(R.string.latlng_format, latString, lngString)
+    }
+}
+
+@BindingAdapter("earned")
+fun setImageEarned(img: ImageView, earned: Boolean) {
+    img.alpha = if (earned) 1.0f else 0.5f
+}
+
+@BindingAdapter("earned")
+fun setEarnedText(textView: TextView, earned: Boolean) {
+    textView.alpha = if (earned) 1.0f else 0.7f
+}
+
+@BindingAdapter("distance")
+fun setDistanceText(textView: TextView, distance: Float?) {
+    textView.text = if (distance != null) formatDistance(textView.context, distance.toInt()) else ""
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import by.gomeltour.R
 import by.gomeltour.databinding.AccountsBinding
+import kotlinx.android.synthetic.main.fr_accounts_dialog.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AccountsDialogFragment : DialogFragment() {
@@ -33,6 +34,12 @@ class AccountsDialogFragment : DialogFragment() {
         viewModel.closeCommand.observe(this.viewLifecycleOwner, Observer {
             dismiss()
         })
+
+        itemConfirmSignOut.onConfirm {
+            viewModel.logOut()
+            dismiss()
+            //pickEventListener(EVENT_SIGN_OUT)
+        }
 
         viewModel.start()
     }

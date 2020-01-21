@@ -20,27 +20,28 @@
         android:paddingBottom="@dimen/list_item_padding_v">
 
         <ImageView
+            locationImageUrl="@{model.location.titleImageUrl}"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            locationImageUrl="@{model.location.titleImageUrl}"
-            tools:src="@drawable/ic_place_black_24" />
+            tools:src="@drawable/ic_placeholder_place_24" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="@dimen/act_padding_h"
+            android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textSize="18sp"
             android:text="@{model.location.title}"
+            android:textColor="@color/md_black_1000"
+            android:textSize="18sp"
             tools:text="@string/fish_text" />
 
         <TextView
+            distance="@{model.location.distance}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            tools:text="20m"/>
-
+            tools:text="20m" />
     </LinearLayout>
 </layout>

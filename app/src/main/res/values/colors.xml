@@ -21,7 +21,6 @@
     <color name="refresh_2">@color/colorPrimaryLite</color>
     <color name="refresh_3">@color/md_light_blue_A400</color>
 
-    <color name="form_option_positive">@color/colorAccentDark</color>
-    <color name="form_option_negative">@color/colorPrimaryLite</color>
+    <color name="achievement_earned">@color/md_amber_500</color>
 
 </resources>

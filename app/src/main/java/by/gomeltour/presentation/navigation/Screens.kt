@@ -3,14 +3,13 @@ package by.gomeltour.presentation.navigation
 import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.Fragment
-import by.gomeltour.presentation.ui.achievements.AchievmentsFragment
-import by.gomeltour.presentation.ui.login.LoginActivity
-import by.gomeltour.presentation.ui.profile.AccountsDialogFragment
-import by.gomeltour.presentation.ui.main.BottomOptionsDialog
-import by.gomeltour.presentation.ui.main.MainActivity
+import by.gomeltour.presentation.ui.achievements.AchievementsFragment
 import by.gomeltour.presentation.ui.event.list.EventListFragment
 import by.gomeltour.presentation.ui.event.view.EventSingleFragment
+import by.gomeltour.presentation.ui.login.LoginActivity
+import by.gomeltour.presentation.ui.main.MainActivity
 import by.gomeltour.presentation.ui.preferences.PreferencesActivity
+import by.gomeltour.presentation.ui.profile.AccountsDialogFragment
 import by.gomeltour.presentation.ui.profile.ProfileFragment
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -28,7 +27,6 @@ class Screens : KoinComponent {
     val eventListScreen: EventListScreen by inject()
     val achievementsScreen: AchievementsScreen by inject()
     val eventSingleScreen: EventSingleScreen by inject()
-    val optionsDialogScreen: OptionsDialogScreen by inject()
     val profileScreen: ProfileScreen by inject()
 }
 
@@ -48,10 +46,6 @@ class AccountsScreen : BaseScreen(Screens.Keys.ACCOUNTS) {
     override fun getFragment(): Fragment = AccountsDialogFragment()
 }
 
-class OptionsDialogScreen : BaseScreen(Screens.Keys.OPTIONS) {
-    override fun getFragment(): Fragment = BottomOptionsDialog()
-}
-
 class LoginScreen : BaseScreen(Screens.Keys.LOGIN) {
     override fun getActivityIntent(context: Context?): Intent = Intent(context, LoginActivity::class.java).apply {
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -69,7 +63,7 @@ class EventListScreen : BaseScreen(Screens.Keys.EVENT_LIST) {
 }
 
 class AchievementsScreen : BaseScreen(Screens.Keys.ACHIEVEMENTS) {
-    override fun getFragment(): Fragment = AchievmentsFragment()
+    override fun getFragment(): Fragment = AchievementsFragment()
 }
 
 class ProfileScreen : BaseScreen(Screens.Keys.PROFILE) {

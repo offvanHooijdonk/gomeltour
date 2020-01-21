@@ -6,11 +6,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "locations")
 data class LocationModel(
-        @PrimaryKey()
+        @PrimaryKey
         @ColumnInfo(index = true)
         val id: String,
         val title: String,
         val titleImageUrl: String,
         val latitude: Double,
         val longitude: Double
-)
+) {
+    var distance: Float? = null
+}

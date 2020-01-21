@@ -15,11 +15,6 @@
             android:id="@+id/it_achievements"
             android:icon="@drawable/ic_stars_24"
             android:title="@string/it_achievements" />
-
-        <item
-            android:id="@+id/it_more"
-            android:icon="@drawable/ic_more_vert_white_24"
-            android:title="" />
     </group>
 
 </menu>

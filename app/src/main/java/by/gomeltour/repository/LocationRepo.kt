@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 class LocationRepo(private val dao: LocationDao) {
 
     fun listAll(): Flow<List<LocationModel>> = flow {
+        Thread.sleep(1000)
         emit(dao.listAll())
     }.flowOn(Dispatchers.IO)
 

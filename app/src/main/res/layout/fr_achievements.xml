@@ -8,84 +8,146 @@
             type="by.gomeltour.presentation.ui.achievements.AchievementsViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Button
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            visible="@{!model.locationEnabled}"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/act_padding_h"
-            android:layout_marginEnd="@dimen/act_padding_h"
-            android:onClick="@{(view) -> model.requestLocationPermission()}"
-            android:text="Allow Location" />
+            android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            visible="@{model.locationEnabled}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/act_padding_h"
-            android:paddingTop="@dimen/act_padding_v"
-            android:paddingEnd="@dimen/act_padding_h"
-            android:paddingBottom="@dimen/act_padding_v">
+            <Button
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                visible="@{!model.locationEnabled}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/act_padding_h"
+                android:layout_marginEnd="@dimen/act_padding_h"
+                android:onClick="@{(view) -> model.requestLocationPermission()}"
+                android:text="@string/allow_location" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                visible="@{model.locationEnabled}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/act_padding_h"
+                android:paddingTop="@dimen/act_padding_v"
+                android:paddingEnd="@dimen/act_padding_h"
+                android:paddingBottom="@dimen/act_padding_v">
+
+                <ImageView
+                    android:id="@+id/img_place"
+                    visible="@{!model.progressLocation}"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_place_24dp"
+                    android:tint="@color/colorAccentDark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_search_location_label"
+                    visible="@{model.progressLocation}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/looking_location"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txt_place_name"
+                    placeName="@{model.currentPlace}"
+                    visible="@{!model.progressLocation}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@id/img_place"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/fish_short" />
+
+                <TextView
+                    latLng="@{model.currentLocation}"
+                    visible="@{!model.progressLocation}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintStart_toStartOf="@id/txt_place_name"
+                    app:layout_constraintTop_toBottomOf="@id/txt_place_name"
+                    tools:text="52°26′04″ , 30°58′31″" />
+
+                <ProgressBar
+                    android:id="@+id/pb_location"
+                    style="?android:progressBarStyleSmall"
+                    visible="@{model.progressLocation}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBaseline_toBaselineOf="@id/txt_search_location_label"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                style="@style/DividerLight"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/act_padding_h"
+                android:layout_marginEnd="@dimen/act_padding_h"
+                android:layout_marginBottom="@dimen/act_padding_v" />
 
             <TextView
-                android:id="@+id/txt_search_location_label"
-                visible="@{model.locationProgress}"
+                style="@style/CaptionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Looking for your location..."
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="gone" />
+                android:layout_marginStart="@dimen/act_padding_h"
+                android:layout_marginBottom="8dp"
+                android:text="@string/caption_closest_locations" />
 
-            <TextView
-                android:id="@+id/txt_place_name"
-                placeName="@{model.currentPlace}"
-                visible="@{!model.locationProgress}"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_locations"
+                locationsList="@{model.locations}"
+                visible="@{!model.progressClosestLocations}"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/fish_short" />
-
-            <TextView
-                visible="@{!model.locationProgress}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_place_name"
-                tools:text="52°26′04″ , 30°58′31″" />
+                android:layout_marginTop="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <ProgressBar
-                android:id="@+id/pb_location"
                 style="?android:progressBarStyleSmall"
-                visible="@{model.locationProgress}"
+                visible="@{model.progressClosestLocations}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/txt_search_location_label"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_gravity="center_horizontal" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                style="@style/DividerLight"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/act_padding_h"
+                android:layout_marginTop="@dimen/act_padding_v"
+                android:layout_marginEnd="@dimen/act_padding_h"
+                android:layout_marginBottom="@dimen/act_padding_v" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_locations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            locationsList="@{model.locations}"
-            android:layout_marginTop="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <TextView
+                style="@style/CaptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/act_padding_h"
+                android:layout_marginBottom="8dp"
+                android:text="@string/it_achievements" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_achievements"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_achievements"
+                achievementsList="@{model.achievements}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
