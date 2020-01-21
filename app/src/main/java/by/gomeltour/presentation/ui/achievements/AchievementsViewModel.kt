@@ -96,9 +96,10 @@ class AchievementsViewModel(
     }
 
     private fun handleLocation(latLng: LatLng) {
-        decodeLocation(latLng)
-
-        loadLocations(latLng)
+        if (latLng != currentLocation.get()) {
+            decodeLocation(latLng)
+            loadLocations(latLng)
+        }
     }
 
     private fun decodeLocation(latLng: LatLng) {
