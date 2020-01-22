@@ -1,4 +1,4 @@
-package by.gomeltour.presentation.ui.achievements
+package by.gomeltour.presentation.ui.achievements.list
 
 import android.location.Geocoder
 import androidx.databinding.ObservableArrayList
@@ -25,7 +25,7 @@ class AchievementsViewModel(
         private val locationClient: FusedLocationProviderClient
 ) : ViewModel() {
     companion object {
-        private const val LOCATION_REQUEST_INTERVAL = 2000L
+        private const val LOCATION_REQUEST_INTERVAL = 10_000L
     }
 
     val permissionRequestLiveData = MutableLiveData<Boolean>()
@@ -36,7 +36,7 @@ class AchievementsViewModel(
     val progressClosestLocations = ObservableBoolean(false)
     val currentLocation = ObservableField<LatLng>()
     val currentPlace = ObservableField<String?>()
-    val locationEnabled = ObservableBoolean(false)
+    val locationEnabled = ObservableBoolean(true)
 
     private val locationRequest = LocationRequest.create().setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY).setInterval(LOCATION_REQUEST_INTERVAL)
     private val locationCallback = object : LocationCallback() {
@@ -70,8 +70,6 @@ class AchievementsViewModel(
     }
 
     fun requestLocationPermission() {
-        locationEnabled.set(false)
-
         permissionRequestLiveData.postValue(true)
     }
 

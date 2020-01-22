@@ -10,12 +10,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import by.gomeltour.R
 import by.gomeltour.helper.*
 import by.gomeltour.model.AchievementModel
+import by.gomeltour.model.CheckInModel
 import by.gomeltour.model.EventModel
 import by.gomeltour.model.LocationModel
 import by.gomeltour.presentation.formatDegrees
 import by.gomeltour.presentation.formatDistance
-import by.gomeltour.presentation.ui.achievements.AchievementsAdapter
-import by.gomeltour.presentation.ui.achievements.LocationsAdapter
+import by.gomeltour.presentation.ui.achievements.list.AchievementsAdapter
+import by.gomeltour.presentation.ui.achievements.list.LocationsAdapter
+import by.gomeltour.presentation.ui.achievements.location.view.CheckInAdapter
 import by.gomeltour.presentation.ui.event.list.EventAdapter
 import by.gomeltour.service.loadAppBarUserPhoto
 import by.gomeltour.service.loadImageRounded
@@ -79,6 +81,11 @@ fun setAchievementsList(recyclerView: RecyclerView, list: List<AchievementModel>
     (recyclerView.adapter as? AchievementsAdapter)?.update(list)
 }
 
+@BindingAdapter("checksList")
+fun setChecksInList(recyclerView: RecyclerView, list: List<CheckInModel>) {
+    (recyclerView.adapter as? CheckInAdapter)?.update(list)
+}
+
 @BindingAdapter("numText")
 fun setNumberText(textView: TextView, number: Int) {
     textView.text = number.toString() // todo implement numbers formatting as 28.4k
@@ -113,6 +120,11 @@ fun setDateLong(textView: TextView, date: Date?) {
         textView.visible()
         textView.text = DateFormat.getLongDateFormat(textView.context).format(date)
     }
+}
+
+@BindingAdapter("timestamp")
+fun setTimestamp(textView: TextView, date: Date) {
+    textView.text = DateFormat.getDateFormat(textView.context).format(date) + " " + DateFormat.getTimeFormat(textView.context).format(date) // todo fix it
 }
 
 @BindingAdapter("extendState")

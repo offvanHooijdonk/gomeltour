@@ -2,7 +2,8 @@ package by.gomeltour.presentation
 
 import by.gomeltour.R
 import by.gomeltour.presentation.navigation.*
-import by.gomeltour.presentation.ui.achievements.AchievementsViewModel
+import by.gomeltour.presentation.ui.achievements.list.AchievementsViewModel
+import by.gomeltour.presentation.ui.achievements.location.view.LocationViewModel
 import by.gomeltour.presentation.ui.event.list.EventListViewModel
 import by.gomeltour.presentation.ui.event.view.EventSingleViewModel
 import by.gomeltour.presentation.ui.login.LoginViewModel
@@ -29,6 +30,7 @@ val viewModelModule = module {
     viewModel { ProfileViewModel(get()) }
     viewModel { AccountsViewModel(get(), get(), get(), get()) }
     viewModel { AchievementsViewModel(get(), get(), get(), get()) }
+    viewModel { LocationViewModel(get()) }
 }
 
 val navModule = module {
@@ -46,6 +48,7 @@ val navModule = module {
     single { AccountsScreen() }
     single { EventListScreen() }
     single { AchievementsScreen() }
+    single { LocationViewScreen() }
     single { EventSingleScreen() }
     single { ProfileScreen() }
     // endregion

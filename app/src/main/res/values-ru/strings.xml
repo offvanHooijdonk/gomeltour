@@ -38,4 +38,7 @@
     <string name="achievements_title">Достижения</string>
     <string name="allow_location">Разрешить местоположение</string>
     <string name="looking_location">Определяем местоположение</string>
+    <string name="btn_check_in">Отметиться</string>
+    <string name="caption_checks_in">Отметки</string>
+    <string name="checked_in_today">Отметились сегодня</string>
 </resources>

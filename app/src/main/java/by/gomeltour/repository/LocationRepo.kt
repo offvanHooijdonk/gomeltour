@@ -20,4 +20,8 @@ class LocationRepo(private val dao: LocationDao) {
         }
         emit(Unit)
     }.flowOn(Dispatchers.IO)
+
+    fun getById(id: String): Flow<LocationModel?> = flow {
+        emit(dao.getById(id))
+    }.flowOn(Dispatchers.IO)
 }

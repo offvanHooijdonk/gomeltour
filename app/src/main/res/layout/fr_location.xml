@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="LocationViewBinding">
+
+        <variable
+            name="model"
+            type="by.gomeltour.presentation.ui.achievements.location.view.LocationViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                visible="@{model.found &amp;&amp; model.idProvided}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img_location_logo"
+                    posterUrl="@{model.location.titleImageUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/act_padding_h"
+                    android:layout_marginTop="@dimen/act_padding_v"
+                    android:layout_marginEnd="@dimen/act_padding_h"
+                    android:text="@{model.location.title}"
+                    android:textSize="20sp"
+                    tools:text="@string/fish_short" />
+
+                <View
+                    style="@style/DividerLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/act_padding_h"
+                    android:layout_marginTop="@dimen/act_padding_v"
+                    android:layout_marginEnd="@dimen/act_padding_h"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    visible="@{!model.checkedToday}"
+                    android:onClick="@{(view) -> model.checkIn()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/btn_check_in" />
+
+                <TextView
+                    visible="@{model.checkedToday}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:drawableStart="@drawable/ic_check"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="@color/colorAccentDark"
+                    android:text="@string/checked_in_today"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="16sp"
+                    tools:visibility="gone" />
+
+                <View
+                    style="@style/DividerLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/act_padding_h"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/act_padding_h"
+                    android:layout_marginBottom="@dimen/act_padding_v" />
+
+                <TextView
+                    style="@style/CaptionText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/act_padding_h"
+                    android:layout_marginEnd="@dimen/act_padding_h"
+                    android:text="@string/caption_checks_in" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_checkins"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/act_padding_v"
+                    android:overScrollMode="never"
+                    checksList="@{model.checksList}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+
+            <TextView
+                visible="@{!model.idProvided || !model.found}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="No data found"
+                tools:visibility="gone" />
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

@@ -1,4 +1,4 @@
-package by.gomeltour.presentation.ui.achievements
+package by.gomeltour.presentation.ui.achievements.list
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel

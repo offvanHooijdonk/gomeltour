@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="by.gomeltour.presentation.ui.achievements.ItemLocationViewModel" />
+            type="by.gomeltour.presentation.ui.achievements.list.ItemLocationViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:onClick="@{(view) -> model.goToLocation()}"
         android:paddingStart="@dimen/act_padding_h"
         android:paddingTop="@dimen/list_item_padding_v"
         android:paddingEnd="@dimen/act_padding_h"

@@ -1,21 +1,22 @@
-package by.gomeltour.presentation.ui.achievements
+package by.gomeltour.presentation.ui.achievements.list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import by.gomeltour.R
 import by.gomeltour.databinding.ItemLocationBinding
 import by.gomeltour.model.LocationModel
+import org.koin.core.KoinComponent
+import org.koin.core.get
 
-class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
+class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>(), KoinComponent {
     private val locations = mutableListOf<LocationModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(
                     DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_location, parent, false),
-                    ItemLocationViewModel()
+                    ItemLocationViewModel(get())
             )
 
     override fun getItemCount(): Int = locations.size

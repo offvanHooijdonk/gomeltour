@@ -41,6 +41,9 @@
     <string name="filter_empty_result">Nothing found</string>
     <string name="allow_location">Allow Location</string>
     <string name="looking_location">Looking for your location...</string>
+    <string name="btn_check_in">Check in</string>
+    <string name="caption_checks_in">Checks in</string>
+    <string name="checked_in_today">Checked in today</string>
 
     <integer name="fragment_transition_duration">250</integer>
 </resources>

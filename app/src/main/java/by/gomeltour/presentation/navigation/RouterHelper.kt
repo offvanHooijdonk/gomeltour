@@ -32,6 +32,10 @@ class RouterHelper(private val router: Router, private val navigatorHolder: Navi
         router.navigateTo(screens.eventSingleScreen.apply { this.eventId = eventId })
     }
 
+    fun navigateToLocationView(locationId: String) {
+        router.navigateTo(screens.locationViewScreen.apply { this.locationId = locationId })
+    }
+
     fun navigateToProfile(userId: String) {
         router.navigateTo(screens.profileScreen.apply { this.userId = userId })
     }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ItemCheckInBinding">
+
+        <variable
+            name="model"
+            type="by.gomeltour.presentation.ui.achievements.location.view.ItemChekInViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/act_padding_h"
+        android:paddingTop="@dimen/list_item_padding_v"
+        android:paddingEnd="@dimen/act_padding_h"
+        android:paddingBottom="@dimen/list_item_padding_v">
+
+        <TextView
+            timestamp="@{model.checkIn.checkTimestamp}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/fish_date_full"
+            android:textSize="16sp" />
+    </LinearLayout>
+</layout>

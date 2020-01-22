@@ -1,4 +1,4 @@
-package by.gomeltour.presentation.ui.achievements
+package by.gomeltour.presentation.ui.achievements.list
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -75,6 +75,7 @@ class AchievementsFragment : Fragment() {
                     .setAction("Grant") { requestPermission(forceRequestPermission) }
                     .show()
             forceRequestPermission = true
+            viewModel.onPermissionResult(false)
         } else {
             requestPermissions(arrayOf(PERMISSION), PERMISSION_REQUEST_LOCATION)
         }
