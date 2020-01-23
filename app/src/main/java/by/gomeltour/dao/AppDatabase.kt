@@ -10,7 +10,9 @@ import by.gomeltour.model.*
  * Created by Yahor_Fralou on 10/23/2018 4:21 PM.
  */
 
-@Database(entities = [UserModel::class, EventModel::class, LocationModel::class, AchievementModel::class, CheckInModel::class], version = 7, exportSchema = false)
+@Database(entities = [
+    UserModel::class, EventModel::class, LocationModel::class, AchievementModel::class, CheckInModel::class, AchievementLocationsModel::class
+], version = 8, exportSchema = false)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -21,4 +23,4 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun checkInDao(): CheckInDao
 }
 
-const val DB_NAME = "gomeltour-0.0.7"
+const val DB_NAME = "gomeltour-0.0.8"

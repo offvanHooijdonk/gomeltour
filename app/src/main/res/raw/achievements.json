@@ -3,35 +3,37 @@
     "id": "9",
     "title": "Бобры добры",
     "description": "Посетите 5 локаций в районе Бобруйска",
-    "isEarned": true,
-    "imageUrl": "http://zhivotnue.ru/image/zhivotnue_krasnoi_knigi/rechnoi_bober/2.png"
+    "imageUrl": "http://zhivotnue.ru/image/zhivotnue_krasnoi_knigi/rechnoi_bober/2.png",
+    "locations": ["1"]
   },
-{
+  {
     "id": "5",
     "title": "Знаток дворцов",
     "description": "Посетите все усадьбы Гомельского района",
-    "isEarned": false,
-    "imageUrl": "http://meridian28.com/report/photo/porozovo/1.jpg"
+    "imageUrl": "http://meridian28.com/report/photo/porozovo/1.jpg",
+    "locations": ["1"]
   },
-{
+  {
     "id": "54",
     "title": "Ах, Вернисаж - 1 ст",
     "description": "Посетите 10 выставок",
-    "isEarned": false,
-    "imageUrl": "https://zondnews.ru/upload/big_video/2018-11-16/205439eee9337e9cda678d4d6fd88da7.jpg"
+    "imageUrl": "https://zondnews.ru/upload/big_video/2018-11-16/205439eee9337e9cda678d4d6fd88da7.jpg",
+    "locations": ["1"]
   },
-{
+  {
     "id": "87",
-    "title": "Краевед",
-    "description": "Постетите 5 краеведческих музеев Гомельщины",
-    "isEarned": true,
-    "imageUrl": "https://express-k.kz/upload/iblock/7ed/7ed6e8a9e4f8ef5ae9a155ec2f330630.jpg"
+    "title": "1 Краевед Гомельщины",
+    "description": "Постетите краеведческий музей на Гомельщине",
+    "imageUrl": "https://express-k.kz/upload/iblock/7ed/7ed6e8a9e4f8ef5ae9a155ec2f330630.jpg",
+    "locations": [
+      "52"
+    ]
   },
-{
+  {
     "id": "49",
     "title": "Ах, Вернисаж - 5 ст",
     "description": "Посетите 75 выставок",
-    "isEarned": false,
-    "imageUrl": "https://dizajnerskieoboi.ru/upload/iblock/9bd/9bddcbe73db33be02cdd2a11b17cac23.jpg"
+    "imageUrl": "https://dizajnerskieoboi.ru/upload/iblock/9bd/9bddcbe73db33be02cdd2a11b17cac23.jpg",
+    "locations": ["1"]
   }
 ]

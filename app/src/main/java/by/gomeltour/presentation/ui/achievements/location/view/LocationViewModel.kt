@@ -4,21 +4,26 @@ import android.text.format.DateUtils
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import by.gomeltour.model.AchievementModel
 import by.gomeltour.model.CheckInModel
 import by.gomeltour.model.LocationModel
+import by.gomeltour.service.AchievementsService
 import by.gomeltour.service.LocationsService
 import by.gomeltour.service.Session
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.zip
 
-class LocationViewModel(private val locationsService: LocationsService) : ViewModel() {
+class LocationViewModel(private val locationsService: LocationsService, private val achievementsService: AchievementsService) : ViewModel() {
     val location = ObservableField<LocationModel>()
     val idProvided = ObservableBoolean(true)
     val found = ObservableBoolean(true)
     val checkedToday = ObservableBoolean(false)
     val checksList = ObservableArrayList<CheckInModel>()
+    val newAchievementLiveData = MutableLiveData<AchievementModel>()
 
     private lateinit var locationId: String
 
@@ -34,8 +39,16 @@ class LocationViewModel(private val locationsService: LocationsService) : ViewMo
     }
 
     fun checkIn() {
-        locationsService.checkIn(locationId, Session.user!!.id)
-                .onEach { loadLocationChecks(locationId) }
+        achievementsService.listAchievedByUser(Session.user!!.id)
+                .zip(locationsService.checkIn(locationId, Session.user!!.id).onEach { loadLocationChecks(locationId) }) { list, _ ->
+                    list
+                }.zip(achievementsService.listAchievedByUser(Session.user!!.id)) { listOld, listNew ->
+                    listNew.firstOrNull { !listOld.contains(it) }
+                }.onEach { newItem ->
+                    newItem?.let { newAchievementLiveData.postValue(it) }
+                }
+        //locationsService.checkIn(locationId, Session.user!!.id)
+                //.onEach { loadLocationChecks(locationId) }
                 .launchIn(viewModelScope)
     }
 

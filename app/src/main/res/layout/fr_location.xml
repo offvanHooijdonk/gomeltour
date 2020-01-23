@@ -32,7 +32,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/act_padding_h"
                     android:layout_marginTop="@dimen/act_padding_v"
@@ -41,37 +41,36 @@
                     android:textSize="20sp"
                     tools:text="@string/fish_short" />
 
-                <View
-                    style="@style/DividerLight"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/act_padding_h"
-                    android:layout_marginTop="@dimen/act_padding_v"
-                    android:layout_marginEnd="@dimen/act_padding_h"
-                    android:layout_marginBottom="8dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    visible="@{!model.checkedToday}"
-                    android:onClick="@{(view) -> model.checkIn()}"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/btn_check_in" />
+                    android:paddingTop="@dimen/act_padding_v">
 
-                <TextView
-                    visible="@{model.checkedToday}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:drawableStart="@drawable/ic_check"
-                    android:drawablePadding="8dp"
-                    android:drawableTint="@color/colorAccentDark"
-                    android:text="@string/checked_in_today"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorAccentDark"
-                    android:textSize="16sp"
-                    tools:visibility="gone" />
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        invisible="@{model.checkedToday}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:onClick="@{(view) -> model.checkIn()}"
+                        android:text="@string/btn_check_in"
+                        app:icon="@drawable/ic_place_24dp"
+                        app:iconSize="16dp" />
+
+                    <TextView
+                        visible="@{model.checkedToday}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/ic_check"
+                        android:drawablePadding="8dp"
+                        android:drawableTint="@color/colorAccentDark"
+                        android:text="@string/checked_in_today"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorAccentDark"
+                        android:textSize="16sp"
+                        tools:visibility="gone" />
+                </FrameLayout>
 
                 <View
                     style="@style/DividerLight"
@@ -84,6 +83,7 @@
 
                 <TextView
                     style="@style/CaptionText"
+                    visible="@{model.checksList.size() > 0}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/act_padding_h"
@@ -92,11 +92,11 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_checkins"
+                    checksList="@{model.checksList}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/act_padding_v"
                     android:overScrollMode="never"
-                    checksList="@{model.checksList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
 

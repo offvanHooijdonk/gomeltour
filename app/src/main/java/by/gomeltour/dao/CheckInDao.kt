@@ -12,4 +12,7 @@ interface CheckInDao {
 
     @Query("select * from checks_in where locationId = :locationId and userId = :userId order by checkTimestamp")
     fun listByUser(locationId: String, userId: String): List<CheckInModel>
+
+    @Query("delete from checks_in where userId = :userId")
+    fun removeByUser(userId: String)
 }

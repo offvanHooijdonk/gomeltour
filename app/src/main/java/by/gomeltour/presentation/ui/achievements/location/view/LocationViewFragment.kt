@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import by.gomeltour.R
 import by.gomeltour.databinding.LocationViewBinding
+import by.gomeltour.presentation.ui.main.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fr_location.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +34,10 @@ class LocationViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rv_checkins.adapter = CheckInAdapter()
+
+        viewModel.newAchievementLiveData.observe(this, Observer {
+            (activity as? MainActivity)?.createSnackbar(it.title, Snackbar.LENGTH_INDEFINITE)?.show()
+        })
 
         viewModel.onViewStart(arguments?.getString(ARG_LOCATION_ID))
     }

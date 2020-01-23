@@ -30,7 +30,7 @@ val viewModelModule = module {
     viewModel { ProfileViewModel(get()) }
     viewModel { AccountsViewModel(get(), get(), get(), get()) }
     viewModel { AchievementsViewModel(get(), get(), get(), get()) }
-    viewModel { LocationViewModel(get()) }
+    viewModel { LocationViewModel(get(), get()) }
 }
 
 val navModule = module {

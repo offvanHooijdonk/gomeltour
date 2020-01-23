@@ -61,6 +61,11 @@ fun setVisibleOrGone(view: View, isVisible: Boolean?) {
     view.visibility = if (isVisible == true) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("invisible")
+fun setVisibleOrInvisible(view: View, isVisible: Boolean?) {
+    view.visibility = if (isVisible == true) View.INVISIBLE else View.VISIBLE
+}
+
 @BindingAdapter("refreshing")
 fun setRefreshing(refreshLayout: SwipeRefreshLayout, refreshing: Boolean) {
     refreshLayout.isRefreshing = refreshing
@@ -124,7 +129,7 @@ fun setDateLong(textView: TextView, date: Date?) {
 
 @BindingAdapter("timestamp")
 fun setTimestamp(textView: TextView, date: Date) {
-    textView.text = DateFormat.getDateFormat(textView.context).format(date) + " " + DateFormat.getTimeFormat(textView.context).format(date) // todo fix it
+    textView.text = DateFormat.getLongDateFormat(textView.context).format(date) + " " + DateFormat.getTimeFormat(textView.context).format(date) // todo fix it
 }
 
 @BindingAdapter("extendState")

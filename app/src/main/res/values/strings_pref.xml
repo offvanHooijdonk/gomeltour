@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="pref_key_init_data" translatable="false">pref_key_init_data</string>
+
+    <string name="pref_key_clear_checks_in" translatable="false">pref_key_clear_checks_in</string>
+    <string name="pref_title_init_data">Init Data</string>
+    <string name="pref_title_clear_checks_in">Clear Checks In</string>
 </resources>

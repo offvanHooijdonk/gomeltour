@@ -10,16 +10,19 @@ import androidx.lifecycle.viewModelScope
 import by.gomeltour.model.AchievementModel
 import by.gomeltour.model.LocationModel
 import by.gomeltour.repository.AchievementsRepo
+import by.gomeltour.service.AchievementsService
 import by.gomeltour.service.LocationsService
+import by.gomeltour.service.Session
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.*
+import kotlin.math.abs
 
 class AchievementsViewModel(
-        private val achievementsRepo: AchievementsRepo,
+        private val achievementsService: AchievementsService,
         private val locationsService: LocationsService,
         private val geocoder: Geocoder,
         private val locationClient: FusedLocationProviderClient
@@ -35,8 +38,9 @@ class AchievementsViewModel(
     val progressLocation = ObservableBoolean(false)
     val progressClosestLocations = ObservableBoolean(false)
     val currentLocation = ObservableField<LatLng>()
-    val currentPlace = ObservableField<String?>()
-    val locationEnabled = ObservableBoolean(true)
+    val currentPlace = ObservableField<String?>("")
+    val locationEnabled = ObservableBoolean(false)
+    val showPermissionButton = ObservableBoolean(false)
 
     private val locationRequest = LocationRequest.create().setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY).setInterval(LOCATION_REQUEST_INTERVAL)
     private val locationCallback = object : LocationCallback() {
@@ -54,6 +58,7 @@ class AchievementsViewModel(
 
     fun onViewActive() {
         requestLocationPermission()
+        loadAchievements()
     }
 
     fun onViewInactive() {
@@ -64,8 +69,10 @@ class AchievementsViewModel(
         if (result) {
             getCurrentLocation()
             locationEnabled.set(true)
+            showPermissionButton.set(false)
         } else {
             locationEnabled.set(false)
+            showPermissionButton.set(true)
         }
     }
 
@@ -79,8 +86,8 @@ class AchievementsViewModel(
         locationClient.lastLocation.addOnCompleteListener { task ->
             val loc = task.result
             if (task.isSuccessful && loc != null) {
-                progressLocation.set(false)
                 handleLocation(LatLng(loc.latitude, loc.longitude))
+                progressLocation.set(false)
             }
         }
 /*
@@ -94,7 +101,7 @@ class AchievementsViewModel(
     }
 
     private fun handleLocation(latLng: LatLng) {
-        if (latLng != currentLocation.get()) {
+        if (!isSameLocation(latLng, currentLocation.get())) {
             decodeLocation(latLng)
             loadLocations(latLng)
         }
@@ -102,17 +109,16 @@ class AchievementsViewModel(
 
     private fun decodeLocation(latLng: LatLng) {
         currentLocation.set(latLng)
-        currentPlace.set(null)
 
         geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5)
                 .firstOrNull { it.getAddressLine(0) != null }
                 ?.let { address ->
                     currentPlace.set(address.getAddressLine(0))
-                }
+                } ?: let { currentLocation.set(null) }
     }
 
     private fun loadAchievements() {
-        achievementsRepo.listAll()
+        achievementsService.listAllByUser(Session.user!!.id)
                 .onEach { achievements.apply { clear(); addAll(it) } }
                 .onStart { }
                 .catch { }
@@ -130,4 +136,8 @@ class AchievementsViewModel(
                 .onCompletion { progressClosestLocations.set(false) }
                 .launchIn(viewModelScope)
     }
+
+    private fun isSameLocation(location: LatLng, locationOld: LatLng?) =
+            locationOld != null && abs(locationOld.latitude - location.latitude) < 0.002 && abs(locationOld.longitude - location.longitude) < 0.02
+
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class="AchievementsBinding">
 
@@ -8,9 +10,7 @@
             type="by.gomeltour.presentation.ui.achievements.list.AchievementsViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,7 +21,7 @@
 
             <Button
                 style="@style/Widget.MaterialComponents.Button.TextButton"
-                visible="@{!model.locationEnabled}"
+                visible="@{model.showPermissionButton}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/act_padding_h"
@@ -44,8 +44,9 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginTop="2dp"
+                    android:alpha="0.6"
                     android:src="@drawable/ic_place_24dp"
-                    android:tint="@color/colorAccentDark"
+                    android:tint="@color/md_black_1000"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,10 +64,11 @@
                     android:id="@+id/txt_place_name"
                     placeName="@{model.currentPlace}"
                     visible="@{!model.progressLocation}"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/img_place"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/fish_short" />

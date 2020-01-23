@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <by.gomeltour.presentation.ui.preferences.InitDataPreference
-        android:key=""/>
+    <by.gomeltour.presentation.ui.preferences.InitDataPreference android:key="@string/pref_key_init_data" />
+
+    <Preference
+        android:key="@string/pref_key_clear_checks_in"
+        android:title="@string/pref_title_clear_checks_in" />
 </PreferenceScreen>

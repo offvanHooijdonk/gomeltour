@@ -17,4 +17,10 @@ class CheckInRepo(private val dao: CheckInDao) {
         dao.insert(CheckInModel(0, locationId, userId, Date()))
         emit(Unit)
     }.flowOn(Dispatchers.IO)
+
+    fun removeByUser(userId: String) = flow {
+        dao.removeByUser(userId)
+        emit(Unit)
+    }.flowOn(Dispatchers.IO)
+
 }
