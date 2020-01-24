@@ -40,6 +40,10 @@ class RouterHelper(private val router: Router, private val navigatorHolder: Navi
         router.navigateTo(screens.profileScreen.apply { this.userId = userId })
     }
 
+    fun navigateToEarned(achievementId: String) {
+        router.navigateTo(screens.achievementEarnedScreen.apply { this.achievementId = achievementId})
+    }
+
     fun navigateBack() {
         router.exit()
     }

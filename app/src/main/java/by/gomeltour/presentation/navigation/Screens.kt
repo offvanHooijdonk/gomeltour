@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import by.gomeltour.presentation.ui.achievements.list.AchievementsFragment
 import by.gomeltour.presentation.ui.achievements.location.view.LocationViewFragment
+import by.gomeltour.presentation.ui.achievements.view.EarnedDialogFragment
 import by.gomeltour.presentation.ui.event.list.EventListFragment
 import by.gomeltour.presentation.ui.event.view.EventSingleFragment
 import by.gomeltour.presentation.ui.login.LoginActivity
@@ -18,7 +19,7 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens : KoinComponent {
     enum class Keys {
-        LOGIN, PREFERENCES, MAIN, ACCOUNTS, OPTIONS, EVENT_LIST, ACHIEVEMENTS, LOCATION_VIEW, EVENT_SINGLE, PROFILE
+        LOGIN, PREFERENCES, MAIN, ACCOUNTS, EVENT_LIST, ACHIEVEMENTS, LOCATION_VIEW, EVENT_SINGLE, PROFILE, ACHIEVEMENT_EARNED
     }
 
     val loginScreen: LoginScreen by inject()
@@ -30,6 +31,7 @@ class Screens : KoinComponent {
     val locationViewScreen: LocationViewScreen by inject()
     val eventSingleScreen: EventSingleScreen by inject()
     val profileScreen: ProfileScreen by inject()
+    val achievementEarnedScreen: EarnedScreen by inject()
 }
 
 abstract class BaseScreen(private val screenKeyValue: Screens.Keys) : SupportAppScreen() {
@@ -77,4 +79,10 @@ class ProfileScreen : BaseScreen(Screens.Keys.PROFILE) {
     var userId = ""
 
     override fun getFragment(): Fragment = ProfileFragment.instance(userId)
+}
+
+class EarnedScreen : BaseScreen(Screens.Keys.ACHIEVEMENT_EARNED) {
+    var achievementId = ""
+
+    override fun getFragment(): Fragment = EarnedDialogFragment.getInstance(achievementId)
 }

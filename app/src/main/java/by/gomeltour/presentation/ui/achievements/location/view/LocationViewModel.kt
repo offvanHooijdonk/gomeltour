@@ -10,20 +10,22 @@ import androidx.lifecycle.viewModelScope
 import by.gomeltour.model.AchievementModel
 import by.gomeltour.model.CheckInModel
 import by.gomeltour.model.LocationModel
+import by.gomeltour.presentation.navigation.RouterHelper
 import by.gomeltour.service.AchievementsService
 import by.gomeltour.service.LocationsService
 import by.gomeltour.service.Session
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.zip
+import kotlinx.coroutines.flow.*
 
-class LocationViewModel(private val locationsService: LocationsService, private val achievementsService: AchievementsService) : ViewModel() {
+class LocationViewModel(
+        private val locationsService: LocationsService,
+        private val achievementsService: AchievementsService,
+        private val routerHelper: RouterHelper
+) : ViewModel() {
     val location = ObservableField<LocationModel>()
     val idProvided = ObservableBoolean(true)
     val found = ObservableBoolean(true)
     val checkedToday = ObservableBoolean(false)
     val checksList = ObservableArrayList<CheckInModel>()
-    val newAchievementLiveData = MutableLiveData<AchievementModel>()
 
     private lateinit var locationId: String
 
@@ -40,14 +42,18 @@ class LocationViewModel(private val locationsService: LocationsService, private 
 
     fun checkIn() {
         achievementsService.listAchievedByUser(Session.user!!.id)
-                .zip(locationsService.checkIn(locationId, Session.user!!.id).onEach { loadLocationChecks(locationId) }) { list, _ ->
-                    list
-                }.zip(achievementsService.listAchievedByUser(Session.user!!.id)) { listOld, listNew ->
-                    listNew.firstOrNull { !listOld.contains(it) }
+                .flatMapConcat { list ->
+                    locationsService.checkIn(locationId, Session.user!!.id).onEach { loadLocationChecks(locationId) }.map { list }
+                }.flatMapConcat { listOld ->
+                    achievementsService.listAchievedByUser(Session.user!!.id)
+                            .map { it.firstOrNull { item -> !listOld.contains(item) } }
+                    //listNew.firstOrNull { !listOld.contains(it) }
                 }.onEach { newItem ->
-                    newItem?.let { newAchievementLiveData.postValue(it) }
+                    newItem?.let {
+                        routerHelper.navigateToEarned(it.id)
+                    }
                 }
-        //locationsService.checkIn(locationId, Session.user!!.id)
+                //locationsService.checkIn(locationId, Session.user!!.id)
                 //.onEach { loadLocationChecks(locationId) }
                 .launchIn(viewModelScope)
     }

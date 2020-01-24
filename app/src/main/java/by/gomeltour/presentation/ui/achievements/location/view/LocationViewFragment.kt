@@ -35,10 +35,6 @@ class LocationViewFragment : Fragment() {
 
         rv_checkins.adapter = CheckInAdapter()
 
-        viewModel.newAchievementLiveData.observe(this, Observer {
-            (activity as? MainActivity)?.createSnackbar(it.title, Snackbar.LENGTH_INDEFINITE)?.show()
-        })
-
         viewModel.onViewStart(arguments?.getString(ARG_LOCATION_ID))
     }
 }

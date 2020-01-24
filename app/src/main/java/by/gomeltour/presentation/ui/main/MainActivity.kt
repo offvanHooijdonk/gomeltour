@@ -6,9 +6,7 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.*
 import by.gomeltour.R
 import by.gomeltour.app.App.Companion.LOGCAT
 import by.gomeltour.databinding.ActMainBinding
@@ -115,12 +113,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /*override fun setupFragmentTransaction(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
+        override fun setupFragmentTransaction(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
             super.setupFragmentTransaction(command, currentFragment, nextFragment, fragmentTransaction)
 
-            if (nextFragment !is EventListFragment) {
-                fragmentTransaction?.setCustomAnimations(R.anim.screen_slide_rl_in, R.anim.screen_slide_rl_out, R.anim.screen_slide_lr_in, R.anim.screen_slide_lr_out)
-            }
-        }*/
+            //if (nextFragment !is EventListFragment) {
+                //fragmentTransaction?.setCustomAnimations(R.anim.screen_slide_rl_in, R.anim.screen_slide_rl_out, R.anim.screen_slide_lr_in, R.anim.screen_slide_lr_out)
+                //fragmentTransaction?.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
+            //}
+        }
     }
 }

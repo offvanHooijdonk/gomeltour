@@ -10,6 +10,10 @@ import kotlinx.coroutines.flow.flowOn
 
 class AchievementsRepo(private val dao: AchievementsDao) {
 
+    fun getById(id: String) = flow {
+        emit(dao.getById(id))
+    }.flowOn(Dispatchers.IO)
+
     fun upsertBatch(list: List<AchievementModel>): Flow<Unit> = flow {
         list.forEach {
             if (dao.insert(it) == -1L) dao.update(it)

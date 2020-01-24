@@ -4,6 +4,7 @@ import by.gomeltour.R
 import by.gomeltour.presentation.navigation.*
 import by.gomeltour.presentation.ui.achievements.list.AchievementsViewModel
 import by.gomeltour.presentation.ui.achievements.location.view.LocationViewModel
+import by.gomeltour.presentation.ui.achievements.view.EarnedAchievementViewModel
 import by.gomeltour.presentation.ui.event.list.EventListViewModel
 import by.gomeltour.presentation.ui.event.view.EventSingleViewModel
 import by.gomeltour.presentation.ui.login.LoginViewModel
@@ -20,17 +21,15 @@ import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 
 val viewModelModule = module {
-    factory(named(OPTION_POS_VALUE)) { androidContext().getString(R.string.form_option_positive) }
-    factory(named(OPTION_NEG_VALUE)) { androidContext().getString(R.string.form_option_negative) }
-
     viewModel { LoginViewModel(get(), get()) }
     viewModel { MainViewModel(get(), get(named(MAIN_SCREEN_MANAGER))) }
     viewModel { EventListViewModel(get(), get(), get(named(MAIN_SCREEN_MANAGER))) }
-    viewModel { EventSingleViewModel(/*get(),*/ get()) }
+    viewModel { EventSingleViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { AccountsViewModel(get(), get(), get(), get()) }
     viewModel { AchievementsViewModel(get(), get(), get(), get()) }
-    viewModel { LocationViewModel(get(), get()) }
+    viewModel { LocationViewModel(get(), get(), get()) }
+    viewModel { EarnedAchievementViewModel(get()) }
 }
 
 val navModule = module {
@@ -51,6 +50,7 @@ val navModule = module {
     single { LocationViewScreen() }
     single { EventSingleScreen() }
     single { ProfileScreen() }
+    single { EarnedScreen() }
     // endregion
 }
 

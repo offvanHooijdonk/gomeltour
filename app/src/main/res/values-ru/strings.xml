@@ -7,13 +7,6 @@
     <string name="fish_text">Според лексикалния им строеж фразеологизмите биват разделяни на фразеологизирани изречения (преди всичко пословици и поговорки – Блага реч железни врати отваря.) и фразеологически съчетания (на вятъра, на вересия). Според семантичния им строеж биват.</string>
     <string name="fish_short">Според лексикалния им строеж</string>
     <string name="events_list_title">События</string>
-    <string name="predict_title_label">Заголовок</string>
-    <string name="predict_text_label">Предсказание</string>
-    <string name="form_hint_answer">Вариант %1$s</string>
-    <string name="form_remove_selected_answer_error">Нельзя удалить выбранный ответ.</string>
-    <string name="create_predict_title">Предсказать</string>
-    <string name="form_option_positive">Да</string>
-    <string name="form_option_negative">Нет</string>
     <string name="fish_date_full">Пн 25 Октября 2017</string>
     <string name="btn_confirm_sign_out">Да, выйти</string>
     <string name="it_events">События</string>
@@ -41,4 +34,6 @@
     <string name="btn_check_in">Отметиться</string>
     <string name="caption_checks_in">Отметки</string>
     <string name="checked_in_today">Отметились сегодня</string>
+    <string name="earned_close">Отлично!</string>
+    <string name="earned_new">NEW!</string>
 </resources>

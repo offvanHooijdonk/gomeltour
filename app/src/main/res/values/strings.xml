@@ -10,13 +10,6 @@
     <string name="fish_full_name">John Doe</string>
     <string name="events_list_title">Events</string>
     <string name="achievements_title">Achievements</string>
-    <string name="predict_title_label">Short title</string>
-    <string name="predict_text_label">Prediction text</string>
-    <string name="form_hint_answer">Answer %1$s</string>
-    <string name="form_remove_selected_answer_error">Answer that is selected cannot be removed.</string>
-    <string name="create_predict_title">New</string>
-    <string name="form_option_positive">Yes</string>
-    <string name="form_option_negative">No</string>
     <string name="fish_date_full">Mon, 25 Oct 2017</string>
     <string name="fish_date_short">October 25</string>
     <string name="fish_time_short">12:30</string>
@@ -44,6 +37,10 @@
     <string name="btn_check_in">Check in</string>
     <string name="caption_checks_in">Checks in</string>
     <string name="checked_in_today">Checked in today</string>
+    <string name="earned_close">Splendid!</string>
+    <string name="earned_new">NEW!</string>
 
     <integer name="fragment_transition_duration">250</integer>
+    <integer name="dialog_earned_transition_duration_in">350</integer>
+    <integer name="dialog_earned_transition_duration_out">250</integer>
 </resources>

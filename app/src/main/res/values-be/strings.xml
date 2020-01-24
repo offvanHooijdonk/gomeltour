@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="achievements_title">Дасягненьні</string>
+    <string name="allow_location">Дазволіць лакацыю</string>
+    <string name="app_name">Гомель Тур</string>
+    <string name="btn_check_in">Адзначыць сябе</string>
+    <string name="btn_confirm_sign_out">Так, выйсцi</string>
+    <string name="caption_achievements">Дасягненьні</string>
+    <string name="caption_checks_in">Адзнакi</string>
+    <string name="caption_closest_locations">Бліжэйшыя месцы</string>
+    <string name="checked_in_today">Адзначыліся сёньня</string>
+    <string name="degree_sign">˚</string>
+    <string name="earned_close">Выдатна!</string>
+    <string name="error_loading">Памылка при загрузцы</string>
+    <string name="error_no_data">Няма iнфармацыi</string>
+    <string name="events_list_title">Падзеi</string>
+    <string name="filter_empty_result">Нiчога не знойдзена</string>
+    <string name="fish_date_full">Пн 25 Кастрычнiка 2017</string>
+    <string name="fish_date_short">25 Кастрычника</string>
+    <string name="fish_full_name">Вася Пупкiн</string>
+    <string name="fish_number">12,6k</string>
+    <string name="fish_short">Според лексикалния им строеж</string>
+    <string name="fish_text">Според лексикалния им строеж фразеологизмите биват разделяни на фразеологизирани изречения (преди всичко пословици и поговорки – Блага реч железни врати отваря.) и фразеологически съчетания (на вятъра, на вересия). Според семантичния им строеж биват.</string>
+    <string name="fish_time_short">12:30</string>
+    <string name="it_achievements">Дасягненьні</string>
+    <string name="it_events">Падзеi</string>
+    <string name="it_museums">Музэі</string>
+    <string name="kilometer_sign">км</string>
+    <string name="latlng_format">%1$s , %2$s</string>
+    <string name="looking_location">Вызначаем лакацыю</string>
+    <string name="meter_sign">м</string>
+    <string name="minutes_sign">‘</string>
+    <string name="place_none">\?????????</string>
+    <string name="settings">Налады</string>
+    <string name="sign_out">Выйсцi</string>
+    <string name="sign_out__confirm_title">Выйсцi</string>
+    <string name="sign_out_confirm_msg">Вы ўпэўненыя, што хочаце выйсці з свайго акаўнта?</string>
+    <string name="earned_new">NEW!</string>
+</resources>

@@ -12,6 +12,8 @@ interface AchievementsDao {
     @Update
     fun update(model: AchievementModel)
 
+    @Query("select * from achievements where id = :id")
+    fun getById(id: String): AchievementModel
 
     @Query("select * from achievements order by title")
     fun listAll(): List<AchievementModel>
