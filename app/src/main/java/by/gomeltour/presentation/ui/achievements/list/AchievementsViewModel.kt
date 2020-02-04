@@ -1,15 +1,20 @@
 package by.gomeltour.presentation.ui.achievements.list
 
 import android.location.Geocoder
+import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Config
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import by.gomeltour.app.LOGCAT
 import by.gomeltour.model.AchievementModel
 import by.gomeltour.model.LocationModel
-import by.gomeltour.repository.AchievementsRepo
 import by.gomeltour.service.AchievementsService
 import by.gomeltour.service.LocationsService
 import by.gomeltour.service.Session
@@ -22,7 +27,7 @@ import kotlinx.coroutines.flow.*
 import kotlin.math.abs
 
 class AchievementsViewModel(
-        private val achievementsService: AchievementsService,
+        achievementsService: AchievementsService,
         private val locationsService: LocationsService,
         private val geocoder: Geocoder,
         private val locationClient: FusedLocationProviderClient
@@ -34,7 +39,17 @@ class AchievementsViewModel(
     val permissionRequestLiveData = MutableLiveData<Boolean>()
 
     val locations = ObservableArrayList<LocationModel>()
-    val achievements = ObservableArrayList<AchievementModel>()
+    var achievements: LiveData<PagedList<AchievementModel>> =
+            LivePagedListBuilder(achievementsService.listAllByUserPaged(Session.user!!.id),
+                    Config(pageSize = 10, enablePlaceholders = true))
+                    .setBoundaryCallback(object : PagedList.BoundaryCallback<AchievementModel>() {
+                        override fun onZeroItemsLoaded() { Log.i(LOGCAT, "onZeroItemsLoaded")}
+
+                        override fun onItemAtEndLoaded(itemAtEnd: AchievementModel) { Log.i(LOGCAT, "onItemAtEndLoaded id=${itemAtEnd.id}") }
+
+                        override fun onItemAtFrontLoaded(itemAtFront: AchievementModel) { Log.i(LOGCAT, "onItemAtFrontLoaded id=${itemAtFront.id}") }
+                    }).build()
+
     val progressLocation = ObservableBoolean(false)
     val progressClosestLocations = ObservableBoolean(false)
     val currentLocation = ObservableField<LatLng>()
@@ -52,13 +67,10 @@ class AchievementsViewModel(
         }
     }
 
-    init {
-        loadAchievements()
-    }
-
     fun onViewActive() {
         requestLocationPermission()
-        loadAchievements()
+        //achievements.value?.dataSource?.invalidate()
+        //loadAchievements()
     }
 
     fun onViewInactive() {
@@ -117,14 +129,14 @@ class AchievementsViewModel(
                 } ?: let { currentLocation.set(null) }
     }
 
-    private fun loadAchievements() {
+    /*private fun loadAchievements() {
         achievementsService.listAllByUser(Session.user!!.id)
                 .onEach { achievements.apply { clear(); addAll(it) } }
                 .onStart { }
                 .catch { }
                 .onCompletion { }
                 .launchIn(viewModelScope)
-    }
+    }*/
 
     private fun loadLocations(location: LatLng) {
         locationsService.listClosest(location)

@@ -3,12 +3,16 @@ package by.gomeltour.presentation.ui.login
 import android.content.Intent
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.viewModelScope
 import by.gomeltour.helper.attachTo
 import by.gomeltour.helper.schedulersIO
 import by.gomeltour.service.auth.AuthGoogle
 import by.gomeltour.presentation.navigation.RouterHelper
 import by.gomeltour.presentation.ui.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class LoginViewModel(private val authGoogle: AuthGoogle, private val routerHelper: RouterHelper) : BaseViewModel() {
 
@@ -50,13 +54,16 @@ class LoginViewModel(private val authGoogle: AuthGoogle, private val routerHelpe
         showProgress()
 
         authGoogle.getLoggedUser()
-                .schedulersIO()
-                .subscribe({
-                    hideAll()
-                    navigateToMain()
-                }, { th -> errorMessage.set(th.message) }, {
-                    showLogin()
-                }).attachTo(cd)
+                .onEach {
+                    if (it != null) {
+                        hideAll()
+                        navigateToMain()
+                    } else {
+                        showLogin()
+                    }
+                }
+                .catch { errorMessage.set(it.message) }
+                .launchIn(viewModelScope)
     }
 
     private fun navigateToMain() {

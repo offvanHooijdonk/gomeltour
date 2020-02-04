@@ -25,9 +25,9 @@ class AchievementsRepo(private val dao: AchievementsDao) {
         emit(Unit)
     }.flowOn(Dispatchers.IO)
 
-    fun listAll(): Flow<List<AchievementModel>> = flow {
-        emit(dao.listAll())
-    }.flowOn(Dispatchers.IO)
+    fun listAll(): Flow<List<AchievementModel>> = dao.listAll().flowOn(Dispatchers.IO)
+
+    fun listAllPaged() = dao.listAllPaged()
 
     fun listAchieved(userId: String) = flow {
         emit(dao.listAchieved(userId))

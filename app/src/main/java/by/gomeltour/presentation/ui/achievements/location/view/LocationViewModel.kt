@@ -4,17 +4,18 @@ import android.text.format.DateUtils
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import by.gomeltour.model.AchievementModel
 import by.gomeltour.model.CheckInModel
 import by.gomeltour.model.LocationModel
 import by.gomeltour.presentation.navigation.RouterHelper
 import by.gomeltour.service.AchievementsService
 import by.gomeltour.service.LocationsService
 import by.gomeltour.service.Session
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 
 class LocationViewModel(
         private val locationsService: LocationsService,

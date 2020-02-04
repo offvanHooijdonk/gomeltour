@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import by.gomeltour.R
@@ -82,8 +83,8 @@ fun setLocationsList(recyclerView: RecyclerView, list: List<LocationModel>) {
 }
 
 @BindingAdapter("achievementsList")
-fun setAchievementsList(recyclerView: RecyclerView, list: List<AchievementModel>) {
-    (recyclerView.adapter as? AchievementsAdapter)?.update(list)
+fun setAchievementsList(recyclerView: RecyclerView, list: PagedList<AchievementModel>?) {
+    (recyclerView.adapter as? AchievementsAdapter)?.submitList(list)
 }
 
 @BindingAdapter("checksList")

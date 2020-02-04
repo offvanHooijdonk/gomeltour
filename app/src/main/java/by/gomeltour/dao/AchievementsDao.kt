@@ -1,8 +1,10 @@
 package by.gomeltour.dao
 
+import androidx.paging.DataSource
 import androidx.room.*
 import by.gomeltour.model.AchievementLocationsModel
 import by.gomeltour.model.AchievementModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AchievementsDao {
@@ -16,7 +18,10 @@ interface AchievementsDao {
     fun getById(id: String): AchievementModel
 
     @Query("select * from achievements order by title")
-    fun listAll(): List<AchievementModel>
+    fun listAll(): Flow<List<AchievementModel>>
+
+    @Query("select * from achievements order by title")
+    fun listAllPaged(): DataSource.Factory<Int, AchievementModel>//Flow<List<AchievementModel>>
 
     @Insert
     fun insertLocation(model: AchievementLocationsModel)

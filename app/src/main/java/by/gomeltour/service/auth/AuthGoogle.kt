@@ -15,6 +15,8 @@ import by.gomeltour.model.UserModel
 import by.gomeltour.service.Session
 import io.reactivex.Maybe
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 
 /**
  * Created by Yahor_Fralou on 9/18/2018 12:48 PM.
@@ -22,16 +24,17 @@ import io.reactivex.schedulers.Schedulers
 
 class AuthGoogle constructor(private val ctx: Context, private val userDao: UserDao, private val authFirebase: AuthFirebase) {
 
-    fun getLoggedUser(): Maybe<UserModel> {
+    fun getLoggedUser(): Flow<UserModel?> = flow {
         val signedUser = FirebaseAuth.getInstance().currentUser
         //val account = GoogleSignIn.getLastSignedInAccount(ctx)
-        return if (signedUser == null) {
-            Maybe.empty()
+        if (signedUser == null) {
+            emit(null)
         } else {
-            getUser(signedUser.uid)
-                    .doOnSuccess { user -> Session.user = user }
+            emit(getUser(signedUser.uid)
+                    .onEach { user -> Session.user = user }.first())
+
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     fun signInUser(signInData: Intent): Maybe<UserModel> {
         val task = GoogleSignIn.getSignedInAccountFromIntent(signInData)
@@ -65,7 +68,7 @@ class AuthGoogle constructor(private val ctx: Context, private val userDao: User
 
     fun getSignInClient(): GoogleSignInClient = GoogleSignIn.getClient(ctx, prepareOptions())
 
-    private fun getUser(id: String): Maybe<UserModel> = userDao.getById(id)
+    private fun getUser(id: String): Flow<UserModel?> = userDao.getById(id)
 
     private fun prepareOptions(): GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(ctx.getString(R.string.default_web_client_id))

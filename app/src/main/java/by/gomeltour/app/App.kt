@@ -34,4 +34,4 @@ class App : Application() {
 
 internal val allModules = listOf(serviceModule, repoModule, daoModule, viewModelModule, uiModule, navModule, helperModule)
 
-val LOGCAT = "g-tour-app"
+const val LOGCAT = "g-tour-app"
