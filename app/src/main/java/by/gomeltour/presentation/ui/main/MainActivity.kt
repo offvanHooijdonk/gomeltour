@@ -3,12 +3,10 @@ package by.gomeltour.presentation.ui.main
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -37,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     private val navigatorHolder: NavigatorHolder by inject()
     private val navigator = MainNavigator(get(), this, supportFragmentManager, R.id.containerMain)
 
+    private val topDestinations = setOf(R.id.it_events, R.id.it_museums, R.id.it_achievements)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,21 +45,12 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
-/*
-        nav_bottom.setOnNavigationItemSelectedListener { item ->
-            viewModel.onNavSelected(item)
-            true
-        }*/
+
         navigatorHolder.setNavigator(navigator)
 
         val navController = findNavController(R.id.containerMain)
         nav_bottom.setupWithNavController(navController)
-        NavigationUI.setupActionBarWithNavController(
-                this,
-                navController, AppBarConfiguration(setOf(R.id.it_events, R.id.it_museums, R.id.it_achievements))
-        )
-
-        //viewModel.viewStart()
+        NavigationUI.setupActionBarWithNavController(this, navController, AppBarConfiguration(topDestinations))
     }
 
     override fun onStart() {
@@ -75,17 +66,19 @@ class MainActivity : AppCompatActivity() {
         Log.i(LOGCAT, "Main Nav removed")
     }
 
-    /*override fun onBackPressed() {
-        //viewModel.back()
-    }*/
-
-    /*override fun onOptionsItemSelected(item: MenuItem?): Boolean { // FIXME remove if unused
-        when (item?.itemId) {
-            android.R.id.home -> viewModel.back()
-        }
-
+    override fun onSupportNavigateUp(): Boolean {
+        findNavController(R.id.containerMain).navigateUp()
         return true
-    }*/
+    }
+
+    override fun onBackPressed() {
+        val controller = findNavController(R.id.containerMain)
+        if (controller.currentDestination?.id in topDestinations) {
+            finish()
+        } else {
+            controller.navigateUp()
+        }
+    }
 
     fun setTitle(title: String) {
         toolbar_title.text = title

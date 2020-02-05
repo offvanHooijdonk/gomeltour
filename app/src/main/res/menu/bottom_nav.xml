@@ -14,7 +14,7 @@
             android:title="@string/it_museums" />
 
         <item
-            android:id="@+id/to_achievements"
+            android:id="@+id/nav_achievements"
             android:icon="@drawable/ic_stars_24"
             android:menuCategory="secondary"
             android:title="@string/it_achievements" />

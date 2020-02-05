@@ -1,6 +1,5 @@
 package by.gomeltour.presentation
 
-import by.gomeltour.R
 import by.gomeltour.presentation.navigation.*
 import by.gomeltour.presentation.ui.achievements.list.AchievementsViewModel
 import by.gomeltour.presentation.ui.achievements.location.view.LocationViewModel
@@ -13,7 +12,6 @@ import by.gomeltour.presentation.ui.main.screenevents.ScreenEvent
 import by.gomeltour.presentation.ui.profile.AccountsViewModel
 import by.gomeltour.presentation.ui.profile.ProfileViewModel
 import io.reactivex.subjects.PublishSubject
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -22,7 +20,7 @@ import ru.terrakok.cicerone.Router
 
 val viewModelModule = module {
     viewModel { LoginViewModel(get(), get()) }
-    viewModel { MainViewModel(get(), get(named(MAIN_SCREEN_MANAGER))) }
+    viewModel { MainViewModel(get()) }
     viewModel { EventListViewModel(get(), get(), get(named(MAIN_SCREEN_MANAGER))) }
     viewModel { EventSingleViewModel(get()) }
     viewModel { ProfileViewModel(get()) }

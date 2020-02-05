@@ -8,10 +8,6 @@
         android:id="@+id/it_events"
         android:name="by.gomeltour.presentation.ui.event.list.EventListFragment" />
 
-    <action
-        android:id="@+id/to_achievements"
-        app:destination="@id/nav_achievements" />
-
     <navigation
         android:id="@+id/nav_achievements"
         app:startDestination="@id/it_achievements">
