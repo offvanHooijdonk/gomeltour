@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/it_events">
+
+    <fragment
+        android:id="@+id/it_events"
+        android:name="by.gomeltour.presentation.ui.event.list.EventListFragment" />
+
+    <action
+        android:id="@+id/to_achievements"
+        app:destination="@id/nav_achievements" />
+
+    <navigation
+        android:id="@+id/nav_achievements"
+        app:startDestination="@id/it_achievements">
+        <fragment
+            android:id="@+id/it_achievements"
+            android:name="by.gomeltour.presentation.ui.achievements.list.AchievementsFragment">
+
+            <action
+                android:id="@+id/to_location_view"
+                app:destination="@id/fr_location_view"
+                app:enterAnim="@anim/screen_slide_rl_in"
+                app:exitAnim="@anim/screen_slide_rl_out"
+                app:popEnterAnim="@anim/screen_slide_lr_in"
+                app:popExitAnim="@anim/screen_slide_lr_out" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/fr_location_view"
+            android:name="by.gomeltour.presentation.ui.achievements.location.view.LocationViewFragment">
+            <argument
+                android:name="location_id"
+                app:argType="string"
+                app:nullable="false" />
+        </fragment>
+    </navigation>
+
+
+</navigation>

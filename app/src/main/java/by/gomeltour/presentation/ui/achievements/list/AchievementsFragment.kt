@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.paging.PagedListAdapter
 import by.gomeltour.R
 import by.gomeltour.databinding.AchievementsBinding
 import by.gomeltour.presentation.ui.main.MainActivity
@@ -37,7 +36,7 @@ class AchievementsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.permissionRequestLiveData.observe(this, Observer<Boolean> { value ->
+        viewModel.permissionRequestLiveData.observe(viewLifecycleOwner, Observer<Boolean> { value ->
             if (value == true) {
                 if (checkPermission()) {
                     viewModel.onPermissionResult(true)
@@ -53,7 +52,7 @@ class AchievementsFragment : Fragment() {
         rv_locations.adapter = LocationsAdapter()
         rv_achievements.adapter = AchievementsAdapter()
 
-        viewModel.achievements.observe(this, Observer {
+        viewModel.achievements.observe(viewLifecycleOwner, Observer {
             (rv_achievements.adapter as AchievementsAdapter).submitList(it)
         })
     }

@@ -10,8 +10,8 @@ class ItemLocationViewModel(private val routerHelper: RouterHelper) : ViewModel(
     val location = ObservableField<LocationModel>()
 
     fun goToLocation() {
-        location.get()?.let {
+        /*location.get()?.let {
             routerHelper.navigateToLocationView(it.id)
-        }
+        }*/
     }
 }

@@ -7,6 +7,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import by.gomeltour.R
 import by.gomeltour.app.App.Companion.LOGCAT
 import by.gomeltour.databinding.ActMainBinding
@@ -40,14 +45,21 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = null
-
+/*
         nav_bottom.setOnNavigationItemSelectedListener { item ->
             viewModel.onNavSelected(item)
             true
-        }
+        }*/
         navigatorHolder.setNavigator(navigator)
 
-        viewModel.viewStart()
+        val navController = findNavController(R.id.containerMain)
+        nav_bottom.setupWithNavController(navController)
+        NavigationUI.setupActionBarWithNavController(
+                this,
+                navController, AppBarConfiguration(setOf(R.id.it_events, R.id.it_museums, R.id.it_achievements))
+        )
+
+        //viewModel.viewStart()
     }
 
     override fun onStart() {
@@ -63,17 +75,17 @@ class MainActivity : AppCompatActivity() {
         Log.i(LOGCAT, "Main Nav removed")
     }
 
-    override fun onBackPressed() {
-        viewModel.back()
-    }
+    /*override fun onBackPressed() {
+        //viewModel.back()
+    }*/
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean { // FIXME remove if unused
+    /*override fun onOptionsItemSelected(item: MenuItem?): Boolean { // FIXME remove if unused
         when (item?.itemId) {
             android.R.id.home -> viewModel.back()
         }
 
         return true
-    }
+    }*/
 
     fun setTitle(title: String) {
         toolbar_title.text = title
@@ -117,8 +129,8 @@ class MainActivity : AppCompatActivity() {
             super.setupFragmentTransaction(command, currentFragment, nextFragment, fragmentTransaction)
 
             //if (nextFragment !is EventListFragment) {
-                //fragmentTransaction?.setCustomAnimations(R.anim.screen_slide_rl_in, R.anim.screen_slide_rl_out, R.anim.screen_slide_lr_in, R.anim.screen_slide_lr_out)
-                fragmentTransaction?.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
+            //fragmentTransaction?.setCustomAnimations(R.anim.screen_slide_rl_in, R.anim.screen_slide_rl_out, R.anim.screen_slide_lr_in, R.anim.screen_slide_lr_out)
+            fragmentTransaction?.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
             //}
         }
     }

@@ -3,6 +3,7 @@ package by.gomeltour.presentation.ui.achievements.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import by.gomeltour.R
 import by.gomeltour.databinding.ItemLocationBinding
@@ -34,6 +35,9 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>(), Ko
         fun bind(model: LocationModel) {
             viewModel.location.set(model)
             binding.model = viewModel
+            binding.itemRoot.setOnClickListener {
+                it.findNavController().navigate(AchievementsFragmentDirections.toLocationView(viewModel.location.get()?.id ?: ""))
+            }
         }
     }
 }

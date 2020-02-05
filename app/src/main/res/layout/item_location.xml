@@ -8,13 +8,15 @@
             type="by.gomeltour.presentation.ui.achievements.list.ItemLocationViewModel" />
     </data>
 
+    <!--android:onClick="@{(view) -> model.goToLocation()}"-->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/item_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:onClick="@{(view) -> model.goToLocation()}"
+
         android:paddingStart="@dimen/act_padding_h"
         android:paddingTop="@dimen/list_item_padding_v"
         android:paddingEnd="@dimen/act_padding_h"

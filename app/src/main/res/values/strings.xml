@@ -43,4 +43,5 @@
     <integer name="fragment_transition_duration">250</integer>
     <integer name="dialog_earned_transition_duration_in">350</integer>
     <integer name="dialog_earned_transition_duration_out">250</integer>
+    <integer name="order_no_pop">0x00030000</integer>
 </resources>

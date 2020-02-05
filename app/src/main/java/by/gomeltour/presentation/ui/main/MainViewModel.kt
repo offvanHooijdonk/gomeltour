@@ -19,9 +19,9 @@ class MainViewModel(
     val errorMsg = ObservableField<String>()
     val userPhotoUrl = ObservableField<String>(Session.user?.photoUrl)
 
-    fun viewStart() {
+    /*fun viewStart() {
         routerHelper.navigateToEventList()
-    }
+    }*/
 
     fun onNavSelected(item: MenuItem) {
         when (item.itemId) {
